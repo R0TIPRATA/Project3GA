@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
 	WishlistList.init(
 		{
 			uuid: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4 },
-			listName: {
+			listTitle: {
 				type: DataTypes.STRING,
 				allowNull: false,
 				validate: {
@@ -30,7 +30,13 @@ module.exports = (sequelize, DataTypes) => {
 					notEmpty: { msg: "Wishlist name must not be empty" },
 				},
 			},
-			totalAmount: { type: DataTypes.FLOAT, defaultValue: 0 },
+			listMessage: { type: DataTypes.STRING, allowNull: true },
+			campaignDate: {
+				type: DataTypes.DATE,
+				allowNull: true,
+				// If date input is empty, default will be today's Date + 30 days
+				defaultValue: new Date().setDate(new Date().getDate() + 30),
+			},
 		},
 		{
 			sequelize,

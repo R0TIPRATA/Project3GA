@@ -14,6 +14,10 @@ module.exports = {
 				type: DataTypes.STRING,
 				allowNull: false,
 			},
+			category: {
+				type: DataTypes.STRING,
+				allowNull: false,
+			},
 			brand: {
 				type: DataTypes.STRING,
 				allowNull: false,
@@ -22,11 +26,23 @@ module.exports = {
 				type: DataTypes.FLOAT,
 				allowNull: false,
 			},
-			image: {
+			color: {
 				type: DataTypes.STRING,
 				allowNull: false,
 			},
-			status: {
+			productUrl: {
+				type: DataTypes.STRING,
+				allowNull: true,
+			},
+			itemMessageContributor: {
+				type: DataTypes.STRING,
+				allowNull: true,
+			},
+			itemPicture: {
+				type: DataTypes.STRING,
+				allowNull: false,
+			},
+			itemStatus: {
 				type: DataTypes.BOOLEAN,
 				defaultValue: false,
 			},

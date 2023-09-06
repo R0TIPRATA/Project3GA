@@ -10,9 +10,14 @@ module.exports = {
 				type: DataTypes.INTEGER,
 			},
 			uuid: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4 },
-			listName: { type: DataTypes.STRING, allowNull: false },
-			totalAmount: {
-				type: DataTypes.FLOAT,
+			listTitle: { type: DataTypes.STRING, allowNull: false },
+			listMessage: {
+				type: DataTypes.STRING,
+				allowNull: true,
+			},
+			campaignDate: {
+				type: DataTypes.DATE,
+				allowNull: true,
 			},
 			createdAt: {
 				allowNull: false,
