@@ -7,16 +7,18 @@ const Home = () => {
   const [wishLists, setWishLists] = useState([])
 
   useEffect(() => {
-    // Fetch movies when the component mounts
+    // Fetch wishlist when the component mounts
     axios
-        .get("http://localhost:15432/lists")
+        .get("http://localhost:15432/lists") //hard-coded for now
         .then((response) => {
-        setWishLists(response.data);
+        console.log(response.data)
+        setWishLists(response.data)
         })
         .catch((error) => {
-        console.error("Error fetching wish lists:", error);
+        console.error("Error fetching wish lists:", error)
         });
     }, []);
+  
   return (
     <>
       {wishLists.length > 0 ? <WishlistPage /> : <EmptyWishlistPage /> }
