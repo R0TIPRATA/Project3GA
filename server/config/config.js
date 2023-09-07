@@ -7,6 +7,10 @@ module.exports = {
 		database: process.env.DB_NAME,
 		host: process.env.DB_HOST,
 		dialect: process.env.DB_DRIVER,
+		// Uncomment this if using neon.tech db
+		// dialectOptions: {
+		// 	ssl: true,
+		// },
 	},
 	test: {
 		username: process.env.DB_USER,
