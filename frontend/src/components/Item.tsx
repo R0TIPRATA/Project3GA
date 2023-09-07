@@ -1,6 +1,6 @@
 const Item = () => {
   return (
-    <div>WishlistItem</div>
+    <div></div>
   )
 }
 

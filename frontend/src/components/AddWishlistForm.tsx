@@ -1,6 +1,6 @@
 const AddWishlistForm = () => {
   return (
-    <div>AddWishlistForm</div>
+    <div></div>
   )
 }
 
