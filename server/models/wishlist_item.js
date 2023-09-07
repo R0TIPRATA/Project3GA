@@ -30,6 +30,14 @@ module.exports = (sequelize, DataTypes) => {
 					notEmpty: { msg: "Item name must not be empty" },
 				},
 			},
+			category: {
+				type: DataTypes.STRING,
+				allowNull: false,
+				validate: {
+					notNull: { msg: "Item must have a category" },
+					notEmpty: { msg: "Item category must not be empty" },
+				},
+			},
 			brand: {
 				type: DataTypes.STRING,
 				allowNull: false,
@@ -46,8 +54,31 @@ module.exports = (sequelize, DataTypes) => {
 					notEmpty: { msg: "Item price must not be empty" },
 				},
 			},
-			image: { type: DataTypes.STRING, allowNull: false },
-			status: { type: DataTypes.BOOLEAN, defaultValue: false },
+			color: {
+				type: DataTypes.STRING,
+				allowNull: false,
+				validate: {
+					notNull: { msg: "Item must have a color" },
+					notEmpty: { msg: "Item color must not be empty" },
+				},
+			},
+			productUrl: {
+				type: DataTypes.STRING,
+				allowNull: true,
+			},
+			itemMessageContributor: {
+				type: DataTypes.STRING,
+				allowNull: true,
+			},
+			itemPicture: {
+				type: DataTypes.STRING,
+				allowNull: false,
+				validate: {
+					notNull: { msg: "Item must have a picture" },
+					notEmpty: { msg: "Item picture must not be empty" },
+				},
+			},
+			itemStatus: { type: DataTypes.BOOLEAN, defaultValue: false },
 			accumulatedAmount: { type: DataTypes.FLOAT, defaultValue: 0 },
 		},
 		{

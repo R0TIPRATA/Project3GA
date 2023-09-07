@@ -8,11 +8,12 @@ app.use(express.json());
 
 // Create a new wishlist
 app.post("/lists", async (req, res) => {
-	const { listName, totalAmount } = req.body;
+	const { listTitle, listMessage, campaignDate } = req.body;
 	try {
 		const wishlist_list = await WishlistList.create({
-			listName,
-			totalAmount,
+			listTitle,
+			listMessage,
+			campaignDate,
 		});
 		return res.json(wishlist_list);
 	} catch (err) {
@@ -33,16 +34,29 @@ app.get("/lists", async (req, res) => {
 });
 
 // Create item in a wishlist
-app.post("/lists/:uuid/item", async (req, res) => {
-	const { itemName, brand, price, image } = req.body;
-	const uuid = req.params.uuid;
+app.post("/lists/:listUuid/item", async (req, res) => {
+	const {
+		itemName,
+		category,
+		brand,
+		price,
+		color,
+		productUrl,
+		itemMessageContributor,
+		itemPicture,
+	} = req.body;
+	const uuid = req.params.listUuid;
 	try {
 		const list = await WishlistList.findOne({ where: { uuid } });
 		const item = await WishlistItem.create({
 			itemName,
+			category,
 			brand,
 			price,
-			image,
+			color,
+			productUrl,
+			itemMessageContributor,
+			itemPicture,
 			wishlistId: list.id,
 		});
 		return res.json(item);
@@ -66,14 +80,15 @@ app.get("/items", async (req, res) => {
 });
 
 // Delete item
-app.delete("/items/:uuid", async (req, res) => {
-	const uuid = req.params.uuid;
+app.delete("/items/:itemUuid", async (req, res) => {
+	const uuid = req.params.itemUuid;
 	try {
 		const item = await WishlistItem.findOne({
 			where: { uuid },
 		});
+		const itemName = item.itemName;
 		await item.destroy();
-		return res.json({ message: "Items deleted!" });
+		return res.json({ message: `Item - "${itemName}" removed!` });
 	} catch (err) {
 		console.log(err);
 		return res.status(500).json({ error: "Something went wrong!" });
@@ -81,13 +96,14 @@ app.delete("/items/:uuid", async (req, res) => {
 });
 
 // Get one wishlist with all items in it
-app.get("/lists/:uuid", async (req, res) => {
-	const uuid = req.params.uuid;
+app.get("/lists/:listUuid", async (req, res) => {
+	const uuid = req.params.listUuid;
 	try {
 		const list = await WishlistList.findOne({
 			where: { uuid },
 			include: "wishlistItems",
 		});
+		console.log(list.wishlistItems[0].uuid);
 		return res.json(list);
 	} catch (err) {
 		console.log(err);
@@ -96,14 +112,24 @@ app.get("/lists/:uuid", async (req, res) => {
 });
 
 // Delete a wishlist
-app.delete("/lists/:uuid", async (req, res) => {
-	const uuid = req.params.uuid;
+app.delete("/lists/:listUuid", async (req, res) => {
+	const uuid = req.params.listUuid;
 	try {
 		const list = await WishlistList.findOne({
 			where: { uuid },
+			include: "wishlistItems",
 		});
+		const listTitle = list.listTitle;
+		// Delete items that is associated with the wishlist
+		for (let item of list.wishlistItems) {
+			const itemList = await WishlistItem.findOne({
+				where: { uuid: item.uuid },
+			});
+			await itemList.destroy();
+		}
+		// Delete wishlist itself
 		await list.destroy();
-		return res.json({ message: "Wishlist deleted!" });
+		return res.json({ message: `Wishlist for ${listTitle} deleted!` });
 	} catch (err) {
 		console.log(err);
 		return res.status(500).json({ error: "Something went wrong!" });
