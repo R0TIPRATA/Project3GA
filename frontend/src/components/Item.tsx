@@ -61,10 +61,14 @@ const Item = () => {
           </div>
           <div className="divider divider-vertical p-0"></div>
           <div className="card-actions justify-end">
-            <button className="capitalize bg-rose-200 rounded-full px-7">
+            <label
+              htmlFor="my-drawer-2"
+              className="btn capitalize bg-rose-200 rounded-full px-7 drawer-button lg:hidden"
+            >
               Edit item
-            </button>
-            <button className="capitalize bg-rose-200 rounded-full px-7">
+            </label>
+
+            <button className="btn capitalize bg-rose-200 rounded-full px-7">
               Delete item
             </button>
           </div>
