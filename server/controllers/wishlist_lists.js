@@ -65,7 +65,7 @@ async function getOneList(req, res) {
 	try {
 		const list = await WishlistList.findOne({
 			where: { uuid },
-			include: "wishlistItems",
+			include: ["wishlistItems", "contributors"],
 		});
 		return res.json(list);
 	} catch (err) {
