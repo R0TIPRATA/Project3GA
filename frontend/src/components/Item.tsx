@@ -63,7 +63,7 @@ const Item = () => {
           <div className="card-actions justify-end">
             <label
               htmlFor="my-drawer-2"
-              className="btn capitalize bg-rose-200 rounded-full px-7 drawer-button lg:hidden"
+              className="btn capitalize bg-rose-200 rounded-full px-7 drawer-button"
             >
               Edit item
             </label>
