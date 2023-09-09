@@ -3,13 +3,13 @@
 module.exports = {
 	async up(queryInterface, DataTypes) {
 		await queryInterface.createTable("wishlist_items", {
-			uuid: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4 },
 			id: {
 				allowNull: false,
 				autoIncrement: true,
 				primaryKey: true,
 				type: DataTypes.INTEGER,
 			},
+			uuid: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4 },
 			itemName: {
 				type: DataTypes.STRING,
 				allowNull: false,
@@ -51,6 +51,10 @@ module.exports = {
 				defaultValue: 0,
 			},
 			wishlistId: {
+				type: DataTypes.INTEGER,
+				allowNull: false,
+			},
+			contributorId: {
 				type: DataTypes.INTEGER,
 				allowNull: false,
 			},

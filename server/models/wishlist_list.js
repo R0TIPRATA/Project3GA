@@ -7,11 +7,15 @@ module.exports = (sequelize, DataTypes) => {
 		 * This method is not a part of Sequelize lifecycle.
 		 * The `models/index` file will call this method automatically.
 		 */
-		static associate({ WishlistItem }) {
+		static associate({ WishlistItem, Contributor }) {
 			// define association here
 			this.hasMany(WishlistItem, {
 				foreignKey: "wishlistId",
 				as: "wishlistItems",
+			});
+			this.hasMany(Contributor, {
+				foreignKey: "wishlistId",
+				as: "contributors",
 			});
 		}
 
@@ -34,8 +38,8 @@ module.exports = (sequelize, DataTypes) => {
 			campaignDate: {
 				type: DataTypes.DATE,
 				allowNull: true,
-				// If date input is empty, default will be today's Date + 30 days
-				defaultValue: new Date().setDate(new Date().getDate() + 30),
+				// If date input is empty, default will be today's Date + 180 days (6 months)
+				defaultValue: new Date().setDate(new Date().getDate() + 180),
 			},
 		},
 		{
