@@ -1,7 +1,11 @@
+import Item from "./Item";
+
 const Items = () => {
   return (
-    <div></div>
-  )
-}
+    <div>
+      <Item />
+    </div>
+  );
+};
 
-export default Items
+export default Items;
