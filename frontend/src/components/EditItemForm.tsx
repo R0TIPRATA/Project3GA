@@ -82,8 +82,8 @@ const EditItemForm = () => {
           }
         })}
       </div>
-      <button className="btn btn-primary">Save</button>
       <button className="btn btn-primary">Cancel</button>
+      <button className="btn btn-primary">Save</button>
     </form>
   );
 };
