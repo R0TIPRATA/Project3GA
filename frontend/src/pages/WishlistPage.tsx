@@ -6,9 +6,11 @@ const WishlistPage = () => {
 
     return (
         <>
-        <WishListDetails /> {/* wishlist details is the pink part of the home page */}
-        <Items /> {/* the list of items */}
-        <AddItemForm /> {/* add item form */}
+        <div className='wishlistPage bg-orange-100 flex-col pb-20'>
+          <WishListDetails /> {/* wishlist details is the pink part of the home page */}
+          <Items /> {/* the list of items */}
+          <AddItemForm /> {/* add item form */}
+        </div>
         </>
       )
 }
