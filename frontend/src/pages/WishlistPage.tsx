@@ -12,8 +12,14 @@ const WishlistPage = () => {
           <div className="wishlistPage bg-orange-100 flex-col pb-20">
             <WishListDetails />{" "}
             {/* wishlist details is the pink part of the home page */}
-            <Items /> {/* the list of items */}
-            <AddItemForm /> {/* add item form */}
+            <div className="parent flex">
+              <div className="col1 inline-flex">
+                <Items /> {/* the list of items */}
+              </div>
+              <div className="col2 inline-flex">
+                <AddItemForm /> {/* add item form */}
+              </div>
+            </div>
           </div>
         </div>
         <div className="drawer-side">

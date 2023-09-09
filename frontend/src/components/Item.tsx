@@ -1,7 +1,7 @@
 const Item = () => {
   return (
     <div>
-      <div className="card w-[800px] bg-base-100 shadow-xl">
+      <div className="card w-[800px] bg-base-100 shadow-xl m-20">
         <div className="card-body text-left">
           <div className="parent1 flex justify-between">
             <div className="flex-col">
