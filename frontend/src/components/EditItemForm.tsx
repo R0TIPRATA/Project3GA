@@ -1,4 +1,4 @@
-const AddItemForm = () => {
+const EditItemForm = () => {
   // put all field items in object array
   // loop thru all of them and add component
   const fieldItems = [
@@ -34,11 +34,11 @@ const AddItemForm = () => {
 
   const TextInput = ({ itemName }) => {
     return (
-      <div className="form-control w-full max-w-xs">
+      <div className="form-control">
         <label className="label">
           <span className="label-text">{itemName}</span>
         </label>
-        <input type="text" className="input input-bordered w-full max-w-xs" />
+        <input type="text" className="input input-bordered" />
       </div>
     );
   };
@@ -59,20 +59,17 @@ const AddItemForm = () => {
 
   const FileUploadInput = () => {
     return (
-      <div className="form-control w-full max-w-xs">
+      <div className="form-control">
         <label className="label">
           <span className="label-text">Upload a picture</span>
         </label>
-        <input
-          type="file"
-          className="file-input file-input-bordered w-full max-w-xs"
-        />
+        <input type="file" className="file-input file-input-bordered" />
       </div>
     );
   };
 
   return (
-    <form className="space-y-12 bg-slate-50 w-1/4 m-20 p-8 rounded-3xl ">
+    <form className="w-[300px] p-8 rounded-3xl ">
       <div>
         <h3>Add item</h3>
         {fieldItems.map((item) => {
@@ -85,9 +82,10 @@ const AddItemForm = () => {
           }
         })}
       </div>
-      <button className="btn btn-primary">Add item</button>
+      <button className="btn btn-primary float-right m-1">Cancel</button>
+      <button className="btn btn-primary float-right m-1">Save</button>
     </form>
   );
 };
 
-export default AddItemForm;
+export default EditItemForm;
