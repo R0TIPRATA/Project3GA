@@ -16,8 +16,13 @@ export type Item = {
     category: string
     brand: string
     price: number
-    productUrl: string
+    productUrl: string | undefined
     itemMessageContributor: string | undefined
     updatedAt: Date
     createdAt: Date
+}
+
+export type InputField = {
+    label: string,
+    name: string
 }

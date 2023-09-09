@@ -6,7 +6,8 @@
 @tailwind utilities;
 
 #root {
-
+  width:100vw;
+  height: 110vh;
 }
 
 @layer base{

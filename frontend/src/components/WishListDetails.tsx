@@ -7,7 +7,7 @@ import { faEdit, faTrashCan } from "@fortawesome/free-regular-svg-icons"
 const WishListDetails = () => {
   const wishlist = useContext(WishlistContext)
   return (
-    <div className="bg-red-100 w-screen px-12 py-12">
+    <div className="bg-red-100 w-100 px-12 py-12">
       <div className="top-header flex items-end self-stretch justify-between">
         <div className="uppercase text-sm text-gray-700">Your Wishlist</div>
         <div className="buttons-wrapper">
