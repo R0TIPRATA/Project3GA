@@ -26,7 +26,7 @@ return (
                 <div className="badge capitalize badge-ghost">
                   {item.category}
                 </div>
-                <h2 className="card-title">Vacuum Cleaner</h2>
+                <h2 className="card-title">{item.itemName}</h2>
                 <p>{item.brand}</p>
                 <p>Color: {item.color}</p>
                 <p>

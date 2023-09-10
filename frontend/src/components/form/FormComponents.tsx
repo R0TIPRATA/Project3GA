@@ -1,6 +1,6 @@
 import { InputField } from "../../types";
 
-export const TextInput = ({ label, name }:InputField) => {
+export const TextInput = ({ label, name, handleInput}:InputField) => {
     return (
       <div className="form-control w-full max-w-xs">
         <label className="label">
@@ -10,6 +10,7 @@ export const TextInput = ({ label, name }:InputField) => {
           type="text" 
           name={name} 
           className="input input-bordered w-full max-w-xs" 
+          onChange={handleInput}
         />
       </div>
     );
@@ -20,7 +21,7 @@ export const TextInput = ({ label, name }:InputField) => {
   //   </select>
   // }
 
- export const LongTextInput = ({ label, name }:InputField) => {
+ export const LongTextInput = ({ label, name, handleInput }:InputField) => {
     return (
       <div className="form-control">
         <label className="label">
@@ -30,13 +31,14 @@ export const TextInput = ({ label, name }:InputField) => {
           name={name}
           className="textarea textarea-bordered h-24"
           placeholder="E.g. Tell your contributors how this item helps you."
+          onChange={handleInput}
         >
         </textarea>
       </div>
     );
   };
 
- export const FileUploadInput = ({ label, name }:InputField) => {
+ export const FileUploadInput = ({ label, name, handleInput }:InputField) => {
     return (
       <div className="form-control w-full max-w-xs">
         <label className="label ">
@@ -46,6 +48,7 @@ export const TextInput = ({ label, name }:InputField) => {
           name={name}
           type="file"
           className="file-input file-input-bordered w-full max-w-xs"
+          onChange={handleInput}
         />
       </div>
     );

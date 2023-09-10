@@ -4,6 +4,7 @@ import WishListDetails from "../components/WishListDetails";
 import EditItemForm from "../components/form/EditItemForm";
 
 const WishlistPage = () => {
+
   return (
     <div className="drawer drawer-end">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
