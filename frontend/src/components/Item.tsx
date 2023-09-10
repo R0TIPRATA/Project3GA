@@ -1,5 +1,9 @@
-const Item = () => {
+import { Item as ItemType } from "../types";
 
+
+
+const Item = (item:ItemType) => {
+  console.log(JSON.stringify(item))
   // <div>
   //<div className="card w-[800px] bg-base-100 shadow-xl m-20"> */}
 return (
@@ -10,7 +14,7 @@ return (
             <img
               className="object-scale-down h-[200px] w-48"
               src="https://m.media-amazon.com/images/I/51EbqQYsl1S._AC_SX679_.jpg"
-              alt="Vacuum cleaner"
+              alt={`${item.itemName}`}
             />
           </figure>
         </div>
@@ -20,23 +24,23 @@ return (
             <div className="col1 inline-flex">
               <div className="flex-col">
                 <div className="badge capitalize badge-ghost">
-                  household appliance
+                  {item.category}
                 </div>
                 <h2 className="card-title">Vacuum Cleaner</h2>
-                <p>Dyson</p>
-                <p>Color: Red</p>
+                <p>{item.brand}</p>
+                <p>Color: {item.color}</p>
                 <p>
-                  Link to product: <a href="">Link</a>
+                  Link to product: <a href={`{item.productUrl}`}>Link</a>
                 </p>
               </div>
             </div>
             <div className="col-2 justify-space-between w-[262px] h-[94px] relative float-right">
               <div className="left-[182px] top-0 absolute text-black text-xl font-normal">
-                $150.00
+                <p className="left-[22px] absolute">{`$${item.price}`}</p>
               </div>
               <div className="w-60 h-[74px] left-[22px] top-[30px] absolute">
                 <progress
-                  className="progress progress-accent w-[193px] float-right"
+                  className="progress progress-success w-[193px] float-right"
                   value="70"
                   max="100"
                 ></progress>
@@ -55,7 +59,7 @@ return (
               </div>
             </div>
             <div className="grow shrink basis-0 text-black text-base">
-              “Please get me this item. It will really help me.”{" "}
+              “{item.itemMessageContributor}”{" "}
             </div>
           </div>
         </div>
@@ -64,12 +68,12 @@ return (
       <div className="card-actions justify-end">
         <label
           htmlFor="my-drawer-2"
-          className="btn capitalize bg-rose-200 rounded-full px-7 drawer-button"
+          className="btn btn-primary drawer-button"
         >
           Edit item
         </label>
 
-        <button className="btn capitalize bg-rose-200 rounded-full px-7">
+        <button className="btn btn-primary">
           Delete item
         </button>
       </div>

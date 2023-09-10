@@ -5,7 +5,7 @@ export type Wishlist = {
     campaignDate: string
     createdAt: string
     updatedAt: string
-    WishlistItems: Item[]
+    wishlistItems: Item[]
 }
 
 export type Item = {
@@ -13,9 +13,11 @@ export type Item = {
     itemStatus: boolean
     accumulatedAmount: number
     itemName: string
+    itemPicture: string
     category: string
     brand: string
     price: number
+    color: string
     productUrl: string | undefined
     itemMessageContributor: string | undefined
     updatedAt: Date

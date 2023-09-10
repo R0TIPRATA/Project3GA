@@ -41,7 +41,7 @@ const EditItemForm = () => {
 
 
   return (
-    <form className="w-[300px] p-8 rounded-3xl ">
+    <form className="w-5/6 p-8 rounded-3xl">
       <div>
         <h3>Add item</h3>
         {fieldItems.map((item, index) => {

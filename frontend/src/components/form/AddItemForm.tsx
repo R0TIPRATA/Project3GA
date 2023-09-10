@@ -42,7 +42,7 @@ const AddItemForm = () => {
 
   return (
     <form className=" bg-slate-50 p-8 rounded-3xl ">
-      <div>
+      <div className="flex-col">
         <h3>Add item</h3>
         {fieldItems.map((item, index) => {
           if (item.type === "text-input") {
@@ -53,8 +53,8 @@ const AddItemForm = () => {
             return <FileUploadInput key={index} label={item.label} name={item.name}/>;
           }
         })}
+      <button className="btn btn-primary mt-4">Add item</button>
       </div>
-      <button className="btn btn-primary">Add item</button>
     </form>
   );
 };

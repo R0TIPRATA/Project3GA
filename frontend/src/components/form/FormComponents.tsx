@@ -30,7 +30,8 @@ export const TextInput = ({ label, name }:InputField) => {
           name={name}
           className="textarea textarea-bordered h-24"
           placeholder="E.g. Tell your contributors how this item helps you."
-        ></textarea>
+        >
+        </textarea>
       </div>
     );
   };
@@ -38,7 +39,7 @@ export const TextInput = ({ label, name }:InputField) => {
  export const FileUploadInput = ({ label, name }:InputField) => {
     return (
       <div className="form-control w-full max-w-xs">
-        <label className="label">
+        <label className="label ">
           <span className="label-text">{label}</span>
         </label>
         <input

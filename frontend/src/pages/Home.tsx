@@ -12,7 +12,7 @@ const defaultWishlist:Wishlist = {
   campaignDate: "",
   createdAt: "",
   updatedAt: "",
-  WishlistItems: []
+  wishlistItems: []
 }
 
 export const WishlistContext = createContext<Wishlist>(defaultWishlist)
