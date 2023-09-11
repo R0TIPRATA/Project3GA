@@ -5,9 +5,6 @@ import { useWishList } from "./context/WishlistContext"
 //get wishlist detail
 const WishListDetails = () => {
   const {wishlist} = useWishList()
-
-  console.log("wishlist fetched => ", JSON.stringify(wishlist,null,2))
-  //bug: getList is currently empty because it is preloaded before setList
   return (
     <div className="bg-red-100 w-100 px-12 py-12">
       <div className="top-header flex items-end self-stretch justify-between">
