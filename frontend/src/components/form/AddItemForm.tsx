@@ -1,11 +1,11 @@
 import axios from "axios";
 import { Item } from "../../types";
 import { TextInput, LongTextInput, FileUploadInput } from "./FormComponents";
-import { useContext, useState } from "react";
-import { WishlistContext } from "../../pages/Home";
+import { useState } from "react";
+import { useWishList } from "../context/WishlistContext";
 
 const AddItemForm = () => {
-  const wishlist = useContext(WishlistContext)
+  const {wishlist, addItem} = useWishList()
   
   const fieldItems = [
     {
@@ -91,6 +91,8 @@ const AddItemForm = () => {
       }).then((response) => {
         console.log(response.status);
         console.log(response.data);
+        addItem(response.data)
+
       });
     }catch(err){
       console.log(err)
