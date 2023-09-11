@@ -1,36 +1,33 @@
 import Items from "../components/Items";
-import AddItemForm from "../components/AddItemForm";
+import AddItemForm from "../components/form/AddItemForm";
 import WishListDetails from "../components/WishListDetails";
-import EditItemForm from "../components/EditItemForm";
+import EditItemForm from "../components/form/EditItemForm";
 
 const WishlistPage = () => {
+
   return (
-    <>
-      <div className="drawer drawer-end">
-        <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content flex flex-col items-center justify-center">
-          <div className="wishlistPage bg-orange-100 flex-col pb-20">
-            <WishListDetails />{" "}
-            {/* wishlist details is the pink part of the home page */}
-            <div className="parent flex">
-              <div className="col1 inline-flex">
-                <Items /> {/* the list of items */}
+    <div className="drawer drawer-end">
+      <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
+      <div className="drawer-content">
+        <div className="wishlistPage bg-orange-100 flex-col pb-20">
+          <WishListDetails />
+            <main className="parent flex my-10 mx-10 gap-24">
+              <div className="col1 w-3/4">
+                <Items /> 
               </div>
-              <div className="col2 inline-flex">
-                <AddItemForm /> {/* add item form */}
+              <div className="col2 w-1/4">
+                <AddItemForm />
               </div>
-            </div>
-          </div>
+            </main>
         </div>
-        <div className="drawer-side">
+      </div>  
+      <div className="drawer-side">
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-          <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
-            {/* Sidebar content here */}
+          <ul className="menu p-4 w-1/3 min-h-full bg-base-200 text-base-content">
             <EditItemForm />
           </ul>
         </div>
-      </div>
-    </>
+    </div>  
   );
 };
 

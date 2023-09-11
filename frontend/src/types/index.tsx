@@ -5,19 +5,27 @@ export type Wishlist = {
     campaignDate: string
     createdAt: string
     updatedAt: string
-    WishlistItems: Item[]
+    wishlistItems: Item[]
 }
 
 export type Item = {
-    uuid: string
+    uuid?: string
     itemStatus: boolean
     accumulatedAmount: number
     itemName: string
+    itemPicture: string
     category: string
     brand: string
     price: number
-    productUrl: string
+    color: string
+    productUrl: string | undefined
     itemMessageContributor: string | undefined
-    updatedAt: Date
-    createdAt: Date
+    updatedAt?: Date
+    createdAt?: Date
+}
+
+export type InputField = {
+    label: string,
+    name: string,
+    handleInput: (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => void;
 }

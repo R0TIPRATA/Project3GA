@@ -1,13 +1,15 @@
-import { useContext } from "react"
-import { WishlistContext } from "../pages/Home"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faEdit, faTrashCan } from "@fortawesome/free-regular-svg-icons"
+import { useWishList } from "./context/WishlistContext"
 
 //get wishlist detail
 const WishListDetails = () => {
-  const wishlist = useContext(WishlistContext)
+  const {wishlist} = useWishList()
+
+  console.log("wishlist fetched => ", JSON.stringify(wishlist,null,2))
+  //bug: getList is currently empty because it is preloaded before setList
   return (
-    <div className="bg-red-100 w-screen px-12 py-12">
+    <div className="bg-red-100 w-100 px-12 py-12">
       <div className="top-header flex items-end self-stretch justify-between">
         <div className="uppercase text-sm text-gray-700">Your Wishlist</div>
         <div className="buttons-wrapper">

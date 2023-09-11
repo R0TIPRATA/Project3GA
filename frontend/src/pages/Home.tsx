@@ -1,25 +1,28 @@
-import { useState, useEffect, createContext } from "react"
+import { useState, useEffect } from "react"
 import EmptyWishlistPage from "./EmptyWishlistPage"
 import WishlistPage from "./WishlistPage"
 import axios from "axios"
 import Navbar from "../components/Navbar"
 import { Wishlist } from "../types"
+import { useWishList } from "../components/context/WishlistContext"
 
-const defaultWishlist:Wishlist = {
-  uuid: "",
-  listTitle: "",
-  listMessage: "",
-  campaignDate: "",
-  createdAt: "",
-  updatedAt: "",
-  WishlistItems: []
-}
+// const defaultWishlist:Wishlist = {
+//   uuid: "",
+//   listTitle: "",
+//   listMessage: "",
+//   campaignDate: "",
+//   createdAt: "",
+//   updatedAt: "",
+//   wishlistItems: []
+// }
 
-export const WishlistContext = createContext<Wishlist>(defaultWishlist)
+// export const WishlistContext = createContext<Wishlist>(defaultWishlist)
 
 const Home = () => {
   const [wishlists, setWishlists] = useState<Wishlist[]>([])
-  const [wishlist, setWishlist] = useState<Wishlist>(defaultWishlist)
+  //const [wishlist, setWishlist] = useState<Wishlist>(defaultWishlist)
+  const {setWishlist} = useWishList()
+  
 
   useEffect(() => {
     // Fetch wishlist when the component mounts
@@ -42,6 +45,7 @@ const Home = () => {
         .get(`http://localhost:15432/lists/${wishlists[0].uuid}`) //hard-coded for now
         .then((response) => {
           console.log("line 45 =>", response.data)
+          //setWishlist(response.data)
           setWishlist(response.data)
         })
         .catch((error) => {
@@ -52,10 +56,10 @@ const Home = () => {
 
   return (
     <>
-    <WishlistContext.Provider value={wishlist}>
+    {/* <WishlistContext.Provider value={wishlist}> */}
       <Navbar />
       {wishlists.length > 0 ? <WishlistPage /> : <EmptyWishlistPage /> }
-    </WishlistContext.Provider>
+    {/* </WishlistContext.Provider> */}
     </>
   )
 }
