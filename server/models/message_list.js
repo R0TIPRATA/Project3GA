@@ -15,9 +15,9 @@ module.exports = (sequelize, DataTypes) => {
 			});
 		}
 
-		toJSON() {
-			return { ...this.get(), id: undefined, contributorId: undefined };
-		}
+		// toJSON() {
+		// 	return { ...this.get(), id: undefined, contributorId: undefined };
+		// }
 	}
 	MessageList.init(
 		{

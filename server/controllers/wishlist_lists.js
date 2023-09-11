@@ -5,6 +5,7 @@ module.exports = {
 	create,
 	delete: deleteList,
 	getOneList,
+	updateList,
 };
 
 // Get all wishlists in db
@@ -71,5 +72,22 @@ async function getOneList(req, res) {
 	} catch (err) {
 		console.log(err);
 		return res.status(500).json({ error: "Something went wrong!" });
+	}
+}
+
+// Update wishlist info
+async function updateList(req, res) {
+	const uuid = req.params.listUuid;
+	const { listTitle, listMessage, campaignDate } = req.body;
+	try {
+		const list = await WishlistList.findOne({ where: { uuid } });
+		list.listTitle = listTitle;
+		list.listMessage = listMessage;
+		list.campaignDate = campaignDate;
+		await list.save();
+		return res.json(list);
+	} catch (err) {
+		console.log(err);
+		return res.status(500).json(err);
 	}
 }

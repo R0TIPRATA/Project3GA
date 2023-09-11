@@ -15,9 +15,9 @@ module.exports = (sequelize, DataTypes) => {
 			});
 		}
 
-		toJSON() {
-			return { ...this.get(), id: undefined, wishlistId: undefined };
-		}
+		// toJSON() {
+		// 	return { ...this.get(), id: undefined, wishlistId: undefined };
+		// }
 	}
 	WishlistItem.init(
 		{

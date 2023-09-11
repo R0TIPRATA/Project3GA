@@ -10,5 +10,7 @@ router.post("/", listsCtrl.create);
 router.delete("/:listUuid", listsCtrl.delete);
 // Get one wishlist with all items in it from db
 router.get("/:listUuid", listsCtrl.getOneList);
+// Update wishlist info
+router.put("/:listUuid", listsCtrl.updateList);
 
 module.exports = router;
