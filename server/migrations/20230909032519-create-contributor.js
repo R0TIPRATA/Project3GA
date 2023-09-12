@@ -20,7 +20,7 @@ module.exports = {
 			},
 			relationship: {
 				type: DataTypes.STRING,
-				allowNull: false,
+				allowNull: true,
 			},
 			wishlistId: {
 				type: DataTypes.INTEGER,

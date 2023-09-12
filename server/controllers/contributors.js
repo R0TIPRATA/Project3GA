@@ -19,14 +19,13 @@ async function getAll(req, res) {
 }
 
 async function create(req, res) {
-	const { name, email, relationship, message } = req.body;
+	const { name, email, message } = req.body;
 	const uuid = req.params.listUuid;
 	try {
 		const list = await WishlistList.findOne({ where: { uuid } });
 		const contributor = await Contributor.create({
 			name,
 			email,
-			relationship,
 			wishlistId: list.id,
 		});
 		const messageList = await MessageList.create({
