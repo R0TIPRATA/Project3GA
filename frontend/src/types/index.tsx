@@ -59,3 +59,8 @@ export type User = {
 	username: string;
 	password: string;
 }
+
+export type Token = {
+	username: string | null;
+	token: string | null;
+}

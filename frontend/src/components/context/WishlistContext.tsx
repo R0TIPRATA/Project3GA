@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useContext, useState } from "react"
-import { Wishlist, Item } from "../../types"
+import { Wishlist, Item, Token } from "../../types"
 
 type WishlistProviderProps = {
     children: ReactNode
@@ -7,12 +7,13 @@ type WishlistProviderProps = {
 
 type WishListContext = {
     wishlist: Wishlist,
-    setWishlist: React.Dispatch<React.SetStateAction<Wishlist>>
-    addItem: (item: Item) => void
+    setWishlist: React.Dispatch<React.SetStateAction<Wishlist>>,
+    addItem: (item: Item) => void,
+    userToken: Token,
+    setUserToken: React.Dispatch<React.SetStateAction<Token>>,
 }
 
 const WishlistContext = createContext({} as WishListContext)
-
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const useWishList = () => {
@@ -21,6 +22,11 @@ export const useWishList = () => {
 
 export function WishlistProvider({children}:WishlistProviderProps){
     const [wishlist, setWishlist] = useState<Wishlist>({} as Wishlist)
+    const [userToken, setUserToken] = useState<Token>(() => {
+        const token = localStorage.getItem("token")
+        const username = localStorage.getItem("username")
+        return token ? {username: username, token: token} : {username: null, token: null}
+    })   
     const addItem = (item: Item) => {
         setWishlist({...wishlist, wishlistItems: [...wishlist.wishlistItems, item]} )
     }
@@ -29,7 +35,9 @@ export function WishlistProvider({children}:WishlistProviderProps){
         value={{
             wishlist,
             setWishlist,
-            addItem
+            addItem,
+            userToken,
+            setUserToken,
         }}>
         {children}
         </WishlistContext.Provider>

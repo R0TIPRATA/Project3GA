@@ -10,7 +10,7 @@ import { createClient } from '@supabase/supabase-js'
 const supabase = createClient(`${import.meta.env.VITE_SUPABASE_PROJECT_URL}`,`${import.meta.env.VITE_SUPABASE_API_KEY}`)
 
 const AddItemForm = () => { 
-  const {wishlist, addItem} = useWishList()
+  const {wishlist, addItem, userToken} = useWishList()
   const [imageFile, setImageFile] = useState<File|null>(null)
   const formRef = useRef({} as HTMLFormElement)
   
@@ -103,6 +103,7 @@ const AddItemForm = () => {
       axios({
         method: "POST",
         url: `http://localhost:15432/items/${wishlist.uuid}`,
+        headers: { Authorization: `Bearer ${userToken.token}` },
         data: {
           itemName: item.itemName,
           accumulatedAmount: item.accumulatedAmount,
