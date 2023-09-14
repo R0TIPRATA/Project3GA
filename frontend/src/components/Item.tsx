@@ -5,6 +5,8 @@ const Item = (item:ItemType) => {
     return item.accumulatedAmount/item.price * 100
   }
 
+  const hideButtons = item.accumulatedAmount > 0
+
   return (
       <div className="card-body text-left bg-base-100 shadow-sm rounded-3xl border border-slate-500">
         <div className="card-top flex gap-4 justify-between">
@@ -63,19 +65,24 @@ const Item = (item:ItemType) => {
             }
           </div>
         </div>
-        <div className="divider divider-vertical p-0"></div>
-        <div className="card-actions justify-end">
-          <label
-            htmlFor="my-drawer-2"
-            className="btn btn-primary drawer-button"
-          >
-            Edit item
-          </label>
+        {
+          !hideButtons && 
+          <div>
+            <div className="divider divider-vertical p-0"></div>
+            <div className="card-actions justify-end">
+              <label
+                htmlFor="my-drawer-2"
+                className="btn btn-primary drawer-button"
+              >
+                Edit item
+              </label>
 
-          <button className="btn btn-primary">
-            Delete item
-          </button>
-        </div>
+              <button className="btn btn-primary">
+                Delete item
+              </button>
+            </div>
+          </div>  
+        }
       </div>
   );
 };
