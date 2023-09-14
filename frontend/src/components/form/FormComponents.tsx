@@ -40,14 +40,14 @@ export const AmountInput = ({
 
 export const UsernameInput = ({ label, name, handleInput }: InputField) => {
 	return (
-		<div className="form-control w-full max-w-xs">
+		<div className="form-control w-full max-w-lg">
 			<label className="label">
 				<span className="label-text">{label}</span>
 			</label>
 			<input
 				type="text"
 				name={name}
-				className="input input-bordered w-full max-w-xs"
+				className="input input-bordered w-full max-w-lg"
 				onChange={handleInput}
 				required
 			/>
@@ -57,14 +57,14 @@ export const UsernameInput = ({ label, name, handleInput }: InputField) => {
 
 export const PasswordInput = ({ label, name, handleInput }: InputField) => {
 	return (
-		<div className="form-control w-full max-w-xs">
+		<div className="form-control w-full max-w-lg">
 			<label className="label">
 				<span className="label-text">{label}</span>
 			</label>
 			<input
 				type="password"
 				name={name}
-				className="input input-bordered w-full max-w-xs"
+				className="input input-bordered w-full max-w-lg"
 				onChange={handleInput}
 				required
 			/>

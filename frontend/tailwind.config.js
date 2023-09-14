@@ -27,6 +27,9 @@ export default {
         96: "24rem",
         128: "32rem",
       },
+      height: {
+        whole: "110vh",
+      }
     },
     darkTheme: false,
   },

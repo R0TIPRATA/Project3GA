@@ -2,6 +2,7 @@ import { useState } from "react";
 import { UsernameInput, PasswordInput } from "./FormComponents";
 import { User } from "../../types";
 import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
 const AddSignUpForm = () => {
   const [user, setUser] = useState<User>({
@@ -9,6 +10,7 @@ const AddSignUpForm = () => {
     password: "",
   })
   const [message, setMessage] = useState<string | undefined>("");
+  const navigate = useNavigate();
 
   const fieldItems = [
     { type: "text-input", label: "Username", name: "username" },
@@ -40,6 +42,9 @@ const AddSignUpForm = () => {
         // console.log(response.data);
         if(!response.data.message) {
           setMessage("Sign up successful!");
+          setTimeout(() => {
+            navigate("/login")
+          }, 800)
         } else {
           setMessage("Username exists. Please try another username!")
         }
@@ -51,9 +56,10 @@ const AddSignUpForm = () => {
   };
 
   return ( 
-    <div className=" bg-slate-50 p-8 rounded-3xl max-w-xs">
-      <div className="text-xl font-semibold">Register for account</div>
-      <form onSubmit={handleSubmit}>
+    <div className=" bg-slate-50 p-8 rounded-3xl max-w-lg flex flex-row flex-wrap m-20">
+      <div className="text-xl font-semibold basis-1/2">Register for account</div>
+      <Link className="basis-1/2 text-right" to="/login">Login</Link>
+      <form onSubmit={handleSubmit} className="basis-full mt-4">
         {fieldItems.map((item, index) => {
           if (item.type === "text-input") {
             return (
