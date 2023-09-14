@@ -19,9 +19,9 @@ module.exports = (sequelize, DataTypes) => {
 			});
 		}
 
-		toJSON() {
-			return { ...this.get(), id: undefined };
-		}
+		// toJSON() {
+		// 	return { ...this.get(), id: undefined };
+		// }
 	}
 	Contributor.init(
 		{
@@ -45,11 +45,11 @@ module.exports = (sequelize, DataTypes) => {
 			},
 			relationship: {
 				type: DataTypes.STRING,
-				allowNull: false,
-				validate: {
-					notNull: { msg: "Contributor must have a relationship" },
-					notEmpty: { msg: "Contributor relationship must not be empty" },
-				},
+				allowNull: true,
+				// validate: {
+				// 	notNull: { msg: "Contributor must have a relationship" },
+				// 	notEmpty: { msg: "Contributor relationship must not be empty" },
+				// },
 			},
 		},
 		{

@@ -8,5 +8,7 @@ router.get("/", itemsCtrl.getAll);
 router.post("/:listUuid", itemsCtrl.create);
 // Delete an item
 router.delete("/:itemUuid", itemsCtrl.delete);
+// Update an item details
+router.put("/:itemUuid", itemsCtrl.updateItem);
 
 module.exports = router;

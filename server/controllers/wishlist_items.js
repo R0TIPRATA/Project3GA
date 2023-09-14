@@ -4,6 +4,7 @@ module.exports = {
 	getAll,
 	create,
 	delete: deleteItem,
+	updateItem,
 };
 
 // Get all items in db
@@ -65,5 +66,37 @@ async function deleteItem(req, res) {
 	} catch (err) {
 		console.log(err);
 		return res.status(500).json({ error: "Something went wrong!" });
+	}
+}
+
+async function updateItem(req, res) {
+	const uuid = req.params.itemUuid;
+	const {
+		itemName,
+		category,
+		brand,
+		price,
+		color,
+		productUrl,
+		itemMessageContributor,
+		itemPicture,
+	} = req.body;
+	try {
+		const item = await WishlistItem.findOne({
+			where: { uuid },
+		});
+		item.itemName = itemName;
+		item.category = category;
+		item.brand = brand;
+		item.price = price;
+		item.color = color;
+		item.productUrl = productUrl;
+		item.itemMessageContributor = itemMessageContributor;
+		item.itemPicture = itemPicture;
+		await item.save();
+		return res.json(item);
+	} catch (err) {
+		console.log(err);
+		return res.status(500).json(err);
 	}
 }
