@@ -1,4 +1,4 @@
-const { WishlistList, WishlistItem } = require("../models");
+const { WishlistList, WishlistItem, User } = require("../models");
 
 module.exports = {
 	getAll,
@@ -10,8 +10,12 @@ module.exports = {
 
 // Get all wishlists in db
 async function getAll(req, res) {
+	const { username } = req.params;
 	try {
-		const lists = await WishlistList.findAll();
+		const user = await User.findOne({ where: {   username } });
+		const lists = await WishlistList.findAll({ 
+			where: { userId: user.id },
+			include: ["wishlistItems"]});
 		return res.json(lists);
 	} catch (err) {
 		console.log(err);
