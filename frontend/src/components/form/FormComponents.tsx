@@ -28,7 +28,7 @@ export const AmountInput = ({
 				<span className="label-text">{label}</span>
 			</label>
 			<input
-				type="text"
+				type="number"
 				name={name}
 				className="input input-bordered w-full max-w-xs"
 				onChange={handleInput}
@@ -37,6 +37,22 @@ export const AmountInput = ({
 		</div>
 	);
 };
+
+  export const NumberInput = ({ label, name, handleInput}:InputField) => {
+    return (
+      <div className="form-control w-full max-w-xs">
+        <label className="label">
+          <span className="label-text">{label}</span>
+        </label>
+        <input 
+          type="number" 
+          name={name} 
+          className="input input-bordered w-full max-w-xs" 
+          onChange={handleInput}
+        />
+      </div>
+    );
+  };
 
 // const Select = ({label, name, options}) => {
 //   <select className="select select-bordered w-full max-w-xs">

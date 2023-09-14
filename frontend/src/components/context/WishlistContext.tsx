@@ -21,13 +21,9 @@ export const useWishList = () => {
 
 export function WishlistProvider({children}:WishlistProviderProps){
     const [wishlist, setWishlist] = useState<Wishlist>({} as Wishlist)
-    4
     const addItem = (item: Item) => {
         setWishlist({...wishlist, wishlistItems: [...wishlist.wishlistItems, item]} )
-
-        console.log("item added! "+ JSON.stringify(item))
     }
-    
     return(
         <WishlistContext.Provider 
         value={{

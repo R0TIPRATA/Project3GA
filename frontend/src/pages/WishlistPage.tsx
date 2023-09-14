@@ -11,11 +11,11 @@ const WishlistPage = () => {
       <div className="drawer-content">
         <div className="wishlistPage bg-orange-100 flex-col pb-20">
           <WishListDetails />
-            <main className="parent flex my-10 mx-10 gap-24">
-              <div className="col1 w-3/4">
+            <main className="parent flex my-10 mx-40 gap-8">
+              <div className="col1 w-4/6">
                 <Items /> 
               </div>
-              <div className="col2 w-1/4">
+              <div className="col2 w-2/6">
                 <AddItemForm />
               </div>
             </main>
