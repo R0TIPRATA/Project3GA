@@ -25,13 +25,11 @@ export type Item = {
 };
 
 export type InputField = {
-	label: string;
-	name: string;
-	handleInput: (
-		event:
-			| React.ChangeEvent<HTMLInputElement>
-			| React.ChangeEvent<HTMLTextAreaElement>
-	) => void;
+    label: string
+    name: string
+    handleInput?: (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => void
+    handleFileUpload?: (event: React.ChangeEvent<HTMLInputElement> ) => void
+    selectedFile?: File | null
 };
 
 export type AmountInputField = {

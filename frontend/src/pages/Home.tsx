@@ -55,10 +55,8 @@ const Home = () => {
 
 	return (
 		<>
-			{/* <WishlistContext.Provider value={wishlist}> */}
 			<Navbar />
 			{wishlists.length > 0 ? <WishlistPage /> : <EmptyWishlistPage />}
-			{/* </WishlistContext.Provider> */}
 			<AddContributorForm />
 		</>
 	);

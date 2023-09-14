@@ -1,11 +1,19 @@
-import axios from "axios";
-import { Item } from "../../types";
-import { TextInput, LongTextInput, FileUploadInput } from "./FormComponents";
-import { useState } from "react";
-import { useWishList } from "../context/WishlistContext";
+import axios from "axios"
+import { Item } from "../../types"
+import { TextInput, LongTextInput, FileUploadInput } from "./FormComponents"
+import { useRef, useState } from "react"
+import { useWishList } from "../context/WishlistContext"
+import {v4 as uuidv4 } from 'uuid'
+import { createClient } from '@supabase/supabase-js'
 
-const AddItemForm = () => {
+//needed for file upload
+const supabase = createClient(`${import.meta.env.VITE_SUPABASE_PROJECT_URL}`,`${import.meta.env.VITE_SUPABASE_API_KEY}`)
+
+const AddItemForm = () => { 
   const {wishlist, addItem} = useWishList()
+  const [imageFile, setImageFile] = useState<File|null>(null)
+  const formRef = useRef({} as HTMLFormElement)
+  
   
   const fieldItems = [
     {
@@ -61,7 +69,6 @@ const AddItemForm = () => {
   )
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
-    console.log("test: ", event.target.value);
     setItem(
       (prev: Item) => ({
         ...prev,
@@ -70,9 +77,28 @@ const AddItemForm = () => {
       )
     }
 
+    const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setItem(
+        (prev: Item) => ({
+          ...prev,
+          [event.target.name]: `/wishlistimages/${uuidv4()}`
+        })
+      )
+      setImageFile(event.target.files![0])
+    }    
+
+  async function uploadImage() {
+    if(imageFile) {
+      const { data, error } = await supabase.storage.from('images').upload(item.itemPicture, imageFile)
+      if(error) console.log("error: ", error);
+      if(data) return data;
+    }
+  }
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     console.log("item sent => ", JSON.stringify(item,null,2));
+    let res:Item;
     try{
       axios({
         method: "POST",
@@ -80,7 +106,7 @@ const AddItemForm = () => {
         data: {
           itemName: item.itemName,
           accumulatedAmount: item.accumulatedAmount,
-          itemPicture: "placeholder text",
+          itemPicture: item.itemPicture, 
           category: item.category,
           color: item.color,
           brand: item.brand,
@@ -88,19 +114,23 @@ const AddItemForm = () => {
           productUrl: item.productUrl,
           itemMessageContributor: item.itemMessageContributor,
         },
-      }).then((response) => {
-        console.log(response.status);
-        console.log(response.data);
-        addItem(response.data)
 
-      });
+      }).then((response) => {
+        res = response.data
+        uploadImage()
+      }).then( (response) => {
+        console.log(response)
+        addItem(res)
+        formRef.current.reset()
+        setImageFile(null)
+      })  
     }catch(err){
       console.log(err)
     }
   }
 
   return (
-    <form className=" bg-slate-50 p-8 rounded-3xl" onSubmit={handleSubmit}>
+    <form className=" bg-slate-50 p-8 rounded-3xl" ref={formRef} onSubmit={handleSubmit}>
       <div className="flex-col">
         <h3>Add item</h3>
         {fieldItems.map((item, index) => {
@@ -109,7 +139,7 @@ const AddItemForm = () => {
           } else if (item.type === "long-text-input") {
             return <LongTextInput key={index} label={item.label} name={item.name} handleInput={handleInput}/>;
           } else if (item.type === "file-upload") {
-            return <FileUploadInput key={index} label={item.label} name={item.name} handleInput={handleInput}/>;
+            return <FileUploadInput key={index} label={item.label} name={item.name} selectedFile={imageFile} handleFileUpload={handleFileUpload}/>;
           }
         })}
       <input type="submit" className="btn btn-primary mt-4"  value="Add Item"/>

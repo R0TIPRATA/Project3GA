@@ -1,13 +1,17 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faEdit, faTrashCan } from "@fortawesome/free-regular-svg-icons"
 import { useWishList } from "./context/WishlistContext"
+import { DateTime } from "luxon"
 
 //get wishlist detail
+
 const WishListDetails = () => {
   const {wishlist} = useWishList()
+  const convertDate = (date:string) => {
+    const dt = DateTime.fromISO(date)
+    return dt.toLocaleString(DateTime.DATE_FULL)
+  }
 
-  console.log("wishlist fetched => ", JSON.stringify(wishlist,null,2))
-  //bug: getList is currently empty because it is preloaded before setList
   return (
     <div className="bg-red-100 w-100 px-12 py-12">
       <div className="top-header flex items-end self-stretch justify-between">
@@ -29,7 +33,7 @@ const WishListDetails = () => {
       <div className="details-container flex">
         <div className="data-field flex-col pr-2">
           <label className="text-sm">Campaign ends</label>
-          <p>{wishlist.campaignDate}</p>
+          <p>{wishlist.campaignDate && convertDate(wishlist.campaignDate)}</p>
         </div>
         <div className="data-field flex-col pl-2">
           <label className="text-sm">Message to Contributors</label>
