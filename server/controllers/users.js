@@ -4,6 +4,7 @@ const { createSecretToken } = require("../util/SecretToken");
 module.exports = {
   signup,
   login,
+  getUser,
 };
 
 async function signup(req, res) {
@@ -37,7 +38,24 @@ async function login(req, res) {
       message: "User logged in successfully!",
       success: true,
       token,
+      username,
     });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+async function getUser(req, res) {
+  const { username } = req.params;
+  console.log(username);
+  try {
+    const user = await User.findOne({ where: { username }, 
+    include: ["wishlistLists"],
+    attributes: {
+      exclude: ["password"],
+    }
+   });
+    return res.json(user);
   } catch (err) {
     console.log(err);
   }
