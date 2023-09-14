@@ -12,10 +12,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate({ WishlistList }) {
       // define association here
-      // this.hasMany(WishlistList, {
-      //   foreignKey: "userId",
-      //   as: "wishlistLists",
-      // })
+      this.hasMany(WishlistList, {
+        foreignKey: "userId",
+        as: "wishlistLists",
+      })
     }
     validPassword(password) {
       return bcrypt.compareSync(password, this.password);
