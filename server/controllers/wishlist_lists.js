@@ -15,7 +15,7 @@ async function getAll(req, res) {
 		return res.json(lists);
 	} catch (err) {
 		console.log(err);
-		return res.status(500).json({ error: "Something went wrong!" });
+		return res.json(err);
 	}
 }
 
@@ -31,7 +31,7 @@ async function create(req, res) {
 		return res.json(wishlist_list);
 	} catch (err) {
 		console.log(err);
-		return res.status(500).json(err);
+		return res.json(err);
 	}
 }
 
@@ -56,7 +56,7 @@ async function deleteList(req, res) {
 		return res.json({ message: `Wishlist for ${listTitle} deleted!` });
 	} catch (err) {
 		console.log(err);
-		return res.status(500).json({ error: "Something went wrong!" });
+		return res.json(err);
 	}
 }
 
@@ -71,7 +71,7 @@ async function getOneList(req, res) {
 		return res.json(list);
 	} catch (err) {
 		console.log(err);
-		return res.status(500).json({ error: "Something went wrong!" });
+		return res.json(err);
 	}
 }
 
@@ -88,6 +88,6 @@ async function updateList(req, res) {
 		return res.json(list);
 	} catch (err) {
 		console.log(err);
-		return res.status(500).json(err);
+		return res.json(err);
 	}
 }

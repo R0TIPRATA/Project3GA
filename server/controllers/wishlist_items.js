@@ -16,7 +16,7 @@ async function getAll(req, res) {
 		return res.json(items);
 	} catch (err) {
 		console.log(err);
-		return res.status(500).json(err);
+		return res.json(err);
 	}
 }
 
@@ -49,7 +49,7 @@ async function create(req, res) {
 		return res.json(item);
 	} catch (err) {
 		console.log(err);
-		return res.status(500).json(err);
+		return res.json(err);
 	}
 }
 
@@ -65,7 +65,7 @@ async function deleteItem(req, res) {
 		return res.json({ message: `Item - ${itemName} removed!` });
 	} catch (err) {
 		console.log(err);
-		return res.status(500).json({ error: "Something went wrong!" });
+		return res.json(err);
 	}
 }
 
@@ -97,6 +97,6 @@ async function updateItem(req, res) {
 		return res.json(item);
 	} catch (err) {
 		console.log(err);
-		return res.status(500).json(err);
+		return res.json(err);
 	}
 }

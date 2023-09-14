@@ -11,6 +11,6 @@ async function getAll(req, res) {
 		return res.json(messageLists);
 	} catch (err) {
 		console.log(err);
-		return res.status(500).json(err);
+		return res.json(err);
 	}
 }

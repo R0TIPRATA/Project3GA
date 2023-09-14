@@ -14,7 +14,7 @@ async function getAll(req, res) {
 		return res.json(contributors);
 	} catch (err) {
 		console.log(err);
-		return res.status(500).json({ error: "Something went wrong!" });
+		return res.json(err);
 	}
 }
 
@@ -35,7 +35,7 @@ async function create(req, res) {
 		return res.json(contributor);
 	} catch (err) {
 		console.log(err);
-		return res.status(500).json(err);
+		return res.json(err);
 	}
 }
 
@@ -49,6 +49,6 @@ async function getOne(req, res) {
 		return res.json(contributor);
 	} catch (err) {
 		console.log(err);
-		return res.status(500).json(err);
+		return res.json(err);
 	}
 }
