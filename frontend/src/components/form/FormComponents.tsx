@@ -75,17 +75,25 @@ export const LongTextInput = ({ label, name, handleInput }: InputField) => {
 	);
 };
 
-export const FileUploadInput = ({ label, name, handleInput }: InputField) => {
+export const FileUploadInput = ({ label, name, selectedFile, handleFileUpload }: InputField) => {
 	return (
 		<div className="form-control w-full max-w-xs">
 			<label className="label ">
 				<span className="label-text">{label}</span>
 			</label>
+      { selectedFile && 
+        <div>
+          <img
+            src={URL.createObjectURL(selectedFile!)}>
+          </img>
+        </div>
+      }
 			<input
 				name={name}
 				type="file"
+        accept=".jpg, .jpeg, .png"
 				className="file-input file-input-bordered w-full max-w-xs"
-				onChange={handleInput}
+				onChange={handleFileUpload}
 			/>
 		</div>
 	);
