@@ -54,3 +54,8 @@ export type Contributor = {
 	email: string;
 	message: string | undefined;
 };
+
+export type User = {
+	username: string;
+	password: string;
+}

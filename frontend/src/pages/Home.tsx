@@ -5,7 +5,9 @@ import axios from "axios";
 import Navbar from "../components/Navbar";
 import { Wishlist } from "../types";
 import { useWishList } from "../components/context/WishlistContext";
-import AddContributorForm from "../components/form/ContributorForm";
+// import AddContributorForm from "../components/form/ContributorForm";
+import AddSignUpForm from "../components/form/SignUpForm";
+import AddLoginForm from "../components/form/LoginForm";
 
 // const defaultWishlist:Wishlist = {
 //   uuid: "",
@@ -57,7 +59,9 @@ const Home = () => {
 		<>
 			<Navbar />
 			{wishlists.length > 0 ? <WishlistPage /> : <EmptyWishlistPage />}
-			<AddContributorForm />
+			{/* <AddContributorForm /> */}
+			<AddSignUpForm />
+			<AddLoginForm />
 		</>
 	);
 };
