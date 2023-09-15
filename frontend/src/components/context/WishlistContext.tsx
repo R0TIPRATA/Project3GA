@@ -11,6 +11,8 @@ type WishListContext = {
     addItem: (item: Item) => void,
     userToken: Token,
     setUserToken: React.Dispatch<React.SetStateAction<Token>>,
+    selectedItem: Item,
+    setSelectedItem: React.Dispatch<React.SetStateAction<Item>>
 }
 
 const WishlistContext = createContext({} as WishListContext)
@@ -22,6 +24,7 @@ export const useWishList = () => {
 
 export function WishlistProvider({children}:WishlistProviderProps){
     const [wishlist, setWishlist] = useState<Wishlist>({} as Wishlist)
+    const [selectedItem, setSelectedItem] = useState<Item>({} as Item)
     const [userToken, setUserToken] = useState<Token>(() => {
         const token = localStorage.getItem("token")
         const username = localStorage.getItem("username")
@@ -38,6 +41,8 @@ export function WishlistProvider({children}:WishlistProviderProps){
             addItem,
             userToken,
             setUserToken,
+            selectedItem,
+            setSelectedItem
         }}>
         {children}
         </WishlistContext.Provider>

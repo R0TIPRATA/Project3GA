@@ -88,10 +88,6 @@ export const PasswordInput = ({ label, name, handleInput }: InputField) => {
     );
   };
 
-// const Select = ({label, name, options}) => {
-//   <select className="select select-bordered w-full max-w-xs">
-//   </select>
-// }
 
 export const LongTextInput = ({ label, name, handleInput }: InputField) => {
 	return (
@@ -109,16 +105,16 @@ export const LongTextInput = ({ label, name, handleInput }: InputField) => {
 	);
 };
 
-export const FileUploadInput = ({ label, name, selectedFile, handleFileUpload }: InputField) => {
+export const FileUploadInput = ({ label, name, selectedPicture, handleFileUpload }: InputField) => {
 	return (
 		<div className="form-control w-full max-w-xs">
 			<label className="label ">
 				<span className="label-text">{label}</span>
 			</label>
-      { selectedFile && 
+      {selectedPicture && 
         <div>
           <img
-            src={URL.createObjectURL(selectedFile!)}>
+            src={selectedPicture}>
           </img>
         </div>
       }

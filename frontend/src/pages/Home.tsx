@@ -8,18 +8,6 @@ import { useWishList } from "../components/context/WishlistContext";
 // import AddContributorForm from "../components/form/ContributorForm";
 import { useNavigate } from "react-router-dom";
 
-// const defaultWishlist:Wishlist = {
-//   uuid: "",
-//   listTitle: "",
-//   listMessage: "",
-//   campaignDate: "",
-//   createdAt: "",
-//   updatedAt: "",
-//   wishlistItems: []
-// }
-
-// export const WishlistContext = createContext<Wishlist>(defaultWishlist)
-
 const Home = () => {
 	const [wishlists, setWishlists] = useState<Wishlist[]>([]);
 	//const [wishlist, setWishlist] = useState<Wishlist>(defaultWishlist)

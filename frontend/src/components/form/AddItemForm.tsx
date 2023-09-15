@@ -140,7 +140,7 @@ const AddItemForm = () => {
           } else if (item.type === "long-text-input") {
             return <LongTextInput key={index} label={item.label} name={item.name} handleInput={handleInput}/>;
           } else if (item.type === "file-upload") {
-            return <FileUploadInput key={index} label={item.label} name={item.name} selectedFile={imageFile} handleFileUpload={handleFileUpload}/>;
+            return <FileUploadInput key={index} label={item.label} name={item.name} selectedPicture={imageFile && URL.createObjectURL(imageFile!)} handleFileUpload={handleFileUpload}/>;
           }
         })}
       <input type="submit" className="btn btn-primary mt-4"  value="Add Item"/>
