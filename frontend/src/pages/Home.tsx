@@ -17,7 +17,7 @@ const Home = () => {
 	useEffect(() => {
 		// Fetch wishlist when the component mounts
 		axios
-			.get(`http://localhost:15432/lists/user/${userToken.username}`, { headers: { Authorization: `Bearer ${userToken.token}` } }) //hard-coded for now
+			.get(`http://localhost:15432/lists/user/${userToken.username}`, { headers: { Authorization: `Bearer ${userToken.token}` } })
 			.then((response) => {
 				console.log(response.data);
 				setWishlists(response.data);
@@ -32,10 +32,8 @@ const Home = () => {
 		//store individual wishlist from wishlists
 		if (wishlists && wishlists.length > 0) {
 			axios
-				.get(`http://localhost:15432/lists/${wishlists[0].uuid}`, { headers: { Authorization: `Bearer ${userToken.token}` } }) //hard-coded for now
+				.get(`http://localhost:15432/lists/${wishlists[0].uuid}`, { headers: { Authorization: `Bearer ${userToken.token}` } }) 
 				.then((response) => {
-					console.log("line 45 =>", response.data);
-					//setWishlist(response.data)
 					setWishlist(response.data);
 				})
 				.catch((error) => {
