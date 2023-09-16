@@ -1,4 +1,5 @@
 import { Item as ItemType } from "../types";
+import { useWishList } from "./context/WishlistContext";
 
 const Item = (item:ItemType) => {
   const calculateProgress = () => {
@@ -6,6 +7,12 @@ const Item = (item:ItemType) => {
   }
 
   const hideButtons = item.accumulatedAmount > 0
+
+  const {setSelectedItem} = useWishList()
+  
+  const handleClick = () => {
+    setSelectedItem(item) 
+  } 
 
   return (
       <div className="card-body text-left bg-base-100 shadow-sm rounded-3xl border border-slate-500">
@@ -73,6 +80,7 @@ const Item = (item:ItemType) => {
               <label
                 htmlFor="my-drawer-2"
                 className="btn btn-primary drawer-button"
+                onClick={handleClick}
               >
                 Edit item
               </label>

@@ -27,14 +27,17 @@ export type Item = {
 export type InputField = {
     label: string
     name: string
+    value?: string | number | undefined
+	required: boolean 
     handleInput?: (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => void
     handleFileUpload?: (event: React.ChangeEvent<HTMLInputElement> ) => void
-    selectedFile?: File | null
+    selectedPicture?: string | null
 };
 
 export type AmountInputField = {
-	label: string;
-	name: string;
+	label: string
+	name: string
+	required: boolean
 	handleInput: (
 		event:
 			| React.ChangeEvent<HTMLInputElement>

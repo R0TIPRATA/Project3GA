@@ -21,10 +21,10 @@ const AddPaymentForm = ({
 	const [errorMessage, setErrorMessage] = useState<string | undefined>("");
 
 	const fieldItems = [
-		{ type: "text-input", label: "Contributor Name", name: "name" },
-		{ type: "text-input", label: "Contributor Email", name: "email" },
-		{ type: "long-text-input", label: "Message", name: "message" },
-		{ type: "text-input", label: "Amount", name: "amount" },
+		{ type: "text-input", label: "Contributor Name", name: "name", required: true },
+		{ type: "text-input", label: "Contributor Email", name: "email", required: true },
+		{ type: "long-text-input", label: "Message", name: "message", required: false },
+		{ type: "text-input", label: "Amount", name: "amount", required:true },
 	];
 
 	const [contributor, setContributor] = useState<Contributor>({
@@ -130,6 +130,7 @@ const AddPaymentForm = ({
 							name={item.name}
 							handleInput={amountInput}
 							value={amount.toString()}
+							required = {item.required}
 						/>
 					);
 				} else if (item.type === "text-input") {
@@ -139,6 +140,7 @@ const AddPaymentForm = ({
 							label={item.label}
 							name={item.name}
 							handleInput={handleInput}
+							required = {item.required}
 						/>
 					);
 				} else if (item.type === "long-text-input") {
@@ -148,6 +150,7 @@ const AddPaymentForm = ({
 							label={item.label}
 							name={item.name}
 							handleInput={handleInput}
+							required = {item.required}
 						/>
 					);
 				}
