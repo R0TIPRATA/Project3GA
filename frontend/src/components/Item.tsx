@@ -18,6 +18,8 @@ const Item = (item: ItemType) => {
   };
 
   const deleteItem = async () => {
+    console.log("item deleted => ", JSON.stringify(selectedItem, null, 2));
+
     try {
       await axios({
         method: "DELETE",
@@ -34,6 +36,8 @@ const Item = (item: ItemType) => {
           productUrl: selectedItem.productUrl,
           itemMessageContributor: selectedItem.itemMessageContributor,
         },
+      }).then((response) => {
+        console.log(response);
       });
     } catch (err) {
       console.log(err);
@@ -109,6 +113,36 @@ const Item = (item: ItemType) => {
             >
               Edit item
             </label>
+
+            <button
+              className="btn btn-primary"
+              onClick={() => document.getElementById("my_modal_1").showModal()}
+            >
+              Delete
+            </button>
+            <dialog id="my_modal_1" className="modal">
+              <div className="modal-box">
+                <h3 className="font-bold text-lg text-center ">
+                  Are you sure you want to delete this item?
+                </h3>
+                <p className="py-4 text-center">
+                  This action cannot be undone.
+                </p>
+                <div className="modal-action">
+                  <form method="dialog">
+                    {/* if there is a button in form, it will close the modal */}
+                    <button className="btn btn-primary">Close</button>
+                    <button
+                      className="btn btn-primary"
+                      type="button"
+                      onClick={deleteItem}
+                    >
+                      Delete
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </dialog>
 
             <button
               className="btn btn-primary"
