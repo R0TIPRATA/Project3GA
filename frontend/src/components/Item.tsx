@@ -118,11 +118,16 @@ const Item = (item: ItemType) => {
               className="btn btn-primary"
               onClick={() => document.getElementById("my_modal_1").showModal()}
             >
-              Delete
+              Delete item
             </button>
             <dialog id="my_modal_1" className="modal">
               <div className="modal-box">
-                <h3 className="font-bold text-lg text-center ">
+                <form method="dialog">
+                  <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                    ✕
+                  </button>
+                </form>
+                <h3 className="font-bold text-lg text-center">
                   Are you sure you want to delete this item?
                 </h3>
                 <p className="py-4 text-center">
@@ -130,10 +135,9 @@ const Item = (item: ItemType) => {
                 </p>
                 <div className="modal-action">
                   <form method="dialog">
-                    {/* if there is a button in form, it will close the modal */}
-                    <button className="btn btn-primary">Close</button>
+                    {/* not sure how to center the button */}
                     <button
-                      className="btn btn-primary"
+                      className="btn btn-primary justify-center"
                       type="button"
                       onClick={deleteItem}
                     >
@@ -144,13 +148,13 @@ const Item = (item: ItemType) => {
               </div>
             </dialog>
 
-            <button
+            {/* <button
               className="btn btn-primary"
               type="button"
               onClick={deleteItem}
             >
               Delete item
-            </button>
+            </button> */}
           </div>
         </div>
       )}
