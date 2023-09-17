@@ -42,7 +42,7 @@ export const AmountInput = ({
   );
 };
 
-export const UsernameInput = ({ label, name, handleInput }: InputField) => {
+export const UsernameInput = ({ label, name, handleInput, required }: InputField) => {
 	return (
 		<div className="form-control w-full max-w-lg">
 			<label className="label">
@@ -53,13 +53,13 @@ export const UsernameInput = ({ label, name, handleInput }: InputField) => {
 				name={name}
 				className="input input-bordered w-full max-w-lg"
 				onChange={handleInput}
-				required
+				required={required}
 			/>
 		</div>
 	);
 };
 
-export const PasswordInput = ({ label, name, handleInput }: InputField) => {
+export const PasswordInput = ({ label, name, handleInput, required }: InputField) => {
 	return (
 		<div className="form-control w-full max-w-lg">
 			<label className="label">
@@ -70,7 +70,7 @@ export const PasswordInput = ({ label, name, handleInput }: InputField) => {
 				name={name}
 				className="input input-bordered w-full max-w-lg"
 				onChange={handleInput}
-				required
+				required={required}
 			/>
 		</div>
 	);
@@ -108,7 +108,7 @@ export const LongTextInput = ({
   handleInput 
 }: InputField) => {
   return (
-    <div className="form-control">
+    <div className="form-control ">
       <label className="label">
         <span className="label-text">{label} </span>
       </label>
@@ -152,4 +152,22 @@ export const FileUploadInput = ({
     </div>
   );
 };
-//
+
+export const DateInput = ({ label, name, value, required, handleInput }: InputField) => {
+  return (
+    <div className="form-control w-full max-w-xs">
+      <label className="label">
+        <span className="label-text">{label}</span>
+      </label>
+      <input
+        type="date"
+        name={name}
+        className="input input-bordered w-full max-w-xs"
+        onChange={handleInput}
+        value={value}
+        required={required}
+      />
+    </div>
+  );
+};
+
