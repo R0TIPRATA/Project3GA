@@ -11,6 +11,10 @@ const WishlistStatus = () => {
     return parseInt(i.length("days"));
   };
 
+  const getNumItems = () => {
+    if (wishlist.wishlistItems) return wishlist.wishlistItems.length;
+  };
+
   return (
     <div className="w-96 mt-[15px] flex flex-row justify-between">
       {/* <!-- First Rectangle --> */}
@@ -30,7 +34,7 @@ const WishlistStatus = () => {
           ITEMS LEFT
         </div>
         <div className="w-24 h-8 text-right text-black text-xl font-semibold  ml-[70px] mr-[15px] mt-[10px]">
-          2
+          {getNumItems()}
         </div>
         <div className="w-5 h-5 left-[14px] top-[15px] absolute bg-zinc-300 rounded-full" />
       </div>
