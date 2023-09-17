@@ -1,38 +1,35 @@
 const WishlistStatus = () => {
   return (
-    <div className="w-80 ml-40 relative flex flex-row justify-between">
+    <div className="w-96 mt-[15px] flex flex-row justify-between">
       {/* <!-- First Rectangle --> */}
-      <div className="order-1 flex-shrink-0 w-30 h-24 bg-white rounded-2xl">
-        {/* <!-- Content for the first rectangle --> */}
-        <div className="text-right text-black text-sm font-light mr-[15px] mt-[18px]">
+      <div className="order-1 w-[200px] h-24 bg-white rounded-2xl">
+        <div className="text-right text-black text-sm font-light mr-[20px] mt-[18px]">
           DAYS LEFT
         </div>
-        <div className="w-24 h-8 text-right text-black text-xl font-semibold  ml-[145px] mt-[10px]">
+        <div className="w-24 h-8 text-right text-black text-xl font-semibold  ml-[70px] mr-[15px] mt-[10px]">
           30
         </div>
         <div className="w-5 h-5 left-[14px] top-[15px] absolute bg-zinc-300 rounded-full" />
       </div>
 
       {/* <!-- Second Rectangle --> */}
-      <div className="order-2 flex-shrink-0 w-30 h-24 bg-white rounded-2xl">
-        {/* <!-- Content for the second rectangle --> */}
-        <div className="text-right text-black text-sm font-light  mr-[15px] mt-[18px]">
+      <div className="order-2 w-[200px] h-24 bg-white rounded-2xl">
+        <div className="text-right text-black text-sm font-light  mr-[20px] mt-[18px]">
           ITEMS LEFT
         </div>
-        <div className="w-24 h-8 text-right text-black text-xl font-semibold  ml-[142px] mt-[10px]">
+        <div className="w-24 h-8 text-right text-black text-xl font-semibold  ml-[70px] mr-[15px] mt-[10px]">
           2
         </div>
         <div className="w-5 h-5 left-[14px] top-[15px] absolute bg-zinc-300 rounded-full" />
       </div>
 
       {/* <!-- Third Rectangle --> */}
-      <div className="order-3 flex-shrink-0 w-30 h-24 bg-white rounded-2xl">
-        {/* <!-- Content for the third rectangle --> */}
-        <div className="text-right text-black text-sm font-light mr-[15px] mt-[9px]">
+      <div className="order-3 w-[200px] h-24 bg-white rounded-2xl">
+        <div className="text-right text-black text-sm font-light mr-[20px] mt-[9px]">
           TOTAL <br />
           CONTRIBUTION
         </div>
-        <div className=" text-right text-black text-xl font-semibold ml-[142px] mr-[15px] mt-[10px]">
+        <div className=" text-right text-black text-xl font-semibold ml-[70px] mr-[15px] mt-[10px]">
           $120.00
         </div>
         <div className="w-5 h-5 left-[14px] top-[15px] absolute bg-zinc-300 rounded-full" />

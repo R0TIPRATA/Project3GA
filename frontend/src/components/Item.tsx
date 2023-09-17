@@ -3,7 +3,7 @@ import { useWishList } from "./context/WishlistContext";
 import axios from "axios";
 
 const Item = (item: ItemType) => {
-  const { userToken } = useWishList();
+  const { userToken, selectedItem, setSelectedItem } = useWishList();
 
   const calculateProgress = () => {
     return (item.accumulatedAmount / item.price) * 100;
@@ -11,33 +11,25 @@ const Item = (item: ItemType) => {
 
   const hideButtons = item.accumulatedAmount > 0;
 
-  const { selectedItem, setSelectedItem } = useWishList();
-
   const handleClick = () => {
     setSelectedItem(item);
   };
 
+  const showModal = () => {
+    setSelectedItem(item);
+    document.getElementById("my_modal_1").showModal();
+  };
+
   const deleteItem = async () => {
     console.log("item deleted => ", JSON.stringify(selectedItem, null, 2));
-
     try {
       await axios({
         method: "DELETE",
         url: `http://localhost:15432/items/${selectedItem.uuid}`,
         headers: { Authorization: `Bearer ${userToken.token}` },
-        data: {
-          itemName: selectedItem.itemName,
-          accumulatedAmount: selectedItem.accumulatedAmount,
-          itemPicture: selectedItem.itemPicture,
-          category: selectedItem.category,
-          color: selectedItem.color,
-          brand: selectedItem.brand,
-          price: selectedItem.price,
-          productUrl: selectedItem.productUrl,
-          itemMessageContributor: selectedItem.itemMessageContributor,
-        },
       }).then((response) => {
         console.log(response);
+        window.location.reload();
       });
     } catch (err) {
       console.log(err);
@@ -114,10 +106,7 @@ const Item = (item: ItemType) => {
               Edit item
             </label>
 
-            <button
-              className="btn btn-primary"
-              onClick={() => document.getElementById("my_modal_1").showModal()}
-            >
+            <button className="btn btn-primary" onClick={showModal}>
               Delete item
             </button>
             <dialog id="my_modal_1" className="modal">
@@ -131,13 +120,13 @@ const Item = (item: ItemType) => {
                   Are you sure you want to delete this item?
                 </h3>
                 <p className="py-4 text-center">
-                  This action cannot be undone.
+                  This action cannot be reversed.
                 </p>
                 <div className="modal-action">
                   <form method="dialog">
-                    {/* not sure how to center the button */}
+                    {/* not sure how to center the button haha do we need to?*/}
                     <button
-                      className="btn btn-primary justify-center"
+                      className="btn btn-primary"
                       type="button"
                       onClick={deleteItem}
                     >
@@ -148,7 +137,9 @@ const Item = (item: ItemType) => {
               </div>
             </dialog>
 
-            {/* <button
+            {/* shall delete this later
+            
+            <button
               className="btn btn-primary"
               type="button"
               onClick={deleteItem}

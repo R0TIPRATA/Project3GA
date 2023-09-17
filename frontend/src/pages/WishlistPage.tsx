@@ -3,7 +3,6 @@ import AddItemForm from "../components/form/AddItemForm";
 import WishListDetails from "../components/WishListDetails";
 import EditItemForm from "../components/form/EditItemForm";
 import { useRef } from "react";
-import WishlistStatus from "../components/WishlistStatus";
 
 const WishlistPage = () => {
   const drawerRef = useRef({} as HTMLInputElement);
@@ -26,8 +25,6 @@ const WishlistPage = () => {
       <div className="drawer-content">
         <div className="wishlistPage bg-orange-100 flex-col pb-20">
           <WishListDetails />
-          <WishlistStatus />
-
           <main className="parent flex my-10 mx-40 gap-8">
             <div className="col1 w-4/6">
               <Items />
