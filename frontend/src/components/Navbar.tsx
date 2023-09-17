@@ -1,11 +1,14 @@
 // import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useWishList } from "./context/WishlistContext";
 
 const Navbar = () => {
   const { userToken } = useWishList();
+  const navigate = useNavigate();
 
   const logoutHandler = () => {
     localStorage.clear();
+    navigate('/login');
     window.location.reload();
   }
 
