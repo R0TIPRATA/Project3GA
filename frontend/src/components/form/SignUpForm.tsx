@@ -13,8 +13,8 @@ const AddSignUpForm = () => {
   const navigate = useNavigate();
 
   const fieldItems = [
-    { type: "text-input", label: "Username", name: "username" },
-    { type: "password-input", label: "Password", name: "password" },
+    { type: "text-input", label: "Username", name: "username", required: true },
+    { type: "password-input", label: "Password", name: "password", required: true },
   ]
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -68,6 +68,7 @@ const AddSignUpForm = () => {
                 label={item.label}
                 name={item.name}
                 handleInput={handleInput}
+                required={item.required}
               />
             )
           } else if (item.type === "password-input") {
@@ -77,6 +78,7 @@ const AddSignUpForm = () => {
                 label={item.label}
                 name={item.name}
                 handleInput={handleInput}
+                required={item.required}
               />
             )
           }
