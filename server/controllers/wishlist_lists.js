@@ -25,12 +25,14 @@ async function getAll(req, res) {
 
 // Create a new wishlist
 async function create(req, res) {
-	const { listTitle, listMessage, campaignDate } = req.body;
+	const { listTitle, listMessage, campaignDate, username } = req.body;
 	try {
+		const user = await User.findOne({ where: { username } });
 		const wishlist_list = await WishlistList.create({
 			listTitle,
 			listMessage,
-			campaignDate,
+			campaignDate: campaignDate === "" ? undefined : campaignDate,
+			userId: user.id,
 		});
 		return res.json(wishlist_list);
 	} catch (err) {

@@ -28,7 +28,7 @@ export type InputField = {
     label: string
     name: string
     value?: string | number | undefined
-	required: boolean 
+		required: boolean 
     handleInput?: (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => void
     handleFileUpload?: (event: React.ChangeEvent<HTMLInputElement> ) => void
     selectedPicture?: string | null
@@ -67,3 +67,9 @@ export type Token = {
 	username: string | null;
 	token: string | null;
 }
+
+export type WishlistDetails = {
+	listTitle: string;
+	listMessage?: string | undefined;
+	campaignDate?: string;
+};
