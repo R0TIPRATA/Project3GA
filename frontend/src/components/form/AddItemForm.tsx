@@ -35,50 +35,50 @@ const AddItemForm = () => {
       type: "text-input",
       label: "Item Name",
       name: "itemName",
-      value:item.itemName,
-      required: true
+      value: item.itemName,
+      required: true,
     },
     {
       type: "text-input",
       label: "Category",
       name: "category",
-      value:item.category,
-      required: true
+      value: item.category,
+      required: true,
     },
     {
       type: "text-input",
       label: "Brand",
       name: "brand",
-      value:item.brand,
-      required: true
+      value: item.brand,
+      required: true,
     },
     {
       type: "text-input",
       label: "Price",
       name: "price",
-      value:item.price,
-      required: true
+      value: item.price,
+      required: true,
     },
     {
       type: "text-input",
       label: "Color",
       name: "color",
-      value:item.color,
-      required: true
+      value: item.color,
+      required: true,
     },
     {
       type: "long-text-input",
       label: "Message to contributors",
       name: "itemMessageContributor",
-      value:item.itemMessageContributor,
-      required: false
+      value: item.itemMessageContributor,
+      required: false,
     },
     {
       type: "file-upload",
       label: "Upload a picture",
       name: "itemPicture",
-      value:item.itemPicture,
-      required: true
+      value: item.itemPicture,
+      required: true,
     },
   ];
 

@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react"
-import { FileUploadInput, LongTextInput, TextInput } from "./FormComponents"
-import axios from "axios"
-import { Item } from "../../types"
-import { useWishList } from "../context/WishlistContext"
+import { useEffect, useState } from "react";
+import { FileUploadInput, LongTextInput, TextInput } from "./FormComponents";
+import axios from "axios";
+import { Item } from "../../types";
+import { useWishList } from "../context/WishlistContext";
 import { createClient } from "@supabase/supabase-js";
 import { v4 as uuidv4 } from "uuid";
 
@@ -13,13 +13,14 @@ const supabase = createClient(
 );
 
 type EditItemFormProps = {
-  closeDrawer : () => void
-}
+  closeDrawer: () => void;
+};
 
-const EditItemForm = ({closeDrawer}: EditItemFormProps ) => {
-  const { selectedItem, setSelectedItem, userToken, updateItem } = useWishList()
-  const [itemImage, setItemImage] = useState("")
-  const [imageFile, setImageFile] = useState<File>({} as File)
+const EditItemForm = ({ closeDrawer }: EditItemFormProps) => {
+  const { selectedItem, setSelectedItem, userToken, updateItem } =
+    useWishList();
+  const [itemImage, setItemImage] = useState("");
+  const [imageFile, setImageFile] = useState<File>({} as File);
 
   const fieldItems = [
     {
@@ -27,49 +28,49 @@ const EditItemForm = ({closeDrawer}: EditItemFormProps ) => {
       label: "Item Name",
       name: "itemName",
       value: selectedItem.itemName,
-      required: true
+      required: true,
     },
     {
       type: "text-input",
       label: "Category",
       name: "category",
       value: selectedItem.category,
-      required: true
+      required: true,
     },
     {
       type: "text-input",
       label: "Brand",
       name: "brand",
       value: selectedItem.brand,
-      required: true
+      required: true,
     },
     {
       type: "text-input",
       label: "Price",
       name: "price",
       value: selectedItem.price,
-      required: true
+      required: true,
     },
     {
       type: "text-input",
       label: "Color",
       name: "color",
       value: selectedItem.color,
-      required: true
+      required: true,
     },
     {
       type: "long-text-input",
       label: "Message to contributors",
       name: "itemMessageContributor",
       value: selectedItem.itemMessageContributor,
-      required:false
+      required: false,
     },
     {
       type: "file-upload",
       label: "Upload a picture",
       name: "itemPicture",
       value: selectedItem.itemPicture,
-      required: false
+      required: false,
     },
   ];
 
@@ -102,7 +103,7 @@ const EditItemForm = ({closeDrawer}: EditItemFormProps ) => {
       axios({
         method: "PUT",
         url: `http://localhost:15432/items/${selectedItem.uuid}`,
-        headers: {Authorization: `Bearer ${userToken.token}`},
+        headers: { Authorization: `Bearer ${userToken.token}` },
         data: {
           itemName: selectedItem.itemName,
           accumulatedAmount: selectedItem.accumulatedAmount,
@@ -114,18 +115,19 @@ const EditItemForm = ({closeDrawer}: EditItemFormProps ) => {
           productUrl: selectedItem.productUrl,
           itemMessageContributor: selectedItem.itemMessageContributor,
         },
-      }).then((response) => {
-        res = response.data;
-        uploadImage()
       })
-      .then((response) => {
-        console.log(response);
-        updateItem(res)
-      });
+        .then((response) => {
+          res = response.data;
+          uploadImage();
+        })
+        .then((response) => {
+          console.log(response);
+          updateItem(res);
+        });
     } catch (err) {
       console.log(err);
     }
-    closeDrawer()
+    closeDrawer();
   };
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -133,14 +135,15 @@ const EditItemForm = ({closeDrawer}: EditItemFormProps ) => {
       ...prev,
       [event.target.name]: `/wishlistimages/${uuidv4()}`,
     }));
-    setImageFile(event.target.files![0])
-    setItemImage(URL.createObjectURL(event.target.files![0]))
+    setImageFile(event.target.files![0]);
+    setItemImage(URL.createObjectURL(event.target.files![0]));
   };
 
   useEffect(() => {
-    selectedItem.uuid && setItemImage(import.meta.env.VITE_CDN + selectedItem.itemPicture)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[selectedItem.uuid])
+    selectedItem.uuid &&
+      setItemImage(import.meta.env.VITE_CDN + selectedItem.itemPicture);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedItem.uuid]);
 
   return (
     <form className="w-5/6 p-8 rounded-3xl" onSubmit={handleSubmit}>
@@ -187,7 +190,7 @@ const EditItemForm = ({closeDrawer}: EditItemFormProps ) => {
       <label
         htmlFor="my-drawer-2"
         className="btn btn-primary float-right mt-[10px] mr-[6px]drawer-button"
-        onClick={()=>closeDrawer}
+        onClick={() => closeDrawer}
       >
         Cancel
       </label>
