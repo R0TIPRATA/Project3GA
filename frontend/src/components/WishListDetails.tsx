@@ -52,7 +52,7 @@ const WishListDetails = () => {
       { wishlist.campaignDate && //only display if campaign end date is avail
         <div className="data-field flex-col pr-2">
           <label className="text-sm">Campaign ends</label>
-          <p>{wishlist.campaignDate && convertDate(wishlist.campaignDate)}</p>
+          <p>{convertDate(wishlist.campaignDate)}</p>
         </div>
       }
       { wishlist.listMessage && //only display if list msg is avail
