@@ -61,6 +61,20 @@ const EditWishlistForm = ({ closeDrawer }: { closeDrawer: () => void }) => {
         }));
     };
 
+    const dateInputHandle = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
+      if (event.target.value === "") {
+        setSelectedWishlist((prev: Wishlist) => ({
+          ...prev, 
+          [event.target.name]: DateTime.fromISO(currentDate).plus({ days: +180 }).toString().slice(0, 10)
+        }))
+      } else {
+        setSelectedWishlist((prev: Wishlist) => ({
+          ...prev, 
+          [event.target.name]: event.target.value
+        }))
+      }
+    }
+
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         //console.log("item sent => ", JSON.stringify(selectedItem, null, 2));
@@ -72,7 +86,7 @@ const EditWishlistForm = ({ closeDrawer }: { closeDrawer: () => void }) => {
             data: {
               listTitle: selectedWishlist.listTitle,
               listMessage: selectedWishlist.listMessage,
-              campaignDate: selectedWishlist.campaignDate === "" ? DateTime.fromISO(currentDate).plus({ days: +180 }).toString().slice(0, 10) : selectedWishlist.campaignDate,
+              campaignDate: selectedWishlist.campaignDate,
             },
           })
           .then((response) => {
@@ -120,7 +134,7 @@ const EditWishlistForm = ({ closeDrawer }: { closeDrawer: () => void }) => {
                     name={item.name}
                     value={item.value}
                     min={currentDate}
-                    handleInput={handleInput}
+                    handleInput={dateInputHandle}
                     required={item.required}
                   />
                 )
