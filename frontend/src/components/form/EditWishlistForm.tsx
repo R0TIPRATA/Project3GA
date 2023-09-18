@@ -3,10 +3,11 @@ import { Item, Wishlist } from "../../types";
 import { useWishList } from "../context/WishlistContext";
 import { TextInput, LongTextInput, DateInput  } from "./FormComponents";
 import axios from "axios";
+import { DateTime } from "luxon";
 
 const EditWishlistForm = ({ closeDrawer }: { closeDrawer: () => void }) => {
     const {wishlist, setWishlist, userToken} = useWishList()
-
+    const currentDate: string = DateTime.local({ zone: "Asia/Singapore" }).toString().slice(0, 10);
     const defaultWishlist = {
       uuid: "",
       listTitle: "",
@@ -71,7 +72,7 @@ const EditWishlistForm = ({ closeDrawer }: { closeDrawer: () => void }) => {
             data: {
               listTitle: selectedWishlist.listTitle,
               listMessage: selectedWishlist.listMessage,
-              campaignDate: selectedWishlist.campaignDate
+              campaignDate: selectedWishlist.campaignDate === "" ? DateTime.fromISO(currentDate).plus({ days: +180 }).toString().slice(0, 10) : selectedWishlist.campaignDate,
             },
           })
           .then((response) => {
@@ -118,7 +119,7 @@ const EditWishlistForm = ({ closeDrawer }: { closeDrawer: () => void }) => {
                     label={item.label}
                     name={item.name}
                     value={item.value}
-                    min={(new Date).toISOString().slice(0,10)}
+                    min={currentDate}
                     handleInput={handleInput}
                     required={item.required}
                   />
