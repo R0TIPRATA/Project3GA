@@ -28,7 +28,8 @@ export type InputField = {
     label: string
     name: string
     value?: string | number | undefined
-		required: boolean 
+	required: boolean 
+	min?: string
     handleInput?: (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => void
     handleFileUpload?: (event: React.ChangeEvent<HTMLInputElement> ) => void
     selectedPicture?: string | null
@@ -73,3 +74,8 @@ export type WishlistDetails = {
 	listMessage?: string | undefined;
 	campaignDate?: string;
 };
+
+export type DeleteModalProps = {
+    handleToggle: () => void
+    open: boolean
+}

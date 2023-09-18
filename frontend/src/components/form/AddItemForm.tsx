@@ -138,7 +138,7 @@ const AddItemForm = () => {
         })
         .then((response) => {
           console.log(response);
-          addItem(res);
+          setTimeout(()=>addItem(res),500)
           formRef.current.reset();
           setImageFile(null);
         });
@@ -189,11 +189,13 @@ const AddItemForm = () => {
             );
           }
         })}
-        <input
-          type="submit"
-          className="btn btn-primary mt-4"
-          value="Add Item"
-        />
+        <div className="wrapper flex flex-row-reverse">
+          <input
+            type="submit"
+            className="btn btn-primary mt-4"
+            value="Add Item"
+          />
+        </div>
       </div>
     </form>
   );
