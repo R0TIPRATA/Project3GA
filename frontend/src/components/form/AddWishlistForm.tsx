@@ -18,7 +18,7 @@ const AddWishlistForm = ({closeDrawer}: AddWishlistFormProps) => {
 
   const fieldItems = [
     { type: "text-input", label: "Wishlist title", name: "listTitle", required: true },
-    { type: "long-text-input", label: "Message to contributors (optional)", name: "listTitle", required: false },
+    { type: "long-text-input", label: "Message to contributors (optional)", name: "listMessage", required: false },
     { type: "date-input", label: "Date campaign ends (Optional)", name: "campaignDate", required: false }
   ]
 
@@ -32,7 +32,7 @@ const AddWishlistForm = ({closeDrawer}: AddWishlistFormProps) => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log("wishlist details: ", JSON.stringify(wishlistDetails, null, 2));
+    //console.log("wishlist details: ", JSON.stringify(wishlistDetails, null, 2));
     try { 
       axios({
         method: "POST",
@@ -84,6 +84,7 @@ const AddWishlistForm = ({closeDrawer}: AddWishlistFormProps) => {
               key={index}
               label={item.label}
               name={item.name}
+              min={(new Date).toISOString().slice(0,10)}
               handleInput={handleInput}
               required={item.required}
             />)

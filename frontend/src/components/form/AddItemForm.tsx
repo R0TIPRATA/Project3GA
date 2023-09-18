@@ -67,8 +67,15 @@ const AddItemForm = () => {
       required: true,
     },
     {
+      type: "text-input",
+      label: "Product URL (optional)",
+      name: "productUrl",
+      value: item.productUrl,
+      required: false,
+    },
+    {
       type: "long-text-input",
-      label: "Message to contributors",
+      label: "Message to contributors (optional)",
       name: "itemMessageContributor",
       value: item.itemMessageContributor,
       required: false,
@@ -138,7 +145,7 @@ const AddItemForm = () => {
         })
         .then((response) => {
           console.log(response);
-          addItem(res);
+          setTimeout(()=>addItem(res),500)
           formRef.current.reset();
           setImageFile(null);
         });
@@ -189,11 +196,13 @@ const AddItemForm = () => {
             );
           }
         })}
-        <input
-          type="submit"
-          className="btn btn-primary mt-4"
-          value="Add Item"
-        />
+        <div className="wrapper flex flex-row-reverse">
+          <input
+            type="submit"
+            className="btn btn-primary mt-4"
+            value="Add Item"
+          />
+        </div>
       </div>
     </form>
   );

@@ -1,17 +1,15 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import EmptyWishlistPage from "./EmptyWishlistPage";
 import WishlistPage from "./WishlistPage";
 import axios from "axios";
 import Navbar from "../components/Navbar";
-import { Wishlist } from "../types";
 import { useWishList } from "../components/context/WishlistContext";
 // import AddContributorForm from "../components/form/ContributorForm";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-	const [wishlists, setWishlists] = useState<Wishlist[]>([]);
-	//const [wishlist, setWishlist] = useState<Wishlist>(defaultWishlist)
-	const { setWishlist, userToken } = useWishList();
+	//const [wishlists, setWishlists] = useState<Wishlist[]>([]);
+	const {wishlists, setWishlists, setWishlist, userToken } = useWishList();
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -19,8 +17,8 @@ const Home = () => {
 		axios
 			.get(`http://localhost:15432/lists/user/${userToken.username}`, { headers: { Authorization: `Bearer ${userToken.token}` } })
 			.then((response) => {
-				console.log(response.data);
-				setWishlists(response.data);
+				//console.log(response.data)
+				setWishlists(response.data)
 			})
 			.catch((error) => {
 				console.error("Error fetching wish lists:", error);

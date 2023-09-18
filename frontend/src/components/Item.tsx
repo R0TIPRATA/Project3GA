@@ -3,7 +3,7 @@ import { useWishList } from "./context/WishlistContext";
 import axios from "axios";
 
 const Item = (item: ItemType) => {
-  const { userToken, selectedItem, setSelectedItem } = useWishList();
+  const { userToken, selectedItem, setSelectedItem, setEditFormType } = useWishList();
 
   const calculateProgress = () => {
     return (item.accumulatedAmount / item.price) * 100;
@@ -12,7 +12,8 @@ const Item = (item: ItemType) => {
   const hideButtons = item.accumulatedAmount > 0;
 
   const handleClick = () => {
-    setSelectedItem(item);
+    setSelectedItem(item)
+    setEditFormType("item")
   };
 
   const showModal = () => {
@@ -42,7 +43,7 @@ const Item = (item: ItemType) => {
         <div className="item-img flex items-start w-1/4">
           <figure>
             <img
-              className="object-scale-down"
+              className="object-scale-down h-40 w-40"
               src={`${import.meta.env.VITE_CDN}${item.itemPicture}`}
               alt={`${item.itemName}`}
             />
@@ -60,7 +61,7 @@ const Item = (item: ItemType) => {
                 <p>Color: {item.color}</p>
                 {item.productUrl && (
                   <p>
-                    Link to product: <a href={`{item.productUrl}`}>Link</a>
+                    Link to product: <a href={item.productUrl} target="_blank" >Link</a>
                   </p>
                 )}
               </div>
@@ -99,7 +100,7 @@ const Item = (item: ItemType) => {
           <div className="divider divider-vertical p-0"></div>
           <div className="card-actions justify-end">
             <label
-              htmlFor="my-drawer-2"
+              htmlFor="edit-drawer"
               className="btn btn-primary drawer-button"
               onClick={handleClick}
             >

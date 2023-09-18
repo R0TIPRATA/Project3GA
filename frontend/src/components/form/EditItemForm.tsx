@@ -12,13 +12,8 @@ const supabase = createClient(
   `${import.meta.env.VITE_SUPABASE_API_KEY}`
 );
 
-type EditItemFormProps = {
-  closeDrawer: () => void;
-};
-
-const EditItemForm = ({ closeDrawer }: EditItemFormProps) => {
-  const { selectedItem, setSelectedItem, userToken, updateItem } =
-    useWishList();
+const EditItemForm = ({ closeDrawer }: { closeDrawer: () => void }) => {
+  const { selectedItem, setSelectedItem, userToken, updateItem } = useWishList();
   const [itemImage, setItemImage] = useState("");
   const [imageFile, setImageFile] = useState<File>({} as File);
 
@@ -57,6 +52,13 @@ const EditItemForm = ({ closeDrawer }: EditItemFormProps) => {
       name: "color",
       value: selectedItem.color,
       required: true,
+    },
+    {
+      type: "text-input",
+      label: "Product URL (optional)",
+      name: "productUrl",
+      value: selectedItem.productUrl,
+      required: false,
     },
     {
       type: "long-text-input",
@@ -122,7 +124,7 @@ const EditItemForm = ({ closeDrawer }: EditItemFormProps) => {
         })
         .then((response) => {
           console.log(response);
-          updateItem(res);
+          setTimeout(()=>updateItem(res),50)
         });
     } catch (err) {
       console.log(err);
@@ -138,6 +140,7 @@ const EditItemForm = ({ closeDrawer }: EditItemFormProps) => {
     setImageFile(event.target.files![0]);
     setItemImage(URL.createObjectURL(event.target.files![0]));
   };
+
 
   useEffect(() => {
     selectedItem.uuid &&
@@ -188,9 +191,9 @@ const EditItemForm = ({ closeDrawer }: EditItemFormProps) => {
         })}
       </div>
       <label
-        htmlFor="my-drawer-2"
+        htmlFor="edit-drawer"
         className="btn btn-primary float-right mt-[10px] mr-[6px]drawer-button"
-        onClick={() => closeDrawer}
+        onClick={()=>closeDrawer}
       >
         Cancel
       </label>

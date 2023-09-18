@@ -153,7 +153,7 @@ export const FileUploadInput = ({
   );
 };
 
-export const DateInput = ({ label, name, value, required, handleInput }: InputField) => {
+export const DateInput = ({ label, name, value, min, required, handleInput }: InputField) => {
   return (
     <div className="form-control w-full max-w-xs">
       <label className="label">
@@ -165,6 +165,7 @@ export const DateInput = ({ label, name, value, required, handleInput }: InputFi
         className="input input-bordered w-full max-w-xs"
         onChange={handleInput}
         value={value}
+        min={min}
         required={required}
       />
     </div>
