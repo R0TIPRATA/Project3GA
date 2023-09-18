@@ -31,7 +31,7 @@ async function create(req, res) {
 		const wishlist_list = await WishlistList.create({
 			listTitle,
 			listMessage,
-			campaignDate: campaignDate === "" ? undefined : campaignDate,
+			campaignDate,
 			userId: user.id,
 		});
 		return res.json(wishlist_list);
