@@ -61,7 +61,7 @@ const Item = (item: ItemType) => {
                 <p>Color: {item.color}</p>
                 {item.productUrl && (
                   <p>
-                    Link to product: <a href={`{item.productUrl}`}>Link</a>
+                    Link to product: <a href={item.productUrl} target="_blank" >Link</a>
                   </p>
                 )}
               </div>

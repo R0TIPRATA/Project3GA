@@ -67,8 +67,15 @@ const AddItemForm = () => {
       required: true,
     },
     {
+      type: "text-input",
+      label: "Product URL (optional)",
+      name: "productUrl",
+      value: item.productUrl,
+      required: false,
+    },
+    {
       type: "long-text-input",
-      label: "Message to contributors",
+      label: "Message to contributors (optional)",
       name: "itemMessageContributor",
       value: item.itemMessageContributor,
       required: false,

@@ -54,6 +54,13 @@ const EditItemForm = ({ closeDrawer }: { closeDrawer: () => void }) => {
       required: true,
     },
     {
+      type: "text-input",
+      label: "Product URL (optional)",
+      name: "productUrl",
+      value: selectedItem.productUrl,
+      required: false,
+    },
+    {
       type: "long-text-input",
       label: "Message to contributors",
       name: "itemMessageContributor",
