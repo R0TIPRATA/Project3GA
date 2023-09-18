@@ -1,16 +1,17 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faEdit, faTrashCan } from "@fortawesome/free-regular-svg-icons"
-import { useWishList } from "./context/WishlistContext"
-import { DateTime } from "luxon"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faTrashCan } from "@fortawesome/free-regular-svg-icons";
+import { useWishList } from "./context/WishlistContext";
+import { DateTime } from "luxon";
+import WishlistStatus from "./WishlistStatus";
 
 //get wishlist detail
 
 const WishListDetails = () => {
-  const {wishlist} = useWishList()
-  const convertDate = (date:string) => {
-    const dt = DateTime.fromISO(date)
-    return dt.toLocaleString(DateTime.DATE_FULL)
-  }
+  const { wishlist } = useWishList();
+  const convertDate = (date: string) => {
+    const dt = DateTime.fromISO(date);
+    return dt.toLocaleString(DateTime.DATE_FULL);
+  };
 
   return (
     <div className="bg-red-100 w-100 px-12 py-12">
@@ -24,10 +25,10 @@ const WishListDetails = () => {
       <div className="wishlist-title flex items-center">
         <h2>{wishlist.listTitle}</h2>
         <button className="ml-2 py-1 px-2 bg-transparent text-blue-600">
-          <FontAwesomeIcon icon={faEdit}/>
+          <FontAwesomeIcon icon={faEdit} />
         </button>
         <button className="py-1 px-2 bg-transparent text-red-600">
-          <FontAwesomeIcon icon={faTrashCan}/>
+          <FontAwesomeIcon icon={faTrashCan} />
         </button>
       </div>
       <div className="details-container flex">
@@ -40,8 +41,9 @@ const WishListDetails = () => {
           <p>{wishlist.listMessage}</p>
         </div>
       </div>
-      </div>
-  )
-}
+      <WishlistStatus />
+    </div>
+  );
+};
 
-export default WishListDetails
+export default WishListDetails;
