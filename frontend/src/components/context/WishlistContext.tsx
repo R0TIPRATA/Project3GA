@@ -11,6 +11,7 @@ type WishListContext = {
   wishlist: Wishlist
   setWishlist: React.Dispatch<React.SetStateAction<Wishlist>>
   deleteWishlist: (deletedWishlistUUID: string) => void
+  addWishlist: (wishlist: Wishlist) => void
   editFormType: string
   setEditFormType: React.Dispatch<React.SetStateAction<string>>
   addItem: (item: Item) => void
@@ -51,7 +52,10 @@ export function WishlistProvider({ children }: WishlistProviderProps) {
       return list.uuid !== deletedWishlistUUID
     })
     setWishlists(newWishlistArr)
-  }
+  };
+  const addWishlist = (wishlist: Wishlist) => {
+    setWishlists([...wishlists, wishlist]);
+  };
 
 
   //wishlist related
@@ -75,7 +79,7 @@ export function WishlistProvider({ children }: WishlistProviderProps) {
         ...wishlist, 
         wishlistItems: newItemsArr
     })
-  }
+  };
 
   //login related
   const [userToken, setUserToken] = useState<Token>(() => {
@@ -95,6 +99,7 @@ export function WishlistProvider({ children }: WishlistProviderProps) {
         wishlist,
         setWishlist,
         deleteWishlist,
+        addWishlist,
         editFormType,
         setEditFormType,
         //item-related
