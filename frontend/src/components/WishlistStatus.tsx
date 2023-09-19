@@ -5,10 +5,15 @@ const WishlistStatus = () => {
   const { wishlist } = useWishList();
 
   const daysLeft = (date: string) => {
-    const later = DateTime.fromISO(date, {zone: "UTC"});
+    const later = DateTime.fromISO(date, {zone: "UTC"}).set({ hour: 23, minute: 59, second: 59});
     const now = DateTime.local({ zone: "Asia/Singapore" });
     const i = Interval.fromDateTimes(now, later);
-    return parseInt(i.length("days").toString());
+    console.log(i.length("days").toString())
+    if (i.length("days").toString() === "NaN") {
+      return "Ended";
+    } else {
+      return parseInt(i.length("days").toString());
+    }
   };
 
   const getNumItems = () => {
