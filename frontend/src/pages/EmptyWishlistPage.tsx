@@ -21,7 +21,7 @@ const EmptyWishlistPage = () => {
           <div className="drawer-content h-whole bg-orange-100">
             <div className="flex-col text-center my-40">
               <img src={addwishlist_image} alt="addwishlist image" className="h-52 w-60 mx-auto"/>
-              <div className="my-6">You don't have any wishlists yet! Add a wishlist to begin.</div>
+              <div className="my-6">You don't have any wishlists yet! Get started here.</div>
               <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button">Add wishlist</label>
             </div>
           </div>

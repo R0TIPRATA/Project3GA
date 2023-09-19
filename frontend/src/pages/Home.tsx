@@ -22,6 +22,7 @@ const Home = () => {
 			})
 			.catch((error) => {
 				console.error("Error fetching wish lists:", error);
+				localStorage.clear();
 				navigate("/login");
 			});
 			// eslint-disable-next-line react-hooks/exhaustive-deps
