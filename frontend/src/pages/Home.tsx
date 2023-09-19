@@ -22,8 +22,10 @@ const Home = () => {
 			})
 			.catch((error) => {
 				console.error("Error fetching wish lists:", error);
+				localStorage.clear();
 				navigate("/login");
 			});
+			// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [userToken]);
 
 	useEffect(() => {
@@ -38,6 +40,7 @@ const Home = () => {
 					console.error("Error fetching wish lists:", error);
 				});
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [wishlists]);
 
 	return (
