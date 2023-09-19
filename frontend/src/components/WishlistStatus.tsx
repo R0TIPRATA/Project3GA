@@ -5,15 +5,16 @@ const WishlistStatus = () => {
   const { wishlist } = useWishList();
 
   const daysLeft = (date: string) => {
-    const later = DateTime.fromISO(date);
-    const now = DateTime.now();
+    const later = DateTime.fromISO(date, {zone: "UTC"});
+    const now = DateTime.local({ zone: "Asia/Singapore" });
     const i = Interval.fromDateTimes(now, later);
-    return parseInt(i.length("days"));
+    return parseInt(i.length("days").toString());
   };
 
   const getNumItems = () => {
     if (wishlist.wishlistItems) return wishlist.wishlistItems.length;
   };
+
 
   return (
     <div className="w-96 mt-[15px] flex flex-row justify-between">

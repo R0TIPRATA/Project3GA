@@ -3,6 +3,7 @@ import { useState } from "react";
 import { TextInput, LongTextInput, DateInput } from "./FormComponents";
 import axios from "axios";
 import { useWishList } from "../context/WishlistContext";
+import { DateTime } from "luxon";
 
 type AddWishlistFormProps = {
   closeDrawer : () => void
@@ -10,6 +11,7 @@ type AddWishlistFormProps = {
 
 const AddWishlistForm = ({closeDrawer}: AddWishlistFormProps) => {
   const { userToken } = useWishList();
+  const currentDate: string = DateTime.local({ zone: "Asia/Singapore" }).toString().slice(0, 10);
   const [wishlistDetails, setWishlistDetails] = useState<WishlistDetails>({
     listTitle: "",
     listMessage: "",
@@ -41,7 +43,7 @@ const AddWishlistForm = ({closeDrawer}: AddWishlistFormProps) => {
         data: {
           listTitle: wishlistDetails.listTitle,
           listMessage: wishlistDetails.listMessage,
-          campaignDate: wishlistDetails.campaignDate,
+          campaignDate: wishlistDetails.campaignDate === "" ? DateTime.fromISO(currentDate).plus({ days: +180 }).toString().slice(0, 10) : wishlistDetails.campaignDate,
           username: userToken.username
         }
       }).then((response) => {
@@ -84,7 +86,7 @@ const AddWishlistForm = ({closeDrawer}: AddWishlistFormProps) => {
               key={index}
               label={item.label}
               name={item.name}
-              min={(new Date).toISOString().slice(0,10)}
+              min={currentDate}
               handleInput={handleInput}
               required={item.required}
             />)

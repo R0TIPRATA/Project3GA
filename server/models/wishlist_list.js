@@ -1,5 +1,8 @@
 "use strict";
 const { Model } = require("sequelize");
+// Convert new Date to local date (Singapore's timezone)
+// const localdate = new Date(new Date().toLocaleString('en-GB', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'Asia/Singapore' }))
+
 module.exports = (sequelize, DataTypes) => {
 	class WishlistList extends Model {
 		/**
@@ -43,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.DATE,
 				allowNull: true,
 				// If date input is empty, default will be today's Date + 180 days (6 months)
-				defaultValue: new Date().setDate(new Date().getDate() + 180),
+				// defaultValue: new Date(localdate.setDate(localdate.getDate() + 180)).toJSON().slice(0, 10)
 			},
 		},
 		{
