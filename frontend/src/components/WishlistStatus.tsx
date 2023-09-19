@@ -21,39 +21,42 @@ const WishlistStatus = () => {
 
 
   return (
-    <div className="w-96 mt-[15px] flex flex-row justify-between">
+    <div className="w-1/2 mt-[15px] flex flex-row justify-between">
       {/* <!-- First Rectangle --> */}
-      <div className="order-1 w-[200px] h-24 bg-white rounded-2xl">
-        <div className="text-right text-black text-sm font-light mr-[20px] mt-[18px]">
-          DAYS LEFT
+      <div className="w-[200px] h-24 bg-white rounded-2xl">
+        <div className="flex-col">
+          <div className="col-1 w-5 h-5 relative left-[14px] top-[15px] absolute bg-zinc-300 rounded-full" />
+          <div className="col-2">
+            <div className="text-right text-black text-sm font-light mr-[20px] mt-[18px]">
+              DAYS LEFT
+            </div>
+            <div className="w-24 h-8 text-right text-black text-xl font-semibold  ml-[70px] mr-[20px] mt-[10px]">
+              {daysLeft(wishlist.campaignDate)}
+            </div>
+          </div>
         </div>
-        <div className="w-24 h-8 text-right text-black text-xl font-semibold  ml-[70px] mr-[15px] mt-[10px]">
-          {daysLeft(wishlist.campaignDate)}
-        </div>
-        <div className="w-5 h-5 left-[14px] top-[15px] absolute bg-zinc-300 rounded-full" />
       </div>
 
       {/* <!-- Second Rectangle --> */}
-      <div className="order-2 w-[200px] h-24 bg-white rounded-2xl">
+      <div className="w-[200px] h-24 bg-white rounded-2xl">
+        <div className="w-5 h-5 relative left-[14px] top-[15px] absolute bg-zinc-300 rounded-full" />
         <div className="text-right text-black text-sm font-light  mr-[20px] mt-[18px]">
           ITEMS LEFT
         </div>
-        <div className="w-24 h-8 text-right text-black text-xl font-semibold  ml-[70px] mr-[15px] mt-[10px]">
+        <div className="w-24 h-8 text-right text-black text-xl font-semibold  ml-[70px] mr-[20px] mt-[10px]">
           {getNumItems()}
         </div>
-        <div className="w-5 h-5 left-[14px] top-[15px] absolute bg-zinc-300 rounded-full" />
       </div>
 
       {/* <!-- Third Rectangle --> */}
-      <div className="order-3 w-[200px] h-24 bg-white rounded-2xl">
-        <div className="text-right text-black text-sm font-light mr-[20px] mt-[9px]">
-          TOTAL <br />
-          CONTRIBUTION
+      <div className="w-[250px] h-24 bg-white rounded-2xl">
+        <div className="w-5 h-5 relative left-[14px] top-[15px] absolute bg-zinc-300 rounded-full" />
+        <div className="text-right text-black text-sm font-light mr-[20px] mt-[18px]">
+          TOTAL CONTRIBUTION
         </div>
-        <div className=" text-right text-black text-xl font-semibold ml-[70px] mr-[15px] mt-[10px]">
+        <div className=" text-right text-black text-xl font-semibold ml-[70px] mr-[20px] mt-[10px]">
           $120.00
         </div>
-        <div className="w-5 h-5 left-[14px] top-[15px] absolute bg-zinc-300 rounded-full" />
       </div>
     </div>
   );
