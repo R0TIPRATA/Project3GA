@@ -3,9 +3,10 @@ import { DeleteModalProps, Wishlist } from "../../types";
 import { useWishList } from "../context/WishlistContext";
 
 const DeleteItemModal = ({ handleToggle, open }: DeleteModalProps) => {
-  const { userToken, selectedItem, setSelectedItem } = useWishList();
+  const { userToken, selectedItem, setSelectedItem, deleteItem, setWishlist } =
+    useWishList();
 
-  const deleteItem = async () => {
+  const handleClick = async () => {
     console.log("item deleted => ", JSON.stringify(selectedItem, null, 2));
     try {
       await axios({
@@ -13,24 +14,8 @@ const DeleteItemModal = ({ handleToggle, open }: DeleteModalProps) => {
         url: `http://localhost:15432/items/${selectedItem.uuid}`,
         headers: { Authorization: `Bearer ${userToken.token}` },
       }).then((response) => {
-        console.log(response);
-        window.location.reload();
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const handleClick = () => {
-    try {
-      axios({
-        method: "DELETE",
-        url: `http://localhost:15432/lists/${wishlist.uuid}`,
-        headers: { Authorization: `Bearer ${userToken.token}` },
-      }).then((response) => {
         console.log(response.data);
-        deleteWishlist(wishlist.uuid);
-        setWishlist({} as Wishlist);
+        deleteItem(selectedItem.uuid);
       });
     } catch (err) {
       console.log(err);
@@ -46,9 +31,9 @@ const DeleteItemModal = ({ handleToggle, open }: DeleteModalProps) => {
       onClose={handleToggle}
     >
       <div className="modal-box">
-        <h3 className="font-bold text-lg">Delete wishlist</h3>
+        <h3 className="font-bold text-lg">Delete item</h3>
         <p className="py-4">
-          Are you sure you want to delete this wishlist? This action cannot be
+          Are you sure you want to delete this item? This action cannot be
           reversed.
         </p>
         <div className="btn-wrapper float-right">
