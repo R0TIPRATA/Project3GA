@@ -102,7 +102,7 @@ const EditWishlistForm = ({ closeDrawer }: { closeDrawer: () => void }) => {
     return (
         <form className="w-5/6 p-8 rounded-3xl" onSubmit={handleSubmit}> 
           <div>
-            <h3>Edit item</h3>
+            <h3 className="mb-4">Edit wishlist</h3>
             {fieldItems.map((item, index) => {
               if (item.type === "text-input") {
                 return (
