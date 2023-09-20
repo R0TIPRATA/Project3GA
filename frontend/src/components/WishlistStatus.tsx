@@ -3,6 +3,7 @@ import { DateTime, Interval } from "luxon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDollarSign, faGift } from "@fortawesome/free-solid-svg-icons";
 import { faCalendar } from "@fortawesome/free-regular-svg-icons";
+import { useEffect } from "react";
 
 const WishlistStatus = () => {
   const { wishlist } = useWishList();
@@ -22,8 +23,21 @@ const WishlistStatus = () => {
     }
   };
 
+  useEffect(() => {
+    getNumItems();
+  }, [wishlist]);
+
+  // getting no. of incomplete items
   const getNumItems = () => {
-    if (wishlist.wishlistItems) return wishlist.wishlistItems.length;
+    if (wishlist && wishlist.wishlistItems) {
+      const incomplete = wishlist.wishlistItems.filter((item) => {
+        return item.accumulatedAmount !== item.price;
+      });
+      return incomplete.length;
+    } else {
+      // Handle the case when wishlist or wishlist.wishlistItems is not defined
+      return 0; // or another appropriate value
+    }
   };
 
   return (

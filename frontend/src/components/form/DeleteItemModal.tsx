@@ -1,5 +1,5 @@
 import axios from "axios";
-import { DeleteModalProps, Wishlist } from "../../types";
+import { DeleteModalProps } from "../../types";
 import { useWishList } from "../context/WishlistContext";
 
 const DeleteItemModal = ({ handleToggle, open }: DeleteModalProps) => {

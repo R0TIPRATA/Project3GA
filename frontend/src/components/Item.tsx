@@ -24,27 +24,6 @@ const Item = (item: ItemType) => {
     setEditFormType("item");
   };
 
-  // const showModal = () => {
-  //   setSelectedItem(item);
-  //   document.getElementById("my_modal_1").showModal();
-  // };
-
-  // const deleteItem = async () => {
-  //   console.log("item deleted => ", JSON.stringify(selectedItem, null, 2));
-  //   try {
-  //     await axios({
-  //       method: "DELETE",
-  //       url: `http://localhost:15432/items/${selectedItem.uuid}`,
-  //       headers: { Authorization: `Bearer ${userToken.token}` },
-  //     }).then((response) => {
-  //       console.log(response);
-  //       window.location.reload();
-  //     });
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
   return (
     <div className="card-body text-left bg-base-100 shadow-sm rounded-3xl border border-slate-500">
       <div className="card-top flex gap-4 justify-between">
@@ -126,9 +105,6 @@ const Item = (item: ItemType) => {
               Delete item
             </label>
 
-            {/* <button className="btn btn-primary" onClick={showModal}>
-              Delete item
-            </button> */}
             <DeleteItemModal handleToggle={handleToggle} open={open} />
           </div>
         </div>
