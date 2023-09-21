@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
-import AddPaymentForm from "./PaymentForm";
+import AddContributionForm from "./ContributionForm";
 import { ClientSecret } from "../../types";
 
 const initStripe = async () => {
-	const res = await axios.get("http://localhost:15432/payments");
+	const res = await axios.get("http://localhost:15432/contributions");
 	console.log("key => "  +  res )
 	const publishableKey = await res.data;
 	return loadStripe(publishableKey);
@@ -28,7 +28,7 @@ const AddContributorForm = () => {
 			try {
 				axios({
 					method: "POST",
-					url: "http://localhost:15432/payments/createpayment",
+					url: "http://localhost:15432/contributions/createstripepayment",
 					data: {
 						amount: 50,
 					},
@@ -66,7 +66,7 @@ const AddContributorForm = () => {
 							appearance: { theme: "stripe" },
 						}}
 					>
-						<AddPaymentForm clientSecretSettings={clientSecretSettings} />
+						<AddContributionForm clientSecretSettings={clientSecretSettings} />
 					</Elements>
 				)}
 			</div>
