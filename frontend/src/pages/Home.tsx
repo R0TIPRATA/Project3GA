@@ -6,6 +6,7 @@ import Navbar from "../components/Navbar";
 import { useWishList } from "../components/context/WishlistContext";
  import AddContributorForm from "../components/form/ContributorForm";
 import { useNavigate } from "react-router-dom";
+import Guestbook from "../components/Guestbook";
 
 const Home = () => {
 	//const [wishlists, setWishlists] = useState<Wishlist[]>([]);
@@ -15,7 +16,7 @@ const Home = () => {
 	useEffect(() => {
 		// Fetch wishlist when the component mounts
 		axios
-			.get(`http://localhost:15432/lists/user/${userToken.username}`, { headers: { Authorization: `Bearer ${userToken.token}` } })
+			.get(`http://localhost:15432/lists/user/${userToken.username}`,)
 			.then((response) => {
 				//console.log(response.data)
 				setWishlists(response.data)
@@ -48,6 +49,7 @@ const Home = () => {
 			<Navbar />
 			{wishlists.length > 0 ? <WishlistPage /> : <EmptyWishlistPage />}
 			<AddContributorForm />
+			<Guestbook />
 		</>
 	);
 };
