@@ -7,7 +7,6 @@ import { useWishList } from "./context/WishlistContext";
 import axios from "axios";
 import { DateTime } from "luxon";
 
-//else display messages
 const Guestbook = () => {
   const { userToken } = useWishList();
 
@@ -87,16 +86,17 @@ const Guestbook = () => {
     // const arr = messagesList.slice(minNum, minNum+5)
     const messagesToDisplay = messages.slice(0, minNum).map((item: Message) => {
       if (item.message)
-        return (
-          <Message
-            createdAt={item.createdAt}
-            contributorName={item.contributor.name}
-            message={item.message}
-          />
-        );
-    });
-    return messagesToDisplay;
-  };
+      return (
+    <Message
+    key={index}
+    createdAt={item.createdAt}
+    contributorName={item.contributor.name}
+    message={item.message}
+    />
+    );
+  });
+  return messagesToDisplay;
+};
 
   const filterEmptyMessages = (allMessages: Message[]) => {
     const nonEmptyMessages = allMessages.filter((item) => {
