@@ -5,5 +5,6 @@ const messagesCtrl = require("../controllers/messages");
 router.get("/", messagesCtrl.getAll);
 // Create a message by specific contributors
 // router.post("/:contributorUuid", messagesCtrl.create);
+router.get("/:listUuid", messagesCtrl.getAllByListUuid)
 
 module.exports = router;
