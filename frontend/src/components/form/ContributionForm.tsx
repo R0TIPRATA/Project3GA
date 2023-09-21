@@ -6,15 +6,15 @@ import {
 	PaymentElement,
 } from "@stripe/react-stripe-js";
 import { TextInput, LongTextInput, AmountInput } from "./FormComponents";
-import { ClientSecret, Contributor } from "../../types";
+import { ClientSecret, ContributorInput } from "../../types";
 import { useWishList } from "../context/WishlistContext";
 
-const AddPaymentForm = ({
+const AddContributionForm = ({
 	clientSecretSettings,
 }: {
 	clientSecretSettings: ClientSecret;
 }) => {
-	const { wishlist } = useWishList();
+	const { selectedItem } = useWishList();
 	const stripe = useStripe();
 	const elements = useElements();
 	const [amount, setAmount] = useState<number>(50);
@@ -27,7 +27,7 @@ const AddPaymentForm = ({
 		{ type: "text-input", label: "Amount", name: "amount", required:true },
 	];
 
-	const [contributor, setContributor] = useState<Contributor>({
+	const [contributor, setContributor] = useState<ContributorInput>({
 		name: "",
 		email: "",
 		message: "",
@@ -40,7 +40,7 @@ const AddPaymentForm = ({
 			try {
 				axios({
 					method: "PUT",
-					url: "http://localhost:15432/payments/updatepayment",
+					url: "http://localhost:15432/contributions/updatestripepayment",
 					data: {
 						payment_id: clientSecretSettings.paymentId,
 						amount: amount,
@@ -58,7 +58,7 @@ const AddPaymentForm = ({
 			| React.ChangeEvent<HTMLTextAreaElement>
 	) => {
 		console.log("test: ", event.target.value);
-		setContributor((prev: Contributor) => ({
+		setContributor((prev: ContributorInput) => ({
 			...prev,
 			[event.target.name]: event.target.value,
 		}));
@@ -94,11 +94,12 @@ const AddPaymentForm = ({
 		try {
 			axios({
 				method: "POST",
-				url: `http://localhost:15432/contributors/${wishlist.uuid}`,
+				url: `http://localhost:15432/contributors/addcontribution/${selectedItem.uuid}`,
 				data: {
 					name: contributor.name,
 					email: contributor.email,
 					message: contributor.message,
+					amount: amount,
 				},
 			}).then((response) => {
 				console.log(response.status);
@@ -200,11 +201,11 @@ const AddPaymentForm = ({
 					className="btn btn-primary drawer-button mt-4"
 					disabled={!stripe}
 				>
-					Make payment
+					Make Contribution
 				</button>
 			</div>
 		</form>
 	);
 };
 
-export default AddPaymentForm;
+export default AddContributionForm;
