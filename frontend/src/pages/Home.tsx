@@ -5,6 +5,7 @@ import axios from "axios";
 import Navbar from "../components/Navbar";
 import { useWishList } from "../components/context/WishlistContext";
  import AddContributorForm from "../components/form/ContributorForm";
+ import AddContributorForm from "../components/form/ContributorForm";
 import { useNavigate } from "react-router-dom";
 import Guestbook from "../components/Guestbook";
 
@@ -51,7 +52,6 @@ const Home = () => {
 			<Navbar />
 			{wishlists.length > 0 ? <WishlistPage /> : <EmptyWishlistPage />}
 			<AddContributorForm />
-			<Guestbook />
 		</>
 	);
 };

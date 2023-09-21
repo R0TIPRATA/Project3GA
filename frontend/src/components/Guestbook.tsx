@@ -1,16 +1,16 @@
+//fetch messages from contributors
+//if there are no messages, display empty state
 import guestbookImg from "../assets/guestbook_placeholder.png";
 import { useEffect, useState } from "react";
 import { Message } from "../types";
 import { useWishList } from "./context/WishlistContext";
 import axios from "axios";
 import { DateTime } from "luxon";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+//else display messages
 const Guestbook = () => {
-  const { wishlist } = useWishList();
-  const NUM_DISPLAY = 3; //min number of messages to display 
-  const [minNum, setMinNum] = useState(NUM_DISPLAY); 
+  const { userToken } = useWishList();
+
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "",
@@ -30,6 +30,7 @@ const Guestbook = () => {
     },
   ]);
 
+  const NUM_DISPLAY = 3;
 
   const EmptyState = () => {
     return (
@@ -47,85 +48,89 @@ const Guestbook = () => {
     );
   };
 
-  
+  const Message = ({
+    createdAt,
+    contributorName,
+    message,
+  }: {
+    createdAt: string;
+    contributorName: string;
+    message: string;
+  }) => {
+    return (
+      <div className="flex flex-col">
+        <div className="flex gap-2 ">
+          <div className="contributor-img rounded-full w-4 bg-slate-300 "></div>
+          <div className="flex flex-col ">
+            <p className="text-sm">{convertDate(createdAt)}</p>
+            <p className="font-bold">{contributorName}</p>
+            <p>{message}</p>
+          </div>
+        </div>
+        <div className="divider mb-0"></div>
+      </div>
+    );
+  };
+
   const convertDate = (date: string) => {
     const dt = DateTime.fromISO(date);
     return dt.toLocaleString(DateTime.DATE_FULL);
   };
-  
-  
+
+  //only show the first five
+  //show more shows all the others
+  //hides displays first five
+
+  const [minNum, setMinNum] = useState(NUM_DISPLAY);
+
   const displayMessages = () => {
-    const messagesToDisplay = messages.slice(0, minNum).map((item: Message, index: number) => {
+    // const arr = messagesList.slice(minNum, minNum+5)
+    const messagesToDisplay = messages.slice(0, minNum).map((item: Message) => {
       if (item.message)
-      return (
-    <Message
-    key={index}
-    createdAt={item.createdAt}
-    contributorName={item.contributor.name}
-    message={item.message}
-    />
-    );
-  });
-  return messagesToDisplay;
-};
+        return (
+          <Message
+            createdAt={item.createdAt}
+            contributorName={item.contributor.name}
+            message={item.message}
+          />
+        );
+    });
+    return messagesToDisplay;
+  };
 
-const filterEmptyMessages = (allMessages: Message[]) => {
-  const nonEmptyMessages = allMessages.filter((item) => {
-    return item.message !== "";
-  });
-  return nonEmptyMessages;
-};
+  const filterEmptyMessages = (allMessages: Message[]) => {
+    const nonEmptyMessages = allMessages.filter((item) => {
+      return item.message !== "";
+    });
+    return nonEmptyMessages;
+  };
 
-const showMore = () => {
-  setMinNum(messages.length);
-};
+  const showMore = () => {
+    setMinNum(messages.length);
+  };
 
-const showLess = () => {
-  setMinNum(NUM_DISPLAY);
-};
-
-const Message = ({
-  createdAt,
-  contributorName,
-  message,
-}: {
-  createdAt: string;
-  contributorName: string;
-  message: string;
-}) => {
-  return (
-    <>
-      <div className="flex gap-2 py-4">
-        <div>
-          <div className="contributor-img w-8 h-8 rounded-full flex justify-center items-center bg-orange-200 opacity-60 text-center">
-            <FontAwesomeIcon icon={faHeart} className="text-yellow-700 opacity-60"/>
-          </div>
-        </div>
-        <div className="flex flex-col ">
-          <p className="text-sm">{convertDate(createdAt)}</p>
-          <p className="font-bold">{contributorName}</p>
-          <p>{message}</p>
-        </div>
-      </div>
-      <div className="divider m-0"></div>
-    </>
-  );
-};
+  const showLess = () => {
+    setMinNum(NUM_DISPLAY);
+  };
 
   useEffect(() => {
     axios
-      .get(`http://localhost:15432/messages/${wishlist.uuid}`)
+      .get(`http://localhost:15432/messages`, {
+        headers: {
+          Authorization: `Bearer ${userToken.token}`,
+        },
+      })
       .then((response) => {
         setMessages(filterEmptyMessages(response.data));
       })
       .catch((error) => {
         console.error("Error fetching wish lists:", error);
       });
-  }, [wishlist]);
+  }, [userToken]);
 
   return (
     <div>
-      <div className="bg-slate-50 p-8 rounded-3xl flex flex-col gap-4">
+      <div className="bg-slate-50 p-8 rounded-3xl flex flex-col gap-8">
         <h3>Guestbook</h3>
         {messages.length > 0 ? (
           <div>

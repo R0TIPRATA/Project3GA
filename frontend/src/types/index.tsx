@@ -63,12 +63,6 @@ export type Contributor = {
 	message?: string
 };
 
-export type ContributorInput = {
-	name: string
-	email: string
-	message?: string
-};
-
 export type Message = {
 	id: string
 	uuid: string
