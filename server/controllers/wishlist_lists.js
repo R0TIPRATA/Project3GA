@@ -73,6 +73,7 @@ async function getOneList(req, res) {
 		const list = await WishlistList.findOne({
 			where: { uuid },
 			include: ["wishlistItems", "contributors"],
+			order: [["wishlistItems", "createdAt", "ASC"]]
 		});
 		return res.json(list);
 	} catch (err) {
