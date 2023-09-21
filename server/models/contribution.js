@@ -12,8 +12,8 @@ module.exports = (sequelize, DataTypes) => {
     static associate({ WishlistItem, Contributor }) {
       // define association here
       this.belongsTo(WishlistItem, {
-        foreignKey: "wishlistId", 
-        as: "wishlist",
+        foreignKey: "wishlistItemId", 
+        as: "wishlistItem",
       })
       this.belongsTo(Contributor, {
         foreignKey: "contributorId",
@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
     contributorId: DataTypes.INTEGER
   }, {
     sequelize,
-    tableName: "contribution",
+    tableName: "contributions",
     modelName: 'Contribution',
   });
   return Contribution;
