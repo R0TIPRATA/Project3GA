@@ -8,7 +8,7 @@ const listsCtrl = require("../controllers/wishlist_lists");
 // Create a new wishlist
 router.post("/", isUserAuthenticated, listsCtrl.create);
 // Get all user's wishlists in db
-router.get("/user/:username", isUserAuthenticated, listsCtrl.getAll);
+router.get("/user/:username", listsCtrl.getAll);
 // Delete a wishlist from db
 router.delete("/:listUuid", isUserAuthenticated,listsCtrl.delete);
 // Get one wishlist with all items in it from db
