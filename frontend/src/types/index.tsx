@@ -1,5 +1,3 @@
-import DeleteItemModal from "../components/form/DeleteItemModal";
-
 export type Wishlist = {
   uuid: string;
   listTitle: string;
