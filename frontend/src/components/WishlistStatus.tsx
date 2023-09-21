@@ -23,11 +23,7 @@ const WishlistStatus = () => {
     }
   };
 
-  useEffect(() => {
-    getNumItems();
-  }, [wishlist]);
-
-  // getting no. of incomplete items
+  // No. of incomplete items
   const getNumItems = () => {
     if (wishlist && wishlist.wishlistItems) {
       const incomplete = wishlist.wishlistItems.filter((item) => {
@@ -37,6 +33,17 @@ const WishlistStatus = () => {
     } else {
       // Handle the case when wishlist or wishlist.wishlistItems is not defined
       return 0; // or another appropriate value
+    }
+  };
+
+  // Sum of contributions
+  const totalGifted = () => {
+    if (wishlist && wishlist.wishlistItems) {
+      let totalValue = 0;
+      wishlist.wishlistItems.filter((item) => {
+        return (totalValue += item.accumulatedAmount);
+      });
+      return totalValue;
     }
   };
 
@@ -82,7 +89,7 @@ const WishlistStatus = () => {
             TOTAL GIFTED
           </div>
           <div className=" text-right text-black text-xl font-semibold">
-            $120.00
+            {totalGifted()}
           </div>
         </div>
       </div>
