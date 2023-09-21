@@ -7,7 +7,6 @@ import { DateTime } from "luxon";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-//else display messages
 const Guestbook = () => {
   const { wishlist } = useWishList();
   const NUM_DISPLAY = 3; //min number of messages to display 
@@ -56,12 +55,12 @@ const Guestbook = () => {
     const messagesToDisplay = messages.slice(0, minNum).map((item: Message, index: number) => {
       if (item.message)
       return (
-        <Message
-          key={index}
-          createdAt={item.createdAt}
-          contributorName={item.contributor.name}
-          message={item.message}
-        />
+    <Message
+    key={index}
+    createdAt={item.createdAt}
+    contributorName={item.contributor.name}
+    message={item.message}
+    />
     );
   });
   return messagesToDisplay;
