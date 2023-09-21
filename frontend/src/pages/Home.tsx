@@ -15,6 +15,7 @@ const Home = () => {
 
 	useEffect(() => {
 		// Fetch wishlist when the component mounts
+		if (userToken.username) {
 		axios
 			.get(`http://localhost:15432/lists/user/${userToken.username}`,)
 			.then((response) => {
@@ -23,9 +24,8 @@ const Home = () => {
 			})
 			.catch((error) => {
 				console.error("Error fetching wish lists:", error);
-				localStorage.clear();
-				navigate("/login");
 			});
+		}
 			// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [userToken]);
 
@@ -39,6 +39,8 @@ const Home = () => {
 				})
 				.catch((error) => {
 					console.error("Error fetching wish lists:", error);
+					localStorage.clear();
+					navigate("/login");
 				});
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
