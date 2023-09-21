@@ -1,5 +1,3 @@
-//fetch messages from contributors
-//if there are no messages, display empty state
 import guestbookImg from "../assets/guestbook_placeholder.png";
 import { useEffect, useState } from "react";
 import { Message } from "../types";
@@ -9,7 +7,6 @@ import { DateTime } from "luxon";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-//else display messages
 const Guestbook = () => {
   const { userToken } = useWishList();
   const NUM_DISPLAY = 3; //min number of messages to display 
@@ -58,11 +55,11 @@ const Guestbook = () => {
   
   
   const displayMessages = () => {
-    // const arr = messagesList.slice(minNum, minNum+5)
-    const messagesToDisplay = messages.slice(0, minNum).map((item: Message) => {
+    const messagesToDisplay = messages.slice(0, minNum).map((item: Message, index: number) => {
       if (item.message)
       return (
     <Message
+    key={index}
     createdAt={item.createdAt}
     contributorName={item.contributor.name}
     message={item.message}
