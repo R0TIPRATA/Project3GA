@@ -4,7 +4,7 @@ import WishlistPage from "./WishlistPage";
 import axios from "axios";
 import Navbar from "../components/Navbar";
 import { useWishList } from "../components/context/WishlistContext";
-// import AddContributorForm from "../components/form/ContributorForm";
+ import AddContributorForm from "../components/form/ContributorForm";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
@@ -47,7 +47,7 @@ const Home = () => {
 		<>
 			<Navbar />
 			{wishlists.length > 0 ? <WishlistPage /> : <EmptyWishlistPage />}
-			{/* <AddContributorForm /> */}
+			<AddContributorForm />
 		</>
 	);
 };

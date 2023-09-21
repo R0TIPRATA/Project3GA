@@ -58,10 +58,30 @@ export type ClientSecret = {
 };
 
 export type Contributor = {
+<<<<<<< HEAD
   name: string;
   email: string;
   message: string | undefined;
+=======
+	uuid: string
+	name: string
+	email: string
+	createdAt: string
+	updatedAt: string
+	wishlistId: string
+	message?: string
+>>>>>>> e3a23f8 (added guestbook feature)
 };
+
+export type Message = {
+	id: string
+	uuid: string
+	message: string
+	createdAt: string
+	updatedAt: string
+	contributorId: string
+	contributor: Contributor
+}
 
 export type User = {
   username: string;
