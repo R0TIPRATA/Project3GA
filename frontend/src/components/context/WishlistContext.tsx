@@ -6,20 +6,21 @@ type WishlistProviderProps = {
 };
 
 type WishListContext = {
-  wishlists: Wishlist[]
-  setWishlists: React.Dispatch<React.SetStateAction<Wishlist[]>>
-  wishlist: Wishlist
-  setWishlist: React.Dispatch<React.SetStateAction<Wishlist>>
-  deleteWishlist: (deletedWishlistUUID: string) => void
-  addWishlist: (wishlist: Wishlist) => void
-  editFormType: string
-  setEditFormType: React.Dispatch<React.SetStateAction<string>>
-  addItem: (item: Item) => void
-  updateItem: (item: Item) => void
-  userToken: Token
-  setUserToken: React.Dispatch<React.SetStateAction<Token>>
-  selectedItem: Item
-  setSelectedItem: React.Dispatch<React.SetStateAction<Item>>
+  wishlists: Wishlist[];
+  setWishlists: React.Dispatch<React.SetStateAction<Wishlist[]>>;
+  wishlist: Wishlist;
+  setWishlist: React.Dispatch<React.SetStateAction<Wishlist>>;
+  deleteWishlist: (deletedWishlistUUID: string) => void;
+  addWishlist: (wishlist: Wishlist) => void;
+  editFormType: string;
+  setEditFormType: React.Dispatch<React.SetStateAction<string>>;
+  addItem: (item: Item) => void;
+  updateItem: (item: Item) => void;
+  deleteItem: (deletedItemUUID: string) => void;
+  userToken: Token;
+  setUserToken: React.Dispatch<React.SetStateAction<Token>>;
+  selectedItem: Item;
+  setSelectedItem: React.Dispatch<React.SetStateAction<Item>>;
 };
 
 const WishlistContext = createContext({} as WishListContext);
@@ -38,7 +39,6 @@ const defaultItem = {
   itemMessageContributor: "",
 };
 
-
 // eslint-disable-next-line react-refresh/only-export-components
 export const useWishList = () => {
   return useContext(WishlistContext);
@@ -47,20 +47,20 @@ export const useWishList = () => {
 export function WishlistProvider({ children }: WishlistProviderProps) {
   //wishlists array (multiple)
   const [wishlists, setWishlists] = useState<Wishlist[]>([{} as Wishlist]);
-  const deleteWishlist = (deletedWishlistUUID: string)  => {
-    const newWishlistArr = wishlists.filter(list => { 
-      return list.uuid !== deletedWishlistUUID
-    })
-    setWishlists(newWishlistArr)
+
+  const deleteWishlist = (deletedWishlistUUID: string) => {
+    const newWishlistArr = wishlists.filter((list) => {
+      return list.uuid !== deletedWishlistUUID;
+    });
+    setWishlists(newWishlistArr);
   };
   const addWishlist = (wishlist: Wishlist) => {
     setWishlists([...wishlists, wishlist]);
   };
 
-
   //wishlist related
   const [wishlist, setWishlist] = useState<Wishlist>({} as Wishlist);
-  const [editFormType, setEditFormType] = useState("")
+  const [editFormType, setEditFormType] = useState("");
 
   //item related
   const [selectedItem, setSelectedItem] = useState<Item>(defaultItem);
@@ -71,14 +71,24 @@ export function WishlistProvider({ children }: WishlistProviderProps) {
     });
   };
 
-  const updateItem = (newItem:Item) => {
-    const newItemsArr = wishlist.wishlistItems.map( (wishlistItem:Item) => { 
-        return wishlistItem.uuid === newItem.uuid ? newItem : wishlistItem
-    })
+  const updateItem = (newItem: Item) => {
+    const newItemsArr = wishlist.wishlistItems.map((wishlistItem: Item) => {
+      return wishlistItem.uuid === newItem.uuid ? newItem : wishlistItem;
+    });
     setWishlist({
-        ...wishlist, 
-        wishlistItems: newItemsArr
-    })
+      ...wishlist,
+      wishlistItems: newItemsArr,
+    });
+  };
+
+  const deleteItem = (selectedItemUUID: string) => {
+    const newItemsArr = wishlist.wishlistItems.filter((list) => {
+      return list.uuid !== selectedItemUUID;
+    });
+    setWishlist({
+      ...wishlist,
+      wishlistItems: newItemsArr,
+    });
   };
 
   //login related
@@ -107,6 +117,7 @@ export function WishlistProvider({ children }: WishlistProviderProps) {
         setSelectedItem,
         addItem,
         updateItem,
+        deleteItem,
         //login-related
         userToken,
         setUserToken,

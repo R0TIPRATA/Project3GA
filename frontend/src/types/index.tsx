@@ -1,27 +1,27 @@
 export type Wishlist = {
-	uuid: string;
-	listTitle: string;
-	listMessage: string | undefined;
-	campaignDate: string;
-	createdAt: string;
-	updatedAt: string;
-	wishlistItems: Item[];
+  uuid: string;
+  listTitle: string;
+  listMessage: string | undefined;
+  campaignDate: string;
+  createdAt: string;
+  updatedAt: string;
+  wishlistItems: Item[];
 };
 
 export type Item = {
-	uuid?: string;
-	itemStatus: boolean;
-	accumulatedAmount: number;
-	itemName: string;
-	itemPicture: string;
-	category: string;
-	brand: string;
-	price: number;
-	color: string;
-	productUrl: string | undefined;
-	itemMessageContributor: string | undefined;
-	updatedAt?: Date;
-	createdAt?: Date;
+  uuid: string;
+  itemStatus: boolean;
+  accumulatedAmount: number;
+  itemName: string;
+  itemPicture: string;
+  category: string;
+  brand: string;
+  price: number;
+  color: string;
+  productUrl: string | undefined;
+  itemMessageContributor: string | undefined;
+  updatedAt?: Date;
+  createdAt?: Date;
 };
 
 export type InputField = {
@@ -36,27 +36,28 @@ export type InputField = {
 };
 
 export type AmountInputField = {
-	label: string
-	name: string
-	required: boolean
-	handleInput: (
-		event:
-			| React.ChangeEvent<HTMLInputElement>
-			| React.ChangeEvent<HTMLTextAreaElement>
-	) => void;
-	value: string | undefined;
+  label: string;
+  name: string;
+  required: boolean;
+  handleInput: (
+    event:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => void;
+  value: string | undefined;
 };
 
 export type ClientSecret = {
-	clientSecret: string;
-	paymentId: string;
-	loading: boolean;
+  clientSecret: string;
+  paymentId: string;
+  loading: boolean;
 };
 
 export type Contributor = {
 	uuid: string
 	name: string
 	email: string
+   message: string | undefined;
 	createdAt: string
 	updatedAt: string
 	wishlistId: string
@@ -77,25 +78,24 @@ export type Message = {
 	updatedAt: string
 	contributorId: string
 	contributor: Contributor
-}
 
 export type User = {
-	username: string;
-	password: string;
-}
+  username: string;
+  password: string;
+};
 
 export type Token = {
-	username: string | null;
-	token: string | null;
-}
+  username: string | null;
+  token: string | null;
+};
 
 export type WishlistDetails = {
-	listTitle: string;
-	listMessage?: string | undefined;
-	campaignDate?: string;
+  listTitle: string;
+  listMessage?: string | undefined;
+  campaignDate?: string;
 };
 
 export type DeleteModalProps = {
-    handleToggle: () => void
-    open: boolean
-}
+  handleToggle: () => void;
+  open: boolean;
+};

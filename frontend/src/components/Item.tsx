@@ -1,9 +1,17 @@
 import { Item as ItemType } from "../types";
 import { useWishList } from "./context/WishlistContext";
-import axios from "axios";
+import DeleteItemModal from "./form/DeleteItemModal";
+import { useState } from "react";
 
 const Item = (item: ItemType) => {
-  const { userToken, selectedItem, setSelectedItem, setEditFormType } = useWishList();
+  const { selectedItem, setSelectedItem, setEditFormType } = useWishList();
+
+  const [open, setOpen] = useState(false);
+
+  const handleToggle = () => {
+    setSelectedItem(item);
+    setOpen((prev) => !prev);
+  };
 
   const calculateProgress = () => {
     return (item.accumulatedAmount / item.price) * 100;
@@ -12,29 +20,8 @@ const Item = (item: ItemType) => {
   const hideButtons = item.accumulatedAmount > 0;
 
   const handleClick = () => {
-    setSelectedItem(item)
-    setEditFormType("item")
-  };
-
-  const showModal = () => {
     setSelectedItem(item);
-    document.getElementById("my_modal_1").showModal();
-  };
-
-  const deleteItem = async () => {
-    console.log("item deleted => ", JSON.stringify(selectedItem, null, 2));
-    try {
-      await axios({
-        method: "DELETE",
-        url: `http://localhost:15432/items/${selectedItem.uuid}`,
-        headers: { Authorization: `Bearer ${userToken.token}` },
-      }).then((response) => {
-        console.log(response);
-        window.location.reload();
-      });
-    } catch (err) {
-      console.log(err);
-    }
+    setEditFormType("item");
   };
 
   return (
@@ -61,7 +48,10 @@ const Item = (item: ItemType) => {
                 <p>Color: {item.color}</p>
                 {item.productUrl && (
                   <p>
-                    Link to product: <a href={item.productUrl} target="_blank" >Link</a>
+                    Link to product:{" "}
+                    <a href={item.productUrl} target="_blank">
+                      Link
+                    </a>
                   </p>
                 )}
               </div>
@@ -107,46 +97,15 @@ const Item = (item: ItemType) => {
               Edit item
             </label>
 
-            <button className="btn btn-primary" onClick={showModal}>
-              Delete item
-            </button>
-            <dialog id="my_modal_1" className="modal">
-              <div className="modal-box">
-                <form method="dialog">
-                  <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-                    ✕
-                  </button>
-                </form>
-                <h3 className="font-bold text-lg text-center">
-                  Are you sure you want to delete this item?
-                </h3>
-                <p className="py-4 text-center">
-                  This action cannot be reversed.
-                </p>
-                <div className="modal-action">
-                  <form method="dialog">
-                    {/* not sure how to center the button haha do we need to?*/}
-                    <button
-                      className="btn btn-primary"
-                      type="button"
-                      onClick={deleteItem}
-                    >
-                      Delete
-                    </button>
-                  </form>
-                </div>
-              </div>
-            </dialog>
-
-            {/* shall delete this later
-            
-            <button
+            <label
+              htmlFor="delete-item-modal"
+              onClick={handleToggle}
               className="btn btn-primary"
-              type="button"
-              onClick={deleteItem}
             >
               Delete item
-            </button> */}
+            </label>
+
+            <DeleteItemModal handleToggle={handleToggle} open={open} />
           </div>
         </div>
       )}
