@@ -91,9 +91,6 @@ export type WishlistDetails = {
   listTitle: string;
   listMessage?: string | undefined;
   campaignDate?: string;
-  listTitle: string;
-  listMessage?: string | undefined;
-  campaignDate?: string;
 };
 
 export type DeleteModalProps = {

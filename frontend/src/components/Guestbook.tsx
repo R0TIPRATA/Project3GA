@@ -4,6 +4,8 @@ import { Message } from "../types";
 import { useWishList } from "./context/WishlistContext";
 import axios from "axios";
 import { DateTime } from "luxon";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 const Guestbook = () => {
   const { wishlist } = useWishList();
@@ -28,8 +30,6 @@ const Guestbook = () => {
     },
   ]);
 
-  const NUM_DISPLAY = 3;
-
   const EmptyState = () => {
     return (
       <div>
@@ -50,12 +50,6 @@ const Guestbook = () => {
     const dt = DateTime.fromISO(date);
     return dt.toLocaleString(DateTime.DATE_FULL);
   };
-
-  //only show the first five
-  //show more shows all the others
-  //hides displays first five
-
-  const [minNum, setMinNum] = useState(NUM_DISPLAY);
 
   const displayMessages = () => {
     const messagesToDisplay = messages.slice(0, minNum).map((item: Message, index: number) => {
