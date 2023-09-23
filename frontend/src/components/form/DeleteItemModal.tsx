@@ -3,8 +3,7 @@ import { DeleteModalProps } from "../../types";
 import { useWishList } from "../context/WishlistContext";
 
 const DeleteItemModal = ({ handleToggle, open }: DeleteModalProps) => {
-  const { userToken, selectedItem, setSelectedItem, deleteItem, setWishlist } =
-    useWishList();
+  const { userToken, selectedItem, deleteItem } = useWishList();
 
   const handleClick = async () => {
     console.log("item deleted => ", JSON.stringify(selectedItem, null, 2));

@@ -52,6 +52,7 @@ const Home = () => {
 			<Navbar />
 			{wishlists.length > 0 ? <WishlistPage /> : <EmptyWishlistPage />}
 			<AddContributorForm />
+			<Guestbook />
 		</>
 	);
 };

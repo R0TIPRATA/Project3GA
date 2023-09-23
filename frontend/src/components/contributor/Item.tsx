@@ -1,6 +1,6 @@
-import { Item as ItemType } from "../types";
-import { useWishList } from "./context/WishlistContext";
-import DeleteItemModal from "./form/DeleteItemModal";
+import { Item as ItemType } from "../../types";
+import { useWishList } from "../context/WishlistContext";
+import DeleteItemModal from "../form/DeleteItemModal";
 import { useState } from "react";
 
 const Item = (item: ItemType) => {

@@ -25,14 +25,18 @@ export type Item = {
 };
 
 export type InputField = {
-    label: string
-    name: string
-    value?: string | number | undefined
-		required: boolean 
-		min?: string
-    handleInput?: (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => void
-    handleFileUpload?: (event: React.ChangeEvent<HTMLInputElement> ) => void
-    selectedPicture?: string | null
+  label: string;
+  name: string;
+  value?: string | number | undefined;
+  required: boolean;
+  min?: string;
+  handleInput?: (
+    event:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => void;
+  handleFileUpload?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  selectedPicture?: string | null;
 };
 
 export type AmountInputField = {
@@ -54,24 +58,24 @@ export type ClientSecret = {
 };
 
 export type Contributor = {
-	uuid: string
-	name: string
-	email: string
-	createdAt: string
-	updatedAt: string
-	wishlistId: string
-	message?: string
+  uuid: string;
+  name: string;
+  email: string;
+  createdAt: string;
+  updatedAt: string;
+  wishlistId: string;
+  message?: string;
 };
 
 export type Message = {
-	id: string
-	uuid: string
-	message: string
-	createdAt: string
-	updatedAt: string
-	contributorId: string
-	contributor: Contributor
-}
+  id: string;
+  uuid: string;
+  message: string;
+  createdAt: string;
+  updatedAt: string;
+  contributorId: string;
+  contributor: Contributor;
+};
 
 export type User = {
   username: string;
@@ -84,6 +88,9 @@ export type Token = {
 };
 
 export type WishlistDetails = {
+  listTitle: string;
+  listMessage?: string | undefined;
+  campaignDate?: string;
   listTitle: string;
   listMessage?: string | undefined;
   campaignDate?: string;
