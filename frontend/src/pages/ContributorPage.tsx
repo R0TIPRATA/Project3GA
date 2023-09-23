@@ -6,9 +6,10 @@ import { useParams } from "react-router-dom";
 import Items from "../components/contributor/Items";
 import WishListDetails from "../components/contributor/WishlistDetails";
 import Guestbook from "../components/Guestbook";
+import LoggedInNotif from "../components/contributor/LoggedInNotif";
 
 const ContributorPage = () => {
-  const { wishlists, setWishlists, setWishlist } = useWishList();
+  const { setWishlists } = useWishList();
   const { user } = useParams();
   console.log(user);
 
@@ -28,6 +29,7 @@ const ContributorPage = () => {
   return (
     <>
       <Navbar />
+      <LoggedInNotif />
       <div className="wishlistPage bg-orange-100 flex-col pb-20">
         <WishListDetails />
         <main className="parent flex my-10 mx-40 gap-8">

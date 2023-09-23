@@ -4,7 +4,7 @@ import DeleteItemModal from "./form/DeleteItemModal";
 import { useState } from "react";
 
 const Item = (item: ItemType) => {
-  const { selectedItem, setSelectedItem, setEditFormType } = useWishList();
+  const { setSelectedItem, setEditFormType } = useWishList();
 
   const [open, setOpen] = useState(false);
 
