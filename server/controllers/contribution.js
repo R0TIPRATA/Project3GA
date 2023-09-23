@@ -58,11 +58,14 @@ async function addContribution(req, res) {
 		const list = await WishlistList.findOne({
 			where: { id: item.wishlistId }
 		})
-		const contributor = await Contributor.create({
-			name, 
-			email,
-			wishlistId: list.id,
-		})
+    let contributor = await Contributor.findOne({ where: { email } });
+    if (!contributor) {
+      contributor = await Contributor.create({
+        name,
+        email,
+        wishlistId: list.id,
+      });
+    }
 		const messageList = await MessageList.create({
 			message, 
 			contributorId: contributor.id,
