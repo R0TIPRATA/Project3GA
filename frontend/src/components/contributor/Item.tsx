@@ -1,27 +1,15 @@
 import { Item as ItemType } from "../../types";
 import { useWishList } from "../context/WishlistContext";
-import DeleteItemModal from "../form/DeleteItemModal";
-import { useState } from "react";
 
 const Item = (item: ItemType) => {
-  const { setSelectedItem, setEditFormType } = useWishList();
-
-  const [open, setOpen] = useState(false);
-
-  const handleToggle = () => {
-    setSelectedItem(item);
-    setOpen((prev) => !prev);
-  };
+  const { setSelectedItem } = useWishList();
 
   const calculateProgress = () => {
     return (item.accumulatedAmount / item.price) * 100;
   };
 
-  const hideButtons = item.accumulatedAmount > 0;
-
   const handleClick = () => {
     setSelectedItem(item);
-    setEditFormType("item");
   };
 
   return (
@@ -85,30 +73,27 @@ const Item = (item: ItemType) => {
           )}
         </div>
       </div>
-      {!hideButtons && (
-        <div>
-          <div className="divider divider-vertical p-0"></div>
-          <div className="card-actions justify-end">
-            <label
-              htmlFor="edit-drawer"
-              className="btn btn-primary drawer-button"
-              onClick={handleClick}
-            >
-              Edit item
-            </label>
 
-            <label
-              htmlFor="delete-item-modal"
-              onClick={handleToggle}
-              className="btn btn-primary"
-            >
-              Delete item
-            </label>
+      <div>
+        <div className="divider divider-vertical p-0"></div>
+        <div className="card-actions justify-end">
+          <label
+            htmlFor="edit-drawer"
+            className="btn btn-primary drawer-button"
+            onClick={handleClick}
+          >
+            Gift
+          </label>
 
-            <DeleteItemModal handleToggle={handleToggle} open={open} />
-          </div>
+          <label
+            htmlFor="delete-item-modal"
+            onClick={handleClick}
+            className="btn btn-primary"
+          >
+            Contribute
+          </label>
         </div>
-      )}
+      </div>
     </div>
   );
 };
