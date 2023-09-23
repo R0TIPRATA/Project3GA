@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 //else display messages
 const Guestbook = () => {
-  const { userToken } = useWishList();
+  const { wishlist } = useWishList();
   const NUM_DISPLAY = 3; //min number of messages to display 
   const [minNum, setMinNum] = useState(NUM_DISPLAY); 
   const [messages, setMessages] = useState<Message[]>([
@@ -112,18 +112,14 @@ const Message = ({
 
   useEffect(() => {
     axios
-      .get(`http://localhost:15432/messages`, {
-        headers: {
-          Authorization: `Bearer ${userToken.token}`,
-        },
-      })
+      .get(`http://localhost:15432/messages/${wishlist.uuid}`)
       .then((response) => {
         setMessages(filterEmptyMessages(response.data));
       })
       .catch((error) => {
         console.error("Error fetching wish lists:", error);
       });
-  }, [userToken]);
+  }, [wishlist]);
 
   return (
     <div>

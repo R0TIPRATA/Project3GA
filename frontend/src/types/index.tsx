@@ -25,18 +25,14 @@ export type Item = {
 };
 
 export type InputField = {
-  label: string;
-  name: string;
-  value?: string | number | undefined;
-  required: boolean;
-  min?: string;
-  handleInput?: (
-    event:
-      | React.ChangeEvent<HTMLInputElement>
-      | React.ChangeEvent<HTMLTextAreaElement>
-  ) => void;
-  handleFileUpload?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  selectedPicture?: string | null;
+    label: string
+    name: string
+    value?: string | number | undefined
+		required: boolean 
+		min?: string
+    handleInput?: (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => void
+    handleFileUpload?: (event: React.ChangeEvent<HTMLInputElement> ) => void
+    selectedPicture?: string | null
 };
 
 export type AmountInputField = {
@@ -65,6 +61,12 @@ export type Contributor = {
 	createdAt: string
 	updatedAt: string
 	wishlistId: string
+	message?: string
+};
+
+export type ContributorInput = {
+	name: string
+	email: string
 	message?: string
 };
 
