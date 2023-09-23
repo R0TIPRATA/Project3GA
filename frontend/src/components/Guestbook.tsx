@@ -1,5 +1,3 @@
-//fetch messages from contributors
-//if there are no messages, display empty state
 import guestbookImg from "../assets/guestbook_placeholder.png";
 import { useEffect, useState } from "react";
 import { Message } from "../types";
@@ -33,7 +31,6 @@ const Guestbook = () => {
     },
   ]);
 
-
   const EmptyState = () => {
     return (
       <div>
@@ -49,24 +46,22 @@ const Guestbook = () => {
       </div>
     );
   };
-
   
   const convertDate = (date: string) => {
     const dt = DateTime.fromISO(date);
     return dt.toLocaleString(DateTime.DATE_FULL);
   };
-  
-  
+
   const displayMessages = () => {
-    // const arr = messagesList.slice(minNum, minNum+5)
-    const messagesToDisplay = messages.slice(0, minNum).map((item: Message) => {
+    const messagesToDisplay = messages.slice(0, minNum).map((item: Message, index: number) => {
       if (item.message)
       return (
-    <Message
-    createdAt={item.createdAt}
-    contributorName={item.contributor.name}
-    message={item.message}
-    />
+        <Message
+          key={index}
+          createdAt={item.createdAt}
+          contributorName={item.contributor.name}
+          message={item.message}
+        />
     );
   });
   return messagesToDisplay;
@@ -91,27 +86,27 @@ const Message = ({
   createdAt,
   contributorName,
   message,
-}: {
-  createdAt: string;
-  contributorName: string;
-  message: string;
-}) => {
-  return (
-    <>
-      <div className="flex gap-2 py-4">
-        <div>
-          <div className="contributor-img w-8 h-8 rounded-full flex justify-center items-center bg-orange-200 opacity-60 text-center">
-            <FontAwesomeIcon icon={faHeart} className="text-yellow-700 opacity-60"/>
+  }: {
+    createdAt: string;
+    contributorName: string;
+    message: string;
+  }) => {
+    return (
+      <>
+        <div className="flex gap-2 py-4">
+          <div>
+            <div className="contributor-img w-8 h-8 rounded-full flex justify-center items-center bg-orange-200 opacity-60 text-center">
+              <FontAwesomeIcon icon={faHeart} className="text-yellow-700 opacity-60"/>
+            </div>
+          </div>
+          <div className="flex flex-col ">
+            <p className="text-sm">{convertDate(createdAt)}</p>
+            <p className="font-bold">{contributorName}</p>
+            <p>{message}</p>
           </div>
         </div>
-        <div className="flex flex-col ">
-          <p className="text-sm">{convertDate(createdAt)}</p>
-          <p className="font-bold">{contributorName}</p>
-          <p>{message}</p>
-        </div>
-      </div>
-      <div className="divider m-0"></div>
-    </>
+        <div className="divider m-0"></div>
+      </>
   );
 };
 
