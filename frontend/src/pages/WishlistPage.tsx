@@ -8,7 +8,7 @@ import { useWishList } from "../components/context/WishlistContext";
 
 const WishlistPage = () => {
   const drawerRef = useRef({} as HTMLInputElement);
-  const { editFormType, setWishlists } = useWishList();
+  const { editFormType } = useWishList();
 
   const closeDrawer = () => {
     if (drawerRef.current) {
