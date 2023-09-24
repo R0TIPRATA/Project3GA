@@ -9,34 +9,36 @@ export type Wishlist = {
 };
 
 export type Item = {
-  uuid: string;
-  itemStatus: boolean;
-  accumulatedAmount: number;
-  itemName: string;
-  itemPicture: string;
-  category: string;
-  brand: string;
-  price: number;
-  color: string;
-  productUrl: string | undefined;
-  itemMessageContributor: string | undefined;
-  updatedAt?: Date;
-  createdAt?: Date;
+	uuid?: string;
+  id:string;
+	itemStatus: boolean;
+	accumulatedAmount: number;
+	itemName: string;
+	itemPicture: string;
+	category: string;
+	brand: string;
+	price: number;
+	color: string;
+	productUrl?: string | undefined | null
+	itemMessageContributor: string | undefined | null;
+	updatedAt?: string;
+	createdAt?: string;
 };
 
 export type InputField = {
-  label: string;
-  name: string;
-  value?: string | number | undefined;
-  required: boolean;
-  min?: string;
+  label: string
+  name: string
+  value?: string | number 
+  description?: string
+  required: boolean
+  min?: string
   handleInput?: (
     event:
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLTextAreaElement>
   ) => void;
-  handleFileUpload?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  selectedPicture?: string | null;
+  handleFileUpload?: (event: React.ChangeEvent<HTMLInputElement>) => void
+  selectedPicture?: string | null
 };
 
 export type AmountInputField = {
@@ -55,6 +57,12 @@ export type ClientSecret = {
   clientSecret: string;
   paymentId: string;
   loading: boolean;
+};
+
+export type ContributorInput = {
+	name: string
+	email: string
+	message?: string
 };
 
 export type Contributor = {

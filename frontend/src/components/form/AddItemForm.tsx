@@ -18,6 +18,8 @@ const AddItemForm = () => {
   const formRef = useRef({} as HTMLFormElement);
 
   const [item, setItem] = useState<Item>({
+    uuid: "",
+    id: "",
     itemStatus: false,
     accumulatedAmount: 0,
     itemName: "",

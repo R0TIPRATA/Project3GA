@@ -4,9 +4,9 @@ import WishlistPage from "./WishlistPage";
 import axios from "axios";
 import Navbar from "../components/Navbar";
 import { useWishList } from "../components/context/WishlistContext";
- import AddContributorForm from "../components/form/ContributorForm";
+//  import AddContributorForm from "../components/form/ContributorForm";
 import { useNavigate } from "react-router-dom";
-import Guestbook from "../components/Guestbook";
+//import Guestbook from "../components/Guestbook";
 
 const Home = () => {
 	//const [wishlists, setWishlists] = useState<Wishlist[]>([]);
@@ -35,7 +35,8 @@ const Home = () => {
 			axios
 				.get(`http://localhost:15432/lists/${wishlists[0].uuid}`, { headers: { Authorization: `Bearer ${userToken.token}` } }) 
 				.then((response) => {
-					setWishlist(response.data);
+					setWishlist(response.data)
+					console.log(JSON.stringify(response.data,null,2))
 				})
 				.catch((error) => {
 					console.error("Error fetching wish lists:", error);
@@ -50,8 +51,7 @@ const Home = () => {
 		<>
 			<Navbar />
 			{wishlists.length > 0 ? <WishlistPage /> : <EmptyWishlistPage />}
-			<AddContributorForm />
-			<Guestbook />
+			{/* <AddContributorForm /> */}
 		</>
 	);
 };

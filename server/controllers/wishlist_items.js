@@ -1,7 +1,9 @@
-const { WishlistList, WishlistItem } = require("../models");
+const { WishlistList, WishlistItem, Contribution } = require("../models");
 
 module.exports = {
 	getAll,
+	getAccumulatedAmount,
+	getOne: getOneItem,
 	create,
 	delete: deleteItem,
 	updateItem,
@@ -14,6 +16,21 @@ async function getAll(req, res) {
 			include: "wishlist",
 		});
 		return res.json(items);
+	} catch (err) {
+		console.log(err);
+		return res.json(err);
+	}
+}
+
+// Get one wishlist item from db
+async function getOneItem(req, res) {
+	const uuid = req.params.itemUuid//req.params.listUuid;
+	try {
+		const item = await WishlistItem.findOne({
+			where: { uuid },
+			//include: ["wishlist"]
+		});
+		return res.json(item);
 	} catch (err) {
 		console.log(err);
 		return res.json(err);
@@ -99,4 +116,18 @@ async function updateItem(req, res) {
 		console.log(err);
 		return res.json(err);
 	}
+}
+
+async function getAccumulatedAmount(req, res){
+	const wishlistItemId = req.params.itemId;
+	Contribution.findAll({
+		where: { wishlistItemId },
+	}).then((contributions) =>{
+		const sum = contributions.reduce((total, contribution) => {
+			return total + contribution.amount;
+		  }, 0);
+		  return res.json({accumulatedAmount: sum})
+	}).catch((error) => {
+		console.error(error);
+	  });
 }
