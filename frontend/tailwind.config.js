@@ -43,6 +43,7 @@ export default {
           secondary: "#FFFAEE",
           tertiary: "#799370",
           "base-100": "#ffffff",
+          link: '##646cff',
           accent: "#799370",
           neutral: "#d4d4d4",
           info: "#3c8fe2",

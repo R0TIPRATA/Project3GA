@@ -1,10 +1,12 @@
+import axios from "axios";
 import { Item as ItemType } from "../types";
 import { useWishList } from "./context/WishlistContext";
 import DeleteItemModal from "./form/DeleteItemModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Item = (item: ItemType) => {
   const { setSelectedItem, setEditFormType } = useWishList();
+  const [amount, setAmount] = useState(0)
 
   const [open, setOpen] = useState(false);
 
@@ -14,8 +16,23 @@ const Item = (item: ItemType) => {
   };
 
   const calculateProgress = () => {
-    return (item.accumulatedAmount / item.price) * 100;
+    return (amount / item.price) * 100;
   };
+
+  const getAccumulatedAmount = async () => {
+    try{
+      axios.get(`http://localhost:15432/items/sum/${item.id}`
+      ).then((response) => {
+          setAmount(response.data['accumulatedAmount'])
+          console.log(JSON.stringify(response.data,null,2))
+      })
+      .catch((error) => {
+          console.error("Error fetching wish lists:", error);
+      });
+    }catch(error){
+      console.log(error)
+    }
+  }
 
   const hideButtons = item.accumulatedAmount > 0;
 
@@ -23,6 +40,10 @@ const Item = (item: ItemType) => {
     setSelectedItem(item);
     setEditFormType("item");
   };
+
+  useEffect(() => {
+    getAccumulatedAmount()
+  },[])
 
   return (
     <div className="card-body text-left bg-base-100 shadow-sm rounded-3xl border border-slate-500">
@@ -66,8 +87,8 @@ const Item = (item: ItemType) => {
                 max="100"
               ></progress>
               <div className="text-right text-black text-[10px] font-normal mt-2">
-                <p>${item.accumulatedAmount} collected</p>
-                <p>${item.price - item.accumulatedAmount} more to goal</p>
+                <p>${amount} collected</p>
+                <p>${item.price - amount} more to goal</p>
               </div>
             </div>
           </div>

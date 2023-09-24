@@ -1,6 +1,12 @@
 import { InputField, AmountInputField } from "../../types";
 
-export const TextInput = ({ label, name, value, required, handleInput }: InputField) => {
+export const TextInput = ({
+  label,
+  name,
+  value,
+  required,
+  handleInput,
+}: InputField) => {
   return (
     <div className="form-control w-full max-w-xs">
       <label className="label">
@@ -23,7 +29,7 @@ export const AmountInput = ({
   name,
   value,
   handleInput,
-  required
+  required,
 }: AmountInputField) => {
   return (
     <div className="form-control w-full max-w-xs">
@@ -42,38 +48,48 @@ export const AmountInput = ({
   );
 };
 
-export const UsernameInput = ({ label, name, handleInput, required }: InputField) => {
-	return (
-		<div className="form-control w-full max-w-lg">
-			<label className="label">
-				<span className="label-text">{label}</span>
-			</label>
-			<input
-				type="text"
-				name={name}
-				className="input input-bordered w-full max-w-lg"
-				onChange={handleInput}
-				required={required}
-			/>
-		</div>
-	);
+export const UsernameInput = ({
+  label,
+  name,
+  handleInput,
+  required,
+}: InputField) => {
+  return (
+    <div className="form-control w-full max-w-lg">
+      <label className="label">
+        <span className="label-text">{label}</span>
+      </label>
+      <input
+        type="text"
+        name={name}
+        className="input input-bordered w-full max-w-lg"
+        onChange={handleInput}
+        required={required}
+      />
+    </div>
+  );
 };
 
-export const PasswordInput = ({ label, name, handleInput, required }: InputField) => {
-	return (
-		<div className="form-control w-full max-w-lg">
-			<label className="label">
-				<span className="label-text">{label}</span>
-			</label>
-			<input
-				type="password"
-				name={name}
-				className="input input-bordered w-full max-w-lg"
-				onChange={handleInput}
-				required={required}
-			/>
-		</div>
-	);
+export const PasswordInput = ({
+  label,
+  name,
+  handleInput,
+  required,
+}: InputField) => {
+  return (
+    <div className="form-control w-full max-w-lg">
+      <label className="label">
+        <span className="label-text">{label}</span>
+      </label>
+      <input
+        type="password"
+        name={name}
+        className="input input-bordered w-full max-w-lg"
+        onChange={handleInput}
+        required={required}
+      />
+    </div>
+  );
 };
 
 export const NumberInput = ({
@@ -100,12 +116,12 @@ export const NumberInput = ({
   );
 };
 
-export const LongTextInput = ({ 
-  label, 
-  name, 
+export const LongTextInput = ({
+  label,
+  name,
   value,
   required,
-  handleInput 
+  handleInput,
 }: InputField) => {
   return (
     <div className="form-control ">
@@ -153,7 +169,14 @@ export const FileUploadInput = ({
   );
 };
 
-export const DateInput = ({ label, name, value, min, required, handleInput }: InputField) => {
+export const DateInput = ({
+  label,
+  name,
+  value,
+  min,
+  required,
+  handleInput,
+}: InputField) => {
   return (
     <div className="form-control w-full max-w-xs">
       <label className="label">
@@ -169,6 +192,36 @@ export const DateInput = ({ label, name, value, min, required, handleInput }: In
         required={required}
       />
     </div>
-  );
+    );
 };
 
+export const CheckboxInput = ({ name, description, label, value, required }: InputField) => {
+  return (
+    <div className="form-control w-full mt-4 pt-0 py-4 px-4 rounded-md bg-slate-200">
+      {/* <label className="label">
+        <span className="label-text">{label}</span>
+      </label>
+      <input
+        type="date"
+        name={name}
+        className="input input-bordered w-full max-w-xs"
+        onChange={handleInput}
+        value={value}
+        min={min}
+        required={required}
+      /> */}
+      <p className="description-text py-2">{description}</p>
+      <div>
+        <input
+          type="checkbox"
+          name={name}
+          id={name}
+          value={value}
+          required={required}
+        />
+        <label htmlFor={name} className="pl-2">{label}</label>
+      </div>
+      <div></div>
+    </div>
+  );
+};
