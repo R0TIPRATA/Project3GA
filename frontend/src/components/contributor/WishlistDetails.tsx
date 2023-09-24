@@ -1,6 +1,7 @@
 import { DateTime } from "luxon";
 import WishlistStatus from "../WishlistStatus";
 import { useWishList } from "../context/WishlistContext";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 const WishListDetails = () => {
   const { wishlist } = useWishList();
@@ -15,6 +16,9 @@ const WishListDetails = () => {
         <div className="uppercase text-sm text-gray-700">Astrid's Wishlist</div>
         <div className="buttons-wrapper">
           <button className="ml-2">Copy Link</button>
+          <CopyToClipboard text="localhost:1532/astrid">
+            <span>Copy to clipboard with span</span>
+          </CopyToClipboard>
         </div>
       </div>
       <div className="wishlist-title flex items-center">
