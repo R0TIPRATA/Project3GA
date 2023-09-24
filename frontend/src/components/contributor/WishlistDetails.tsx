@@ -1,13 +1,22 @@
 import { DateTime } from "luxon";
 import WishlistStatus from "../WishlistStatus";
 import { useWishList } from "../context/WishlistContext";
-import { CopyToClipboard } from "react-copy-to-clipboard";
+import { useParams } from "react-router-dom";
 
 const WishListDetails = () => {
   const { wishlist } = useWishList();
+  const { user } = useParams();
+
   const convertDate = (date: string) => {
     const dt = DateTime.fromISO(date);
     return dt.toLocaleString(DateTime.DATE_FULL);
+  };
+
+  const copyLink = () => {
+    const listLink = `http://localhost:15432/lists/user/${user}`;
+    navigator.clipboard.writeText(listLink);
+
+    console.log("copied");
   };
 
   return (
@@ -15,10 +24,9 @@ const WishListDetails = () => {
       <div className="top-header flex items-end self-stretch justify-between">
         <div className="uppercase text-sm text-gray-700">Astrid's Wishlist</div>
         <div className="buttons-wrapper">
-          <button className="ml-2">Copy Link</button>
-          <CopyToClipboard text="localhost:1532/astrid">
-            <span>Copy to clipboard with span</span>
-          </CopyToClipboard>
+          <button className="ml-2" onClick={copyLink}>
+            Share wishlist
+          </button>
         </div>
       </div>
       <div className="wishlist-title flex items-center">

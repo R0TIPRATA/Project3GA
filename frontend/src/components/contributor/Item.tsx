@@ -12,6 +12,9 @@ const Item = (item: ItemType) => {
     setSelectedItem(item);
   };
 
+  const hideButtonGift = item.accumulatedAmount > 0;
+  const hideButtonMoney = item.accumulatedAmount === item.price;
+
   return (
     <div className="card-body text-left bg-base-100 shadow-sm rounded-3xl border border-slate-500">
       <div className="card-top flex gap-4 justify-between">
@@ -76,22 +79,26 @@ const Item = (item: ItemType) => {
 
       <div>
         <div className="divider divider-vertical p-0"></div>
+
         <div className="card-actions justify-end">
+          {/* {!hideButtonGift && ( */}
           <label
             htmlFor="edit-drawer"
             className="btn btn-primary drawer-button"
             onClick={handleClick}
           >
-            Gift
+            Gift item
           </label>
-
+          {/* )} */}
+          {/* {!hideButtonMoney && ( */}
           <label
             htmlFor="delete-item-modal"
             onClick={handleClick}
             className="btn btn-primary"
           >
-            Contribute
+            Contribute money
           </label>
+          {/* )} */}
         </div>
       </div>
     </div>
