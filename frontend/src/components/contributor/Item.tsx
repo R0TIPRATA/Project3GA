@@ -81,24 +81,24 @@ const Item = (item: ItemType) => {
         <div className="divider divider-vertical p-0"></div>
 
         <div className="card-actions justify-end">
-          {/* {!hideButtonGift && ( */}
-          <label
-            htmlFor="edit-drawer"
-            className="btn btn-primary drawer-button"
-            onClick={handleClick}
-          >
-            Gift item
-          </label>
-          {/* )} */}
-          {/* {!hideButtonMoney && ( */}
-          <label
-            htmlFor="delete-item-modal"
-            onClick={handleClick}
-            className="btn btn-primary"
-          >
-            Contribute money
-          </label>
-          {/* )} */}
+          {!hideButtonGift && (
+            <label
+              htmlFor="edit-drawer"
+              className="btn btn-primary drawer-button"
+              onClick={handleClick}
+            >
+              Gift item
+            </label>
+          )}
+          {!hideButtonMoney && (
+            <label
+              htmlFor="delete-item-modal"
+              onClick={handleClick}
+              className="btn btn-primary"
+            >
+              Contribute money
+            </label>
+          )}
         </div>
       </div>
     </div>

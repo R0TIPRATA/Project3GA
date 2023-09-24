@@ -8,7 +8,7 @@ import { useWishList } from "../components/context/WishlistContext";
 
 const WishlistPage = () => {
   const drawerRef = useRef({} as HTMLInputElement);
-  const {editFormType} = useWishList()
+  const { editFormType, setWishlists } = useWishList();
 
   const closeDrawer = () => {
     if (drawerRef.current) {
@@ -37,12 +37,16 @@ const WishlistPage = () => {
           </main>
         </div>
       </div>
-        <div className="drawer-side">
-          <label htmlFor="edit-drawer" className="drawer-overlay"></label>
-          <ul className="menu p-4 w-1/3 min-h-full bg-base-200 text-base-content">
-              {editFormType === "item" ? <EditItemForm closeDrawer={closeDrawer} /> : <EditWishlistForm closeDrawer={closeDrawer}/>} 
-          </ul>
-        </div>
+      <div className="drawer-side">
+        <label htmlFor="edit-drawer" className="drawer-overlay"></label>
+        <ul className="menu p-4 w-1/3 min-h-full bg-base-200 text-base-content">
+          {editFormType === "item" ? (
+            <EditItemForm closeDrawer={closeDrawer} />
+          ) : (
+            <EditWishlistForm closeDrawer={closeDrawer} />
+          )}
+        </ul>
+      </div>
     </div>
   );
 };
