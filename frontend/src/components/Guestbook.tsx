@@ -127,6 +127,7 @@ const Guestbook = () => {
           console.error("Error fetching wish lists:", error);
         });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [wishlist]);
 
   return (

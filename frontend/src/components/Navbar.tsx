@@ -16,6 +16,7 @@ const Navbar = () => {
   useEffect(()=>{
     console.log("user token" + JSON.stringify(userToken))
     userToken ? setIsLoginUser(true):setIsLoginUser(false)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[isLoginUser])
 
   return (

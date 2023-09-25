@@ -44,6 +44,7 @@ const Item = (item: ItemType) => {
 
   useEffect(() => {
     getAccumulatedAmount();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [item]);
 
   useEffect(() => {
@@ -57,6 +58,7 @@ const Item = (item: ItemType) => {
       setHideButtonGift(amount > 0);
       setHideButtonMoney(amount === item.price);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [amount]);
 
   return (

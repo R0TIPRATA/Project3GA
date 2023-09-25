@@ -53,6 +53,7 @@ const AddContributionForm = ({
 				console.log(err);
 			}
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [amount]);
 
 	const handleInput = (
