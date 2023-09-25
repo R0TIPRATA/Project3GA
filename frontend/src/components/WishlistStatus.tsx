@@ -58,8 +58,8 @@ const WishlistStatus = () => {
   const totalGifted = () => {
     if (wishlist && wishlist.wishlistItems) {
       let totalValue = 0;
-      wishlist.wishlistItems.filter(() => {
-        return (totalValue += amount);
+      wishlist.wishlistItems.filter((item) => {
+        return (totalValue += item.accumulatedAmount);
       });
       return totalValue;
     }

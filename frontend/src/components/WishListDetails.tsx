@@ -26,7 +26,7 @@ const WishListDetails = () => {
   };
 
   const copyLink = () => {
-    const listLink = `http://localhost:15432/lists/user/${user}`;
+    const listLink = `http://localhost:5173/lists/user/${user}`;
     navigator.clipboard.writeText(listLink);
     console.log("copied");
   };
