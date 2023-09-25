@@ -12,7 +12,7 @@ router.get("/user/:username", listsCtrl.getAll);
 // Get all user's wishlist items in db w/o authentication
 router.get("/user/:username/:listUuid", listsCtrl.getOneList);
 // Delete a wishlist from db
-router.delete("/:listUuid", isUserAuthenticated,listsCtrl.delete);
+router.delete("/:listUuid", isUserAuthenticated, listsCtrl.delete);
 // Get one wishlist with all items in it from db
 router.get("/:listUuid", isUserAuthenticated, listsCtrl.getOneList);
 // Update wishlist info

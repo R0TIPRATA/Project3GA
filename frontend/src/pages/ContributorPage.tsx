@@ -9,7 +9,7 @@ import Guestbook from "../components/Guestbook";
 import LoggedInNotif from "../components/contributor/LoggedInNotif";
 
 const ContributorPage = () => {
-  const {wishlists, setWishlists, setWishlist} = useWishList();
+  const { wishlists, setWishlists, setWishlist } = useWishList();
   const { user } = useParams();
   console.log(user);
   //get wishlists tied to user
@@ -26,20 +26,20 @@ const ContributorPage = () => {
   }, []);
 
   useEffect(() => {
-		//get wishlist items from first wishlist
-		if (wishlists && wishlists.length > 0) {
-			axios
-				.get(`http://localhost:15432/lists/user/${user}/${wishlists[0].uuid}`) 
-				.then((response) => {
-					setWishlist(response.data)
-					//console.log(JSON.stringify(response.data,null,2))
-				})
-				.catch((error) => {
-					console.error("Error fetching wish list:", error);
-				});
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [wishlists]);
+    //get wishlist items from first wishlist
+    if (wishlists && wishlists.length > 0) {
+      axios
+        .get(`http://localhost:15432/lists/user/${user}/${wishlists[0].uuid}`)
+        .then((response) => {
+          setWishlist(response.data);
+          //console.log(JSON.stringify(response.data,null,2))
+        })
+        .catch((error) => {
+          console.error("Error fetching wish list:", error);
+        });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [wishlists]);
 
   return (
     <>

@@ -33,16 +33,18 @@ const Item = (item: ItemType) => {
     return (amount/item.price) * 100;
   };
 
-  const hideButtons = item.accumulatedAmount > 0;
-
   const handleClick = () => {
     setSelectedItem(item);
-    setEditFormType("item");
   };
+
+
+  const hideButtonGift = item.accumulatedAmount > 0;
+  const hideButtonMoney = item.accumulatedAmount === item.price;
 
   useEffect(() => {
     getAccumulatedAmount()
   },[item])
+
 
   return (
     <div className="card-body text-left bg-base-100 shadow-sm rounded-3xl border border-slate-500">
@@ -105,30 +107,31 @@ const Item = (item: ItemType) => {
           )}
         </div>
       </div>
-      {!hideButtons && (
-        <div>
-          <div className="divider divider-vertical p-0"></div>
-          <div className="card-actions justify-end">
+
+      <div>
+        <div className="divider divider-vertical p-0"></div>
+
+        <div className="card-actions justify-end">
+          {!hideButtonGift && (
             <label
               htmlFor="edit-drawer"
               className="btn btn-primary drawer-button"
               onClick={handleClick}
             >
-              Edit item
+              Gift item
             </label>
-
+          )}
+          {!hideButtonMoney && (
             <label
               htmlFor="delete-item-modal"
-              onClick={handleToggle}
+              onClick={handleClick}
               className="btn btn-primary"
             >
-              Delete item
+              Contribute money
             </label>
-
-            <DeleteItemModal handleToggle={handleToggle} open={open} />
-          </div>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 };
