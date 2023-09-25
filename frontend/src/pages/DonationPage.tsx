@@ -37,7 +37,7 @@ return (
         <div className="bg-orange-100 p-20 pb-20 min-h-full flex flex-col gap-8">
                 <div className="title">
                     <button className="btn-link" onClick={goBack}>Back</button>
-                    <h2>Donate to item:</h2>
+                    <h2>Donate item:</h2>
                 </div>
                 <div className="item-wrapper">
                     <Item {...selectedItem}/>
