@@ -3,10 +3,13 @@ import { DateTime, Interval } from "luxon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDollarSign, faGift } from "@fortawesome/free-solid-svg-icons";
 import { faCalendar } from "@fortawesome/free-regular-svg-icons";
-import { useEffect } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 const WishlistStatus = () => {
   const { wishlist } = useWishList();
+
+  const [amount, setAmount] = useState(0);
 
   const daysLeft = (date: string) => {
     const later = DateTime.fromISO(date, { zone: "UTC" }).set({
@@ -23,11 +26,26 @@ const WishlistStatus = () => {
     }
   };
 
+  const getAccumulatedAmount = async () => {
+    try {
+      axios
+        .get(`http://localhost:15432/items/sum/${item.id}`)
+        .then((response) => {
+          setAmount(response.data["accumulatedAmount"]);
+        })
+        .catch((error) => {
+          console.error("Error fetching wish lists:", error);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   // No. of incomplete items
   const getNumItems = () => {
     if (wishlist && wishlist.wishlistItems) {
       const incomplete = wishlist.wishlistItems.filter((item) => {
-        return item.accumulatedAmount !== item.price;
+        return amount !== item.price;
       });
       return incomplete.length;
     } else {
@@ -40,12 +58,16 @@ const WishlistStatus = () => {
   const totalGifted = () => {
     if (wishlist && wishlist.wishlistItems) {
       let totalValue = 0;
-      wishlist.wishlistItems.filter((item) => {
-        return (totalValue += item.accumulatedAmount);
+      wishlist.wishlistItems.filter(() => {
+        return (totalValue += amount);
       });
       return totalValue;
     }
   };
+
+  useEffect(() => {
+    getAccumulatedAmount();
+  }, []);
 
   return (
     <div className="w-[630px] mt-[15px] flex flex-row justify-between">

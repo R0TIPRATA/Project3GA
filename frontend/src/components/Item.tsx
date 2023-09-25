@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 const Item = (item: ItemType) => {
   const { setSelectedItem, setEditFormType } = useWishList();
-  const [amount, setAmount] = useState(0)
+  const [amount, setAmount] = useState(0);
 
   const [open, setOpen] = useState(false);
 
@@ -20,20 +20,21 @@ const Item = (item: ItemType) => {
   };
 
   const getAccumulatedAmount = async () => {
-    try{
-      axios.get(`http://localhost:15432/items/sum/${item.id}`
-      ).then((response) => {
-          setAmount(response.data['accumulatedAmount'])
-      })
-      .catch((error) => {
+    try {
+      axios
+        .get(`http://localhost:15432/items/sum/${item.id}`)
+        .then((response) => {
+          setAmount(response.data["accumulatedAmount"]);
+        })
+        .catch((error) => {
           console.error("Error fetching wish lists:", error);
-      });
-    }catch(error){
-      console.log(error)
+        });
+    } catch (error) {
+      console.log(error);
     }
-  }
+  };
 
-  const hideButtons = item.accumulatedAmount > 0;
+  const hideButtons = amount > 0;
 
   const handleClick = () => {
     setSelectedItem(item);
@@ -41,8 +42,8 @@ const Item = (item: ItemType) => {
   };
 
   useEffect(() => {
-    getAccumulatedAmount()
-  },[])
+    getAccumulatedAmount();
+  }, []);
 
   return (
     <div className="card-body text-left bg-base-100 shadow-sm rounded-3xl border border-slate-500">
