@@ -22,6 +22,7 @@ export type Item = {
 	itemMessageContributor: string | undefined | null;
 	updatedAt?: string;
 	createdAt?: string;
+  wishlistId?: string;
 };
 
 export type InputField = {
@@ -72,6 +73,8 @@ export type Contributor = {
   updatedAt: string;
   wishlistId: string;
   message?: string;
+  id?: string;
+  relationship?: string;
 };
 
 export type Message = {
@@ -83,6 +86,17 @@ export type Message = {
   contributorId: string;
   contributor: Contributor;
 };
+
+export type Contribution = {
+  id: string;
+  amount: number;
+  createdAt: string;
+  updatedAt: string;
+  contributorId: string;
+  contributor: Contributor;
+  wishlistItemId: string;
+  wishlistItem: Item;
+}
 
 export type User = {
   username: string;
