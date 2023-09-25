@@ -22,7 +22,7 @@ const WishListDetails = () => {
   return (
     <div className="bg-red-100 w-100 px-12 py-12">
       <div className="top-header flex items-end self-stretch justify-between">
-        <div className="uppercase text-sm text-gray-700">Astrid's Wishlist</div>
+        <div className="uppercase text-sm text-gray-700">{user}'s Wishlist</div>
         <div className="buttons-wrapper">
           <button className="ml-2" onClick={copyLink}>
             Share wishlist
