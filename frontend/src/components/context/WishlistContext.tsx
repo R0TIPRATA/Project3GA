@@ -27,6 +27,7 @@ const WishlistContext = createContext({} as WishListContext);
 
 const defaultItem = {
   uuid: "",
+  id: "",
   itemStatus: false,
   accumulatedAmount: 0,
   itemName: "",

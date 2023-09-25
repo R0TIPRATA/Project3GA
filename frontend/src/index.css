@@ -41,6 +41,7 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
+  text-transform: capitalize;
   background-color: #ffffff;
   color: #213547;
   cursor: pointer;

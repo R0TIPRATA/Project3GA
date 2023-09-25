@@ -1,25 +1,21 @@
 import axios from "axios";
 import { Item as ItemType } from "../../types";
 import { useWishList } from "../context/WishlistContext";
-import DeleteItemModal from "../form/DeleteItemModal";
 import { useEffect, useState } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const Item = (item: ItemType) => {
-  const { setSelectedItem, setEditFormType } = useWishList();
-  const [open, setOpen] = useState(false);
+  const params = useParams()
+  const location = useLocation()
+  const {user,itemId} = params
+  const { setSelectedItem } = useWishList();
+  const navigate = useNavigate()
   const [amount, setAmount] = useState(0)
-
-  const handleToggle = () => {
-    setSelectedItem(item);
-    setOpen((prev) => !prev);
-  };
-
   const getAccumulatedAmount = async () => {
     try{
       axios.get(`http://localhost:15432/items/sum/${item.id}`
       ).then((response) => {
           setAmount(response.data['accumulatedAmount'])
-          console.log(JSON.stringify(response.data,null,2))
       })
       .catch((error) => {
           console.error("Error fetching wish lists:", error);
@@ -33,18 +29,31 @@ const Item = (item: ItemType) => {
     return (amount/item.price) * 100;
   };
 
-  const handleClick = () => {
+  const handleClick = (type:string) => {
     setSelectedItem(item);
+    if(type === "donate"){
+      navigate(`/${user}/${item.uuid}/donate`)
+    }else if(type == "payment"){
+      navigate(`/${user}/${item.uuid}`)
+    }
   };
 
-
-  const hideButtonGift = item.accumulatedAmount > 0;
-  const hideButtonMoney = item.accumulatedAmount === item.price;
+  const [hideButtonGift, setHideButtonGift] = useState(false)
+  const [hideButtonMoney, setHideButtonMoney] = useState(false)
 
   useEffect(() => {
     getAccumulatedAmount()
   },[item])
 
+  useEffect(()=>{
+      if(location.pathname === `/${user}/${itemId}` || location.pathname === `/${user}/${itemId}/donate`){
+        setHideButtonGift(true)
+        setHideButtonMoney(true)
+      }else{
+        setHideButtonGift(amount > 0)
+        setHideButtonMoney(amount === item.price)
+      }
+  },[])
 
   return (
     <div className="card-body text-left bg-base-100 shadow-sm rounded-3xl border border-slate-500">
@@ -109,14 +118,13 @@ const Item = (item: ItemType) => {
       </div>
 
       <div>
-        <div className="divider divider-vertical p-0"></div>
-
+      {(!hideButtonMoney || !hideButtonGift) && <div className="divider divider-vertical p-0"></div>}
         <div className="card-actions justify-end">
           {!hideButtonGift && (
             <label
               htmlFor="edit-drawer"
               className="btn btn-primary drawer-button"
-              onClick={handleClick}
+              onClick={() => handleClick("donate")}
             >
               Gift item
             </label>
@@ -124,7 +132,7 @@ const Item = (item: ItemType) => {
           {!hideButtonMoney && (
             <label
               htmlFor="delete-item-modal"
-              onClick={handleClick}
+              onClick={() => handleClick("payment")}
               className="btn btn-primary"
             >
               Contribute money

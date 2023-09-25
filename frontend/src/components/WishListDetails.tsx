@@ -5,7 +5,7 @@ import { DateTime } from "luxon";
 import WishlistStatus from "./WishlistStatus";
 import DeleteWishlistModal from "./form/DeleteWishlistModal";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const WishListDetails = () => {
   const { wishlist, setEditFormType } = useWishList();
@@ -36,8 +36,10 @@ const WishListDetails = () => {
       <div className="top-header flex items-end self-stretch justify-between">
         <div className="uppercase text-sm text-gray-700">Your Wishlist</div>
         <div className="buttons-wrapper">
-          <button className="mr-2">View Messages</button>
-          <button className="ml-2" onClick={copyLink}>
+          <Link to="/messages" className="btn btn-tertiary mr-2">
+            View Guestbook
+          </Link >
+          <button className="btn btn-tertiary ml-2" onClick={copyLink}>
             Share wishlist
           </button>
         </div>
