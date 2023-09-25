@@ -37,7 +37,7 @@ const WishListDetails = () => {
         <div className="uppercase text-sm text-gray-700">Your Wishlist</div>
         <div className="buttons-wrapper">
           <Link to="/messages" className="btn btn-tertiary mr-2">
-            View Messages
+            View Guestbook
           </Link >
           <button className="btn btn-tertiary ml-2" onClick={copyLink}>
             Share wishlist
