@@ -8,17 +8,20 @@ import {
 import { TextInput, LongTextInput, AmountInput } from "./FormComponents";
 import { ClientSecret, ContributorInput } from "../../types";
 import { useWishList } from "../context/WishlistContext";
+import { useParams } from "react-router-dom";
 
 const AddContributionForm = ({
 	clientSecretSettings,
 }: {
 	clientSecretSettings: ClientSecret;
 }) => {
-	const { selectedItem } = useWishList();
+	const { selectedItem} = useWishList();
 	const stripe = useStripe();
 	const elements = useElements();
 	const [amount, setAmount] = useState<number>(50);
 	const [errorMessage, setErrorMessage] = useState<string | undefined>("");
+	const params = useParams()
+	const {user,itemId} = params
 
 	const fieldItems = [
 		{ type: "text-input", label: "Contributor Name", name: "name", required: true },
@@ -57,7 +60,6 @@ const AddContributionForm = ({
 			| React.ChangeEvent<HTMLInputElement>
 			| React.ChangeEvent<HTMLTextAreaElement>
 	) => {
-		console.log("test: ", event.target.value);
 		setContributor((prev: ContributorInput) => ({
 			...prev,
 			[event.target.name]: event.target.value,
@@ -70,7 +72,6 @@ const AddContributionForm = ({
 			| React.ChangeEvent<HTMLInputElement>
 			| React.ChangeEvent<HTMLTextAreaElement>
 	) => {
-		console.log("amount: ", event.target.value);
 		if (event.target.value === "") {
 			setAmount(0);
 		} else {
@@ -85,16 +86,11 @@ const AddContributionForm = ({
 		setAmount(parseFloat(button.value));
 	};
 
-	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-		event.preventDefault();
-
-		if (!stripe || !elements) return;
-
-		// Post contributor details to db
+	const postContributionDetails = async() => {
 		try {
 			axios({
 				method: "POST",
-				url: `http://localhost:15432/contributors/addcontribution/${selectedItem.uuid}`,
+				url: `http://localhost:15432/contributions/addcontribution/${selectedItem.uuid}`,
 				data: {
 					name: contributor.name,
 					email: contributor.email,
@@ -103,22 +99,29 @@ const AddContributionForm = ({
 				},
 			}).then((response) => {
 				console.log(response.status);
-				console.log(response.data);
+				// console.log(response.data);
 			});
 		} catch (err) {
 			console.log(err);
 		}
+	}
 
+	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault()
+		postContributionDetails()
+		if (!stripe || !elements) return;
 		// Return to return_url after payment is made
 		const { error } = await stripe.confirmPayment({
 			elements,
 			confirmParams: {
-				return_url: "http://localhost:5173",
+				return_url: `http://localhost:5173/${user}/${itemId}/success`,
 			},
 		});
 
-		if (error) setErrorMessage(error.message);
-	};
+		if(error){
+			setErrorMessage(error.message);
+		}
+	}
 
 	return (
 		<form onSubmit={handleSubmit}>
@@ -159,28 +162,28 @@ const AddContributionForm = ({
 
 			<div className="justify-start items-start gap-2 inline-flex mt-3">
 				<button
-					className="text-center font-semibold bg-neutral-100 rounded-3xl"
+					className="text-center font-semibold bg-neutral-200 rounded-3xl"
 					value="50"
 					onClick={buttonHandler}
 				>
 					$50
 				</button>
 				<button
-					className="text-center font-semibold bg-neutral-100 rounded-3xl"
+					className="text-center font-semibold bg-neutral-200 rounded-3xl"
 					value="100"
 					onClick={buttonHandler}
 				>
 					$100
 				</button>
 				<button
-					className="text-center font-semibold bg-neutral-100 rounded-3xl"
+					className="text-center font-semibold bg-neutral-200 rounded-3xl"
 					value="150"
 					onClick={buttonHandler}
 				>
 					$150
 				</button>
 				<button
-					className="text-center font-semibold bg-neutral-100 rounded-3xl"
+					className="text-center font-semibold bg-neutral-200 rounded-3xl"
 					value="200"
 					onClick={buttonHandler}
 				>

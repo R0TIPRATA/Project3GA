@@ -20,7 +20,7 @@ const ContributorPage = () => {
         setWishlists(response.data);
       })
       .catch((error) => {
-        console.error("Error fetching wish lists:", error);
+        console.error("Error fetching wish lists:",error);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

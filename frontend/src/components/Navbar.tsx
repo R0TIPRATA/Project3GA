@@ -1,15 +1,22 @@
 import { useNavigate } from "react-router-dom";
 import { useWishList } from "./context/WishlistContext";
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
   const { userToken } = useWishList();
   const navigate = useNavigate();
+  const [isLoginUser, setIsLoginUser] = useState(false)
 
   const logoutHandler = () => {
     localStorage.clear();
     navigate("/login");
     window.location.reload();
   };
+
+  useEffect(()=>{
+    console.log("user token" + JSON.stringify(userToken))
+    userToken ? setIsLoginUser(true):setIsLoginUser(false)
+  },[isLoginUser])
 
   return (
     <div className="navbar bg-forest text-white">

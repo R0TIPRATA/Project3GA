@@ -7,7 +7,6 @@ import { ClientSecret } from "../../types";
 
 const initStripe = async () => {
 	const res = await axios.get("http://localhost:15432/contributions");
-	console.log("key => "  +  res )
 	const publishableKey = await res.data;
 	return loadStripe(publishableKey);
 };
