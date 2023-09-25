@@ -88,6 +88,7 @@ async function getContribution(req, res){
 	try {
 		const contributions = await Contribution.findAll({
 			include: ["wishlistItem", "contributor"],
+			order: [["createdAt", "ASC"]],
 		});
 		return res.json(contributions);
 	} catch (err) {

@@ -51,7 +51,7 @@ const WishlistStatus = () => {
       const incomplete = wishlist.wishlistItems.filter((item) => {
         // amount is an object that can be indexed with a string.
         // represents a key-value structure that when indexed with a string, returns a value of number type
-        console.log((amount as { [key: string] : number})[item.id]);
+        // console.log((amount as { [key: string] : number})[item.id]);
         return (amount as { [key: string] : number})[item.id] !== item.price;
       });
       return incomplete.length;

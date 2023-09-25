@@ -71,31 +71,50 @@ const RecentActivity = () => {
   };
 
   const displayActivities = () => {
+    const contributionMap: { [key: string]: number }  = {};
     const activitiesToDisplay = contribution
-      .slice(0, minNum)
        // Map each item in the sliced array to a pair of JSX elements
-      .flatMap((item: Contribution, index: number) => [
-        <Activity
-          key={index}
-          createdAt={item.createdAt}
-          contributorName={item.contributor.name}
-          brand={item.wishlistItem.brand}
-          amount={item.amount}
-          itemName={item.wishlistItem.itemName}
-        />,
-         // Conditionally render a GoalAchieved component if the amount is equal to the price
-        item.amount === item.wishlistItem.price ? (
+      .flatMap((item: Contribution, index: number) => {
+        if (!contributionMap[item.wishlistItemId]) {
+          contributionMap[item.wishlistItemId] = 0 + item.amount;
+        } else {
+          contributionMap[item.wishlistItemId] += item.amount;
+        }
+        // console.log(contributionMap);
+        // Conditionally render a GoalAchieved component if the amount is equal to the price
+        return [
+          contributionMap[item.wishlistItemId] === item.wishlistItem.price ? (
           <GoalAchieved
-            key={index}
+            key={`${index}-achieved`}
             createdAt={item.createdAt}
             brand={item.wishlistItem.brand}
             itemName={item.wishlistItem.itemName}
           />
-        ) : null,
-      ])
-       // Filter out any null or undefined elements in the array
-      .filter(Boolean);
-    return activitiesToDisplay;
+          ) : null,
+          <Activity
+            key={index}
+            createdAt={item.createdAt}
+            contributorName={item.contributor.name}
+            brand={item.wishlistItem.brand}
+            amount={item.amount}
+            itemName={item.wishlistItem.itemName}
+          />,]
+        // Filter out any null or undefined elements in the array
+          .filter(Boolean);
+      })
+    
+    return activitiesToDisplay.sort((a, b) => {
+      const createdAtA = a?.props.createdAt;
+      const createdAtB = b?.props.createdAt;
+
+      if (createdAtA > createdAtB) {
+        return -1;
+      }
+      if (createdAtA < createdAtB) {
+        return 1;
+      }
+      return 0;
+    }).slice(0, minNum);
   };
 
   const showMore = () => {
@@ -173,7 +192,7 @@ const RecentActivity = () => {
       axios
         .get(`http://localhost:15432/contributions/getcontribution`)
         .then((response) => {
-          console.log(response.data);
+          // console.log(response.data);
           setContribution(response.data);
         })
         .catch((error) => {
