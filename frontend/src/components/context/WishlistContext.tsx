@@ -29,7 +29,6 @@ const defaultItem = {
   uuid: "",
   id: "",
   itemStatus: false,
-  accumulatedAmount: 0,
   itemName: "",
   itemPicture: "",
   category: "",

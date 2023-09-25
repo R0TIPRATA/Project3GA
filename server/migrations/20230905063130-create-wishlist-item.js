@@ -46,10 +46,6 @@ module.exports = {
 				type: DataTypes.BOOLEAN,
 				defaultValue: false,
 			},
-			accumulatedAmount: {
-				type: DataTypes.FLOAT,
-				defaultValue: 0,
-			},
 			wishlistId: {
 				type: DataTypes.INTEGER,
 				allowNull: false,

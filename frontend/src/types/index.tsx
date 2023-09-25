@@ -12,7 +12,6 @@ export type Item = {
 	uuid?: string;
   id:string;
 	itemStatus: boolean;
-	accumulatedAmount: number;
 	itemName: string;
 	itemPicture: string;
 	category: string;

@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 const WishlistStatus = () => {
   const { wishlist } = useWishList();
 
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState<object>({});
 
   const daysLeft = (date: string) => {
     const later = DateTime.fromISO(date, { zone: "UTC" }).set({
@@ -29,9 +29,9 @@ const WishlistStatus = () => {
   const getAccumulatedAmount = async () => {
     try {
       axios
-        .get(`http://localhost:15432/items/sum/${item.id}`)
+        .get(`http://localhost:15432/items/sumAll`)
         .then((response) => {
-          setAmount(response.data["accumulatedAmount"]);
+          setAmount(response.data);
         })
         .catch((error) => {
           console.error("Error fetching wish lists:", error);
@@ -41,11 +41,18 @@ const WishlistStatus = () => {
     }
   };
 
+  useEffect(() => {
+    getAccumulatedAmount();
+  }, []);
+
   // No. of incomplete items
   const getNumItems = () => {
     if (wishlist && wishlist.wishlistItems) {
       const incomplete = wishlist.wishlistItems.filter((item) => {
-        return amount !== item.price;
+        // amount is an object that can be indexed with a string.
+        // represents a key-value structure that when indexed with a string, returns a value of number type
+        console.log((amount as { [key: string] : number})[item.id]);
+        return (amount as { [key: string] : number})[item.id] !== item.price;
       });
       return incomplete.length;
     } else {
@@ -59,15 +66,14 @@ const WishlistStatus = () => {
     if (wishlist && wishlist.wishlistItems) {
       let totalValue = 0;
       wishlist.wishlistItems.filter((item) => {
-        return (totalValue += item.accumulatedAmount);
-      });
+        if ((amount as { [key: string] : number})[item.id] !== undefined) {
+          return (totalValue += (amount as { [key: string] : number})[item.id]);
+      }});
       return totalValue;
     }
   };
 
-  useEffect(() => {
-    getAccumulatedAmount();
-  }, []);
+
 
   return (
     <div className="w-[630px] mt-[15px] flex flex-row justify-between">
