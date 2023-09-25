@@ -24,7 +24,6 @@ const Item = (item: ItemType) => {
       axios.get(`http://localhost:15432/items/sum/${item.id}`
       ).then((response) => {
           setAmount(response.data['accumulatedAmount'])
-          console.log(JSON.stringify(response.data,null,2))
       })
       .catch((error) => {
           console.error("Error fetching wish lists:", error);

@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useWishList } from "./context/WishlistContext";
 import { useEffect, useState } from "react";
 
@@ -29,19 +29,19 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1">
           {userToken.username && (
             <li>
-              <a className="text-white pointer-events-none">
+              <a className="text-lime-200 pointer-events-none">
                 Welcome, {userToken.username}!
               </a>
             </li>
           )}
           {userToken.token && (
             <li>
-              <a className="text-white">Wishlist</a>
+              <Link className="text-white" to="/">Wishlist</Link>
             </li>
           )}
           {userToken.token && (
             <li>
-              <a className="text-white">Recent Activity</a>
+              <Link className="text-white" to="/">Recent Activity</Link>
             </li>
           )}
           {userToken.token && (

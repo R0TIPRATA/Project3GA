@@ -11,7 +11,6 @@ import LoggedInNotif from "../components/contributor/LoggedInNotif";
 const ContributorPage = () => {
   const { wishlists, setWishlists, setWishlist } = useWishList();
   const { user } = useParams();
-  console.log(user);
   //get wishlists tied to user
   useEffect(() => {
     axios

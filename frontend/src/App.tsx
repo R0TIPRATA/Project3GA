@@ -8,6 +8,7 @@ import ContributorPage from "./pages/ContributorPage"
 import PaymentPage from "./pages/PaymentPage"
 import SuccessPaymentPage from "./pages/SuccessPaymentPage"
 import DonationPage from "./pages/DonationPage"
+import MessagesPage from "./pages/MessagesPage"
 
 function App() {
   return (
@@ -17,10 +18,11 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/messages" element={<MessagesPage />} />
         <Route path="/:user" element={<ContributorPage />} />
         <Route path="/:user/:itemId" element={<PaymentPage />} /> 
         <Route path="/:user/:itemId/donate" element={<DonationPage />} /> 
-        <Route path="/:user/:itemId/success" element={<SuccessPaymentPage />} /> 
+        <Route path="/:user/:itemId/success" element={<SuccessPaymentPage />} />
       </Routes>
     </WishlistProvider>
     </>
