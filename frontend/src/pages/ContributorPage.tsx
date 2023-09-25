@@ -7,6 +7,7 @@ import Items from "../components/contributor/Items";
 import WishListDetails from "../components/contributor/WishlistDetails";
 import Guestbook from "../components/Guestbook";
 import LoggedInNotif from "../components/contributor/LoggedInNotif";
+import NotFoundPage from "./NotFoundPage";
 
 const ContributorPage = () => {
   const { wishlists, setWishlists, setWishlist } = useWishList();
@@ -45,15 +46,18 @@ const ContributorPage = () => {
       <Navbar />
       <LoggedInNotif />
       <div className="wishlistPage bg-orange-100 flex-col pb-20">
-        <WishListDetails />
-        <main className="parent flex my-10 mx-40 gap-8">
-          <div className="col1 w-4/6">
-            <Items />
-          </div>
-          <div className="col2 w-2/6">
-            <Guestbook />
-          </div>
-        </main>
+        {wishlists.length > 0 ? (
+          <>
+            <WishListDetails />
+            <main className="parent flex my-10 mx-40 gap-8">
+              <div className="col1 w-4/6">
+                <Items />
+              </div>
+              <div className="col2 w-2/6">
+                <Guestbook />
+              </div>
+            </main>
+          </>) : <NotFoundPage />}
       </div>
     </>
   );
