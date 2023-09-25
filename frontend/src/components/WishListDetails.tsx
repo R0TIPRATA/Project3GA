@@ -8,7 +8,7 @@ import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
 const WishListDetails = () => {
-  const { wishlist, setEditFormType } = useWishList();
+  const { wishlist, setEditFormType, userToken } = useWishList();
   const { user } = useParams();
 
   const [open, setOpen] = useState(false);
@@ -26,8 +26,9 @@ const WishListDetails = () => {
   };
 
   const copyLink = () => {
-    const listLink = `http://localhost:5173/lists/user/${user}`;
+    const listLink = `http://localhost:5173/${userToken.username}`;
     navigator.clipboard.writeText(listLink);
+    console.log(listLink);
     console.log("copied");
   };
 

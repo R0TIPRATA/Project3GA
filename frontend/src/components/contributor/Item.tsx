@@ -5,55 +5,59 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const Item = (item: ItemType) => {
-  const params = useParams()
-  const location = useLocation()
-  const {user,itemId} = params
+  const params = useParams();
+  const location = useLocation();
+  const { user, itemId } = params;
   const { setSelectedItem } = useWishList();
-  const navigate = useNavigate()
-  const [amount, setAmount] = useState(0)
+  const navigate = useNavigate();
+  const [amount, setAmount] = useState(0);
   const getAccumulatedAmount = async () => {
-    try{
-      axios.get(`http://localhost:15432/items/sum/${item.id}`
-      ).then((response) => {
-          setAmount(response.data['accumulatedAmount'])
-      })
-      .catch((error) => {
+    try {
+      axios
+        .get(`http://localhost:15432/items/sum/${item.id}`)
+        .then((response) => {
+          setAmount(response.data["accumulatedAmount"]);
+        })
+        .catch((error) => {
           console.error("Error fetching wish lists:", error);
-      });
-    }catch(error){
-      console.log(error)
+        });
+    } catch (error) {
+      console.log(error);
     }
-  }
+  };
 
   const calculateProgress = () => {
-    return (amount/item.price) * 100;
+    return (amount / item.price) * 100;
   };
 
-  const handleClick = (type:string) => {
+  const handleClick = (type: string) => {
     setSelectedItem(item);
-    if(type === "donate"){
-      navigate(`/${user}/${item.uuid}/donate`)
-    }else if(type == "payment"){
-      navigate(`/${user}/${item.uuid}`)
+    if (type === "donate") {
+      navigate(`/${user}/${item.uuid}/donate`);
+    } else if (type == "payment") {
+      navigate(`/${user}/${item.uuid}`);
     }
   };
 
-  const [hideButtonGift, setHideButtonGift] = useState(false)
-  const [hideButtonMoney, setHideButtonMoney] = useState(false)
+  const [hideButtonGift, setHideButtonGift] = useState(false);
+  const [hideButtonMoney, setHideButtonMoney] = useState(false);
 
   useEffect(() => {
-    getAccumulatedAmount()
-  },[item])
+    getAccumulatedAmount();
+  }, [item]);
 
-  useEffect(()=>{
-      if(location.pathname === `/${user}/${itemId}` || location.pathname === `/${user}/${itemId}/donate`){
-        setHideButtonGift(true)
-        setHideButtonMoney(true)
-      }else{
-        setHideButtonGift(amount > 0)
-        setHideButtonMoney(amount === item.price)
-      }
-  },[])
+  useEffect(() => {
+    if (
+      location.pathname === `/${user}/${itemId}` ||
+      location.pathname === `/${user}/${itemId}/donate`
+    ) {
+      setHideButtonGift(true);
+      setHideButtonMoney(true);
+    } else {
+      setHideButtonGift(amount > 0);
+      setHideButtonMoney(amount === item.price);
+    }
+  }, [amount]);
 
   return (
     <div className="card-body text-left bg-base-100 shadow-sm rounded-3xl border border-slate-500">
@@ -118,7 +122,9 @@ const Item = (item: ItemType) => {
       </div>
 
       <div>
-      {(!hideButtonMoney || !hideButtonGift) && <div className="divider divider-vertical p-0"></div>}
+        {(!hideButtonMoney || !hideButtonGift) && (
+          <div className="divider divider-vertical p-0"></div>
+        )}
         <div className="card-actions justify-end">
           {!hideButtonGift && (
             <label
