@@ -11,6 +11,7 @@ import DonationPage from "./pages/DonationPage"
 import MessagesPage from "./pages/MessagesPage"
 import ActivityPage from "./pages/ActivityPage"
 import Layout from "./pages/Layout"
+import ClosePage from "./pages/ClosePage"
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/:user/:itemId" element={<PaymentPage />} /> 
         <Route path="/:user/:itemId/donate" element={<DonationPage />} /> 
         <Route path="/:user/:itemId/success" element={<SuccessPaymentPage />} />
+        <Route path="/close" element={<ClosePage />} />
       </Route>
       </Routes>
     </WishlistProvider>
