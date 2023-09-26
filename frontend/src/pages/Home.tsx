@@ -2,11 +2,8 @@ import { useEffect } from "react";
 import EmptyWishlistPage from "./EmptyWishlistPage";
 import WishlistPage from "./WishlistPage";
 import axios from "axios";
-import Navbar from "../components/Navbar";
 import { useWishList } from "../components/context/WishlistContext";
-//  import AddContributorForm from "../components/form/ContributorForm";
 import { useNavigate } from "react-router-dom";
-//import Guestbook from "../components/Guestbook";
 
 const Home = () => {
 	//const [wishlists, setWishlists] = useState<Wishlist[]>([]);
@@ -49,9 +46,7 @@ const Home = () => {
 
 	return (
 		<>
-			<Navbar />
 			{wishlists.length > 0 ? <WishlistPage /> : <EmptyWishlistPage />}
-			{/* <AddContributorForm /> */}
 		</>
 	);
 };

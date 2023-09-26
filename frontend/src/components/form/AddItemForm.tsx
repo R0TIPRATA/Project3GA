@@ -147,7 +147,7 @@ const AddItemForm = () => {
         })
         .then((response) => {
           console.log(response);
-          setTimeout(()=>addItem(res),500)
+          setTimeout(()=>addItem(res),900)
           formRef.current.reset();
           setImageFile(null);
           notifySuccess("Item successfully added!")

@@ -1,10 +1,7 @@
-import Navbar from "../components/Navbar";
 import AddLoginForm from "../components/form/LoginForm";
 
 const Login = () => {
-  return ( 
-  <>
-    <Navbar />
+  return (
     <div className="drawer drawer-end">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content ">
@@ -15,7 +12,7 @@ const Login = () => {
         </div>
       </div>
     </div>
-  </> );
-}
- 
+  );
+};
+
 export default Login;

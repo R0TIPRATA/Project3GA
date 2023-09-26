@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import Navbar from "../components/Navbar";
 import { useWishList } from "../components/context/WishlistContext";
 import axios from "axios";
 import { useParams } from "react-router-dom";
@@ -43,7 +42,6 @@ const ContributorPage = () => {
 
   return (
     <>
-      <Navbar />
       <LoggedInNotif />
       <div className="wishlistPage bg-orange-100 flex-col pb-20">
         {wishlists.length > 0 ? (
