@@ -4,13 +4,7 @@ import { TextInput, LongTextInput, FileUploadInput } from "./FormComponents";
 import { useRef, useState } from "react";
 import { useWishList } from "../context/WishlistContext";
 import { v4 as uuidv4 } from "uuid";
-import { createClient } from "@supabase/supabase-js";
-
-//needed for file upload
-const supabase = createClient(
-  `${import.meta.env.VITE_SUPABASE_PROJECT_URL}`,
-  `${import.meta.env.VITE_SUPABASE_API_KEY}`
-);
+import supabase from "../../util/Supabase";
 
 const AddItemForm = () => {
   const { wishlist, addItem, userToken } = useWishList();
@@ -104,7 +98,7 @@ const AddItemForm = () => {
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     setItem((prev: Item) => ({
       ...prev,
-      [event.target.name]: `/wishlistimages/${uuidv4()}`,
+      [event.target.name]: `wishlistimages/${uuidv4()}`,
     }));
     setImageFile(event.target.files![0]);
   };

@@ -1,20 +1,32 @@
 import axios from "axios";
 import { DeleteModalProps } from "../../types";
 import { useWishList } from "../context/WishlistContext";
+import supabase from "../../util/Supabase";
 
 const DeleteItemModal = ({ handleToggle, open }: DeleteModalProps) => {
   const { userToken, selectedItem, deleteItem } = useWishList();
 
+  const deleteImage = async () => {
+    if(selectedItem.itemPicture){
+      const { data, error } = await supabase.storage
+        .from("images")
+        .remove([selectedItem.itemPicture]);
+        if (error) console.log("error deleting image: ", error);
+        if (data) return data;
+    }
+  }
+
   const handleClick = async () => {
-    console.log("item deleted => ", JSON.stringify(selectedItem, null, 2));
+    //console.log("item deleted => ", JSON.stringify(selectedItem, null, 2));
     try {
       await axios({
         method: "DELETE",
         url: `http://localhost:15432/items/${selectedItem.uuid}`,
         headers: { Authorization: `Bearer ${userToken.token}` },
       }).then((response) => {
-        console.log(response.data);
-        deleteItem(selectedItem.uuid);
+        console.log(response.data)
+        deleteItem(selectedItem.uuid)
+        deleteImage()
       });
     } catch (err) {
       console.log(err);

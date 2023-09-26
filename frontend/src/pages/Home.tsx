@@ -31,7 +31,7 @@ const Home = () => {
 
 	useEffect(() => {
 		//store individual wishlist from wishlists
-		if (wishlists && wishlists.length > 0) {
+		if ( wishlists && wishlists.length > 0 && wishlists[0].uuid) {
 			axios
 				.get(`http://localhost:15432/lists/${wishlists[0].uuid}`, { headers: { Authorization: `Bearer ${userToken.token}` } }) 
 				.then((response) => {
