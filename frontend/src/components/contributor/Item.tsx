@@ -8,7 +8,7 @@ const Item = (item: ItemType) => {
   const params = useParams();
   const location = useLocation();
   const { user, itemId } = params;
-  const { setSelectedItem } = useWishList();
+  const { setSelectedItem, wishlistCampaignIsOver } = useWishList();
   const navigate = useNavigate();
   const [amount, setAmount] = useState(0);
   const getAccumulatedAmount = async () => {
@@ -49,17 +49,19 @@ const Item = (item: ItemType) => {
 
   useEffect(() => {
     if (
+      wishlistCampaignIsOver ||
       location.pathname === `/${user}/${itemId}` ||
       location.pathname === `/${user}/${itemId}/donate`
     ) {
       setHideButtonGift(true);
       setHideButtonMoney(true);
-    } else {
+    }
+    else {
       setHideButtonGift(amount > 0);
       setHideButtonMoney(amount === item.price);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [amount]);
+  }, [amount, item]);
 
   return (
     <div className="card-body text-left bg-base-100 shadow-sm rounded-3xl border border-slate-500">

@@ -5,11 +5,10 @@ import { DateTime } from "luxon";
 import WishlistStatus from "./WishlistStatus";
 import DeleteWishlistModal from "./form/DeleteWishlistModal";
 import { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link} from "react-router-dom";
 
 const WishListDetails = () => {
-  const { wishlist, setEditFormType, userToken } = useWishList();
-  const { user } = useParams();
+  const { wishlist, setEditFormType, userToken, wishlistCampaignIsOver } = useWishList();
 
   const [open, setOpen] = useState(false);
   const convertDate = (date: string) => {
@@ -47,20 +46,24 @@ const WishListDetails = () => {
       </div>
       <div className="wishlist-title flex items-center">
         <h2>{wishlist.listTitle}</h2>
-        <label
-          htmlFor="edit-drawer"
-          onClick={handleEditClick}
-          className="drawer-button btn btn-primary py-1 px-2 bg-transparent border-transparent text-blue-600 rounded"
-        >
-          <FontAwesomeIcon icon={faEdit} />
-        </label>
-        <label
-          htmlFor="delete-wishlist-modal"
-          onClick={handleToggle}
-          className="drawer-button btn btn-primary py-1 px-2 bg-transparent border-transparent text-red-600 rounded"
-        >
-          <FontAwesomeIcon icon={faTrashCan} />
-        </label>
+        {! wishlistCampaignIsOver &&
+        <>
+          <label
+            htmlFor="edit-drawer"
+            onClick={handleEditClick}
+            className="drawer-button btn btn-primary py-1 px-2 bg-transparent border-transparent text-blue-600 rounded"
+          >
+            <FontAwesomeIcon icon={faEdit} />
+          </label>
+          <label
+            htmlFor="delete-wishlist-modal"
+            onClick={handleToggle}
+            className="drawer-button btn btn-primary py-1 px-2 bg-transparent border-transparent text-red-600 rounded"
+          >
+            <FontAwesomeIcon icon={faTrashCan} />
+          </label>
+        </>
+        }
       </div>
       <div className="details-container flex">
         {wishlist.campaignDate && ( //only display if campaign end date is avail

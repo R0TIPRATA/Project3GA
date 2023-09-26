@@ -8,6 +8,7 @@ import { useWishList } from "../components/context/WishlistContext";
 
 const WishlistPage = () => {
   const drawerRef = useRef({} as HTMLInputElement);
+  const { wishlistCampaignIsOver } = useWishList();
   const { editFormType } = useWishList();
 
   const closeDrawer = () => {
@@ -26,14 +27,21 @@ const WishlistPage = () => {
       />
       <div className="drawer-content">
         <div className="wishlistPage bg-orange-100 flex-col pb-20">
+            {wishlistCampaignIsOver && (
+            <div className="p-8 bg-slate-100">
+              Note: This campaign is over. You are not able to make any changes or contributions to the wishlist any longer.
+            </div>
+          )}
           <WishListDetails />
           <main className="parent flex my-10 mx-40 gap-8">
-            <div className="col1 w-4/6">
+            <div className="col1 w-4/6 flex-grow">
               <Items />
             </div>
-            <div className="col2 w-2/6">
-              <AddItemForm />
-            </div>
+            {!wishlistCampaignIsOver && (
+              <div className="col2 w-2/6">
+                <AddItemForm />
+              </div>
+            )}
           </main>
         </div>
       </div>

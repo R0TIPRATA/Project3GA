@@ -5,7 +5,7 @@ import DeleteItemModal from "./form/DeleteItemModal";
 import { useEffect, useState } from "react";
 
 const Item = (item: ItemType) => {
-  const { setSelectedItem, setEditFormType } = useWishList();
+  const { setSelectedItem, setEditFormType, wishlistCampaignIsOver } = useWishList();
   const [amount, setAmount] = useState(0);
 
   const [open, setOpen] = useState(false);
@@ -109,6 +109,8 @@ const Item = (item: ItemType) => {
       </div>
       {!hideButtons && (
         <div>
+        {!wishlistCampaignIsOver &&
+        <>
           <div className="divider divider-vertical p-0"></div>
           <div className="card-actions justify-end">
             <label
@@ -126,9 +128,10 @@ const Item = (item: ItemType) => {
             >
               Delete item
             </label>
-
             <DeleteItemModal handleToggle={handleToggle} open={open} />
           </div>
+        </>  
+        }
         </div>
       )}
     </div>
