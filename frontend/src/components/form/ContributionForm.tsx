@@ -38,7 +38,7 @@ const AddContributionForm = ({
 
 	// Update payment form amount when amount changes
 	useEffect(() => {
-		console.log(clientSecretSettings);
+		// console.log(clientSecretSettings);
 		if (clientSecretSettings.clientSecret) {
 			try {
 				axios({
@@ -53,6 +53,7 @@ const AddContributionForm = ({
 				console.log(err);
 			}
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [amount]);
 
 	const handleInput = (

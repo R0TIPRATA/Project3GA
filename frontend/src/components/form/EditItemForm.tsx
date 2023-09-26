@@ -108,7 +108,6 @@ const EditItemForm = ({ closeDrawer }: { closeDrawer: () => void }) => {
         headers: { Authorization: `Bearer ${userToken.token}` },
         data: {
           itemName: selectedItem.itemName,
-          accumulatedAmount: selectedItem.accumulatedAmount,
           itemPicture: selectedItem.itemPicture,
           category: selectedItem.category,
           color: selectedItem.color,

@@ -43,6 +43,7 @@ const Item = (item: ItemType) => {
 
   useEffect(() => {
     getAccumulatedAmount();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

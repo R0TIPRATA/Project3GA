@@ -16,6 +16,7 @@ const Navbar = () => {
   useEffect(()=>{
     console.log("user token" + JSON.stringify(userToken))
     userToken ? setIsLoginUser(true):setIsLoginUser(false)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[isLoginUser])
 
   return (
@@ -41,7 +42,7 @@ const Navbar = () => {
           )}
           {userToken.token && (
             <li>
-              <Link className="text-white" to="/">Recent Activity</Link>
+              <Link className="text-white" to="/activity">Recent Activity</Link>
             </li>
           )}
           {userToken.token && (

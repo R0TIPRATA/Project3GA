@@ -21,7 +21,6 @@ const AddItemForm = () => {
     uuid: "",
     id: "",
     itemStatus: false,
-    accumulatedAmount: 0,
     itemName: "",
     itemPicture: "",
     category: "",
@@ -131,7 +130,6 @@ const AddItemForm = () => {
         headers: { Authorization: `Bearer ${userToken.token}` },
         data: {
           itemName: item.itemName,
-          accumulatedAmount: item.accumulatedAmount,
           itemPicture: item.itemPicture,
           category: item.category,
           color: item.color,

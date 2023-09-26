@@ -3,6 +3,7 @@ const { WishlistList, WishlistItem, Contribution } = require("../models");
 module.exports = {
 	getAll,
 	getAccumulatedAmount,
+	getAllAccumulatedAmount,
 	getOne: getOneItem,
 	create,
 	delete: deleteItem,
@@ -130,4 +131,22 @@ async function getAccumulatedAmount(req, res){
 	}).catch((error) => {
 		console.error(error);
 	  });
+}
+
+async function getAllAccumulatedAmount(req, res){
+	Contribution.findAll({})
+	.then((contributions) => {
+		const totalAmountByWishlistItemId = contributions.reduce((total, contribution) => {
+			const { wishlistItemId, amount } = contribution;
+			if (total[wishlistItemId]) {
+				total[wishlistItemId] += amount;
+			} else {
+				total[wishlistItemId] = amount;
+			}
+			return total;
+		}, {});
+		return res.json(totalAmountByWishlistItemId);
+	}).catch((error) => {
+		console.error(error);
+	});
 }

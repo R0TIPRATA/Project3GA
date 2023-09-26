@@ -83,7 +83,6 @@ module.exports = (sequelize, DataTypes) => {
 				},
 			},
 			itemStatus: { type: DataTypes.BOOLEAN, defaultValue: false },
-			accumulatedAmount: { type: DataTypes.FLOAT, defaultValue: 0 },
 		},
 		{
 			sequelize,

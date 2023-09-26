@@ -8,6 +8,7 @@ module.exports = {
 	updateStripePayment,
 	confirmStripePayment,
 	addContribution,
+	getContribution,
 };
 
 async function createStripePayment(req, res) {
@@ -77,6 +78,19 @@ async function addContribution(req, res) {
 			wishlistItemId: item.id,
 		})
 		return res.json(contribution);
+	} catch (err) {
+		console.log(err);
+		return res.json(err);
+	}
+}
+
+async function getContribution(req, res){
+	try {
+		const contributions = await Contribution.findAll({
+			include: ["wishlistItem", "contributor"],
+			order: [["createdAt", "ASC"]],
+		});
+		return res.json(contributions);
 	} catch (err) {
 		console.log(err);
 		return res.json(err);
