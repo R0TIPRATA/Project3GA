@@ -6,7 +6,6 @@ module.exports = {
 	createStripePayment,
 	getPublishableKey,
 	updateStripePayment,
-	// retrieveStripePayment,
 	addContribution,
 	getContribution,
 };
@@ -42,12 +41,6 @@ async function updateStripePayment(req, res) {
 		});
 	}
 }
-
-// async function retrieveStripePayment(req, res) {
-// 	const { payment_id } = req.body;
-// 	const paymentIntent = await stripe.paymentIntents.retrieve(payment_id);
-// 	return res.json(paymentIntent);
-// }
 
 async function addContribution(req, res) {
 	const { name, email, message, amount } = req.body;
