@@ -10,7 +10,7 @@ type AddWishlistFormProps = {
 }
 
 const AddWishlistForm = ({closeDrawer}: AddWishlistFormProps) => {
-  const { userToken, addWishlist } = useWishList();
+  const { userToken, addWishlist, notifySuccess, notifyError } = useWishList();
   const currentDate: string = DateTime.local({ zone: "Asia/Singapore" }).toString().slice(0, 10);
   const [wishlistDetails, setWishlistDetails] = useState<WishlistDetails>({
     listTitle: "",
@@ -47,11 +47,12 @@ const AddWishlistForm = ({closeDrawer}: AddWishlistFormProps) => {
           username: userToken.username
         }
       }).then((response) => {
-        // console.log(response.data);
         addWishlist(response.data);
+        notifySuccess("Wishlist successfully added!")
       })
     } catch (err) {
       console.log(err);
+      notifyError()
     }
     closeDrawer();
   }

@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import Navbar from "../components/Navbar";
 import { useWishList } from "../components/context/WishlistContext";
 import axios from "axios";
 import { useParams } from "react-router-dom";
@@ -8,10 +7,28 @@ import WishListDetails from "../components/contributor/WishlistDetails";
 import Guestbook from "../components/Guestbook";
 import LoggedInNotif from "../components/contributor/LoggedInNotif";
 import NotFoundPage from "./NotFoundPage";
+import { DateTime, Interval } from "luxon";
 
 const ContributorPage = () => {
-  const { wishlists, setWishlists, setWishlist } = useWishList();
+  const { wishlists, setWishlists, setWishlist, setWishlistCampaignIsOver, wishlistCampaignIsOver} = useWishList();
   const { user } = useParams();
+
+
+  const checkDaysLeft = (date: string) => {
+    const later = DateTime.fromISO(date, { zone: "UTC" }).set({
+      hour: 23,
+      minute: 59,
+      second: 59,
+    });
+    const now = DateTime.local({ zone: "Asia/Singapore" });
+    const interval = Interval.fromDateTimes(now, later);
+    if (interval.length("days").toString() === "NaN") {
+      setWishlistCampaignIsOver(true);
+    } else {
+      setWishlistCampaignIsOver(false);
+    }
+  };
+
   //get wishlists tied to user
   useEffect(() => {
     axios
@@ -32,6 +49,7 @@ const ContributorPage = () => {
         .get(`http://localhost:15432/lists/user/${user}/${wishlists[0].uuid}`)
         .then((response) => {
           setWishlist(response.data);
+          checkDaysLeft(response.data.campaignDate);
           //console.log(JSON.stringify(response.data,null,2))
         })
         .catch((error) => {
@@ -43,8 +61,12 @@ const ContributorPage = () => {
 
   return (
     <>
-      <Navbar />
-      <LoggedInNotif />
+      { !wishlistCampaignIsOver ?
+      <LoggedInNotif /> :
+        <div className="p-8 bg-slate-100">
+        Note: This campaign is over. You are not able to make any changes or contributions to the wishlist any longer.
+      </div>
+      }
       <div className="wishlistPage bg-orange-100 flex-col pb-20">
         {wishlists.length > 0 ? (
           <>

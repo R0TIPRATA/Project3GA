@@ -10,12 +10,14 @@ import SuccessPaymentPage from "./pages/SuccessPaymentPage"
 import DonationPage from "./pages/DonationPage"
 import MessagesPage from "./pages/MessagesPage"
 import ActivityPage from "./pages/ActivityPage"
+import Layout from "./pages/Layout"
 
 function App() {
   return (
     <>
     <WishlistProvider>
       <Routes>
+      <Route path="/" element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
@@ -25,6 +27,7 @@ function App() {
         <Route path="/:user/:itemId" element={<PaymentPage />} /> 
         <Route path="/:user/:itemId/donate" element={<DonationPage />} /> 
         <Route path="/:user/:itemId/success" element={<SuccessPaymentPage />} />
+      </Route>
       </Routes>
     </WishlistProvider>
     </>

@@ -9,7 +9,7 @@ export type Wishlist = {
 };
 
 export type Item = {
-	uuid?: string;
+	uuid: string;
   id:string;
 	itemStatus: boolean;
 	itemName: string;
@@ -28,7 +28,7 @@ export type Item = {
 export type InputField = {
   label: string
   name: string
-  value?: string | number 
+  value?: string | number | null
   description?: string
   required: boolean
   min?: string

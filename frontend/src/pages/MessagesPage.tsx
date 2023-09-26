@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import Navbar from "../components/Navbar";
 import { useWishList } from "../components/context/WishlistContext";
 import { useNavigate } from "react-router-dom";
 import Guestbook from "../components/Guestbook";
@@ -48,15 +47,12 @@ const MessagesPage = () => {
   }, [wishlists]);
 
   return (
-    <>
-      <Navbar />
       <div className="wishlistPage bg-orange-100 flex-col pb-20 min-h-full">
         <main className="parent flex flex-col py-10 px-40 gap-8">
             <h3>Guestbook</h3>
             <div>{wishlist && <Guestbook />}</div>
         </main>
       </div>
-    </>
   );
 };
 

@@ -1,5 +1,7 @@
 import { ReactNode, createContext, useContext, useState } from "react";
 import { Wishlist, Item, Token } from "../../types";
+import toast from 'react-hot-toast';
+
 
 type WishlistProviderProps = {
   children: ReactNode;
@@ -14,6 +16,8 @@ type WishListContext = {
   addWishlist: (wishlist: Wishlist) => void;
   editFormType: string;
   setEditFormType: React.Dispatch<React.SetStateAction<string>>;
+  wishlistCampaignIsOver: boolean
+  setWishlistCampaignIsOver: React.Dispatch<React.SetStateAction<boolean>>
   addItem: (item: Item) => void;
   updateItem: (item: Item) => void;
   deleteItem: (deletedItemUUID: string) => void;
@@ -21,6 +25,8 @@ type WishListContext = {
   setUserToken: React.Dispatch<React.SetStateAction<Token>>;
   selectedItem: Item;
   setSelectedItem: React.Dispatch<React.SetStateAction<Item>>;
+  notifySuccess: (message:string) => void;
+  notifyError: () => void;
 };
 
 const WishlistContext = createContext({} as WishListContext);
@@ -60,6 +66,7 @@ export function WishlistProvider({ children }: WishlistProviderProps) {
 
   //wishlist related
   const [wishlist, setWishlist] = useState<Wishlist>({} as Wishlist);
+  const [wishlistCampaignIsOver, setWishlistCampaignIsOver] = useState(false)
   const [editFormType, setEditFormType] = useState("");
 
   //item related
@@ -100,6 +107,10 @@ export function WishlistProvider({ children }: WishlistProviderProps) {
       : { username: null, token: null };
   });
 
+  //show toaster
+  const notifySuccess = (message:string) => toast.success(message);
+  const notifyError = () => toast.error("An error occured. Please try again.");
+
   return (
     <WishlistContext.Provider
       value={{
@@ -112,6 +123,8 @@ export function WishlistProvider({ children }: WishlistProviderProps) {
         addWishlist,
         editFormType,
         setEditFormType,
+        wishlistCampaignIsOver,
+        setWishlistCampaignIsOver,
         //item-related
         selectedItem,
         setSelectedItem,
@@ -121,6 +134,9 @@ export function WishlistProvider({ children }: WishlistProviderProps) {
         //login-related
         userToken,
         setUserToken,
+        //toaster related
+        notifySuccess,
+        notifyError,
       }}
     >
       {children}

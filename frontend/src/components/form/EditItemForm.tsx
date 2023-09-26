@@ -3,19 +3,14 @@ import { FileUploadInput, LongTextInput, TextInput } from "./FormComponents";
 import axios from "axios";
 import { Item } from "../../types";
 import { useWishList } from "../context/WishlistContext";
-import { createClient } from "@supabase/supabase-js";
 import { v4 as uuidv4 } from "uuid";
-
-//needed for file upload
-const supabase = createClient(
-  `${import.meta.env.VITE_SUPABASE_PROJECT_URL}`,
-  `${import.meta.env.VITE_SUPABASE_API_KEY}`
-);
+import supabase from "../../util/Supabase";
 
 const EditItemForm = ({ closeDrawer }: { closeDrawer: () => void }) => {
-  const { selectedItem, setSelectedItem, userToken, updateItem } = useWishList();
-  const [itemImage, setItemImage] = useState("");
-  const [imageFile, setImageFile] = useState<File>({} as File);
+  const { selectedItem, setSelectedItem, userToken, updateItem, notifySuccess, notifyError } = useWishList();
+  const [itemImagePreview, setItemImagePreview] = useState("");
+  const [newImageUrl, setNewImageUrl] = useState("");
+  const [newImageFile, setNewImageFile] = useState<File>({} as File);
 
   const fieldItems = [
     {
@@ -87,19 +82,42 @@ const EditItemForm = ({ closeDrawer }: { closeDrawer: () => void }) => {
     }));
   };
 
-  async function uploadImage() {
-    if (itemImage) {
+  const addHttp = (productUrl: string | null | undefined) =>{
+    if(productUrl !== undefined && productUrl && !productUrl.startsWith('https://') && !productUrl.startsWith('http://')){
+      return 'https://' + productUrl;
+    }else{
+      return productUrl
+    }
+  }
+
+  const uploadImage = async () => {
+    if (newImageUrl) {
       const { data, error } = await supabase.storage
         .from("images")
-        .upload(selectedItem.itemPicture, imageFile);
-      if (error) console.log("error: ", error);
-      if (data) return data;
+        //.upload(selectedItem.itemPicture, newImageFile)
+        .upload(newImageUrl, newImageFile);
+      setSelectedItem({} as Item);
+      if (error) console.log("error uploading image: ", error);
+      if (data){
+        deleteImage()
+        return data
+      }
     }
+  };
+
+  //remove old image from storage after uploading new one
+  const deleteImage = async () => {
+    const { data, error } = await supabase.storage
+      .from("images")
+      .remove([selectedItem.itemPicture]);
+      if (error) console.log("error deleting image: ", error);
+      if (data) return data;
   }
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log("item sent => ", JSON.stringify(selectedItem, null, 2));
+    console.log("old image src => ", selectedItem.itemPicture);
+    console.log("new image src => ", newImageUrl);
     let res: Item;
     try {
       axios({
@@ -108,42 +126,43 @@ const EditItemForm = ({ closeDrawer }: { closeDrawer: () => void }) => {
         headers: { Authorization: `Bearer ${userToken.token}` },
         data: {
           itemName: selectedItem.itemName,
-          itemPicture: selectedItem.itemPicture,
+          itemPicture: newImageUrl ? newImageUrl : selectedItem.itemPicture,
           category: selectedItem.category,
           color: selectedItem.color,
           brand: selectedItem.brand,
           price: selectedItem.price,
-          productUrl: selectedItem.productUrl,
+          productUrl: addHttp(selectedItem.productUrl),
           itemMessageContributor: selectedItem.itemMessageContributor,
         },
       })
         .then((response) => {
           res = response.data;
-          uploadImage();
+          uploadImage()
+          notifySuccess("Item successfully updated!")
         })
-        .then((response) => {
-          console.log(response);
-          setTimeout(()=>updateItem(res),50)
+        .then(() => {
+          setTimeout(() => updateItem(res), 50);
         });
     } catch (err) {
       console.log(err);
+      notifyError()
     }
-    closeDrawer();
+    closeDrawer && closeDrawer();
   };
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedItem((prev: Item) => ({
-      ...prev,
-      [event.target.name]: `/wishlistimages/${uuidv4()}`,
-    }));
-    setImageFile(event.target.files![0]);
-    setItemImage(URL.createObjectURL(event.target.files![0]));
+    // setSelectedItem((prev: Item) => ({
+    //   ...prev,
+    //   [event.target.name]: `/wishlistimages/${uuidv4()}`,
+    // }));
+    setNewImageUrl(`wishlistimages/${uuidv4()}`);
+    setNewImageFile(event.target.files![0]);
+    setItemImagePreview(URL.createObjectURL(event.target.files![0]));
   };
-
 
   useEffect(() => {
     selectedItem.uuid &&
-      setItemImage(import.meta.env.VITE_CDN + selectedItem.itemPicture);
+      setItemImagePreview(import.meta.env.VITE_CDN + selectedItem.itemPicture);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedItem.uuid]);
 
@@ -182,7 +201,7 @@ const EditItemForm = ({ closeDrawer }: { closeDrawer: () => void }) => {
                 label={item.label}
                 name={item.name}
                 handleFileUpload={handleFileUpload}
-                selectedPicture={itemImage}
+                selectedPicture={itemImagePreview}
                 required={item.required}
               />
             );
@@ -192,7 +211,7 @@ const EditItemForm = ({ closeDrawer }: { closeDrawer: () => void }) => {
       <label
         htmlFor="edit-drawer"
         className="btn btn-primary float-right mt-[10px] mr-[6px]drawer-button"
-        onClick={()=>closeDrawer}
+        onClick={() => closeDrawer}
       >
         Cancel
       </label>
