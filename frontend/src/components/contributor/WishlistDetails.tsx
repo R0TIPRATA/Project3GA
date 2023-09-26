@@ -2,6 +2,7 @@ import { DateTime } from "luxon";
 import WishlistStatus from "../WishlistStatus";
 import { useWishList } from "../context/WishlistContext";
 import { useParams } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 
 const WishListDetails = () => {
   const { wishlist } = useWishList();
@@ -19,14 +20,33 @@ const WishListDetails = () => {
     console.log("copied");
   };
 
+  const notify = () => toast("Link to wishlist copied!");
+
   return (
     <div className="bg-red-100 w-100 px-12 py-12">
       <div className="top-header flex items-end self-stretch justify-between">
         <div className="uppercase text-sm text-gray-700">{user}'s Wishlist</div>
         <div className="buttons-wrapper">
-          <button className="ml-2" onClick={copyLink}>
+          <button
+            className="btn btn-tertiary ml-20"
+            onClick={() => {
+              copyLink();
+              notify();
+            }}
+          >
             Share wishlist
           </button>
+          <Toaster
+            toastOptions={{
+              className: "",
+              style: {
+                backgroundColor: "#4C4747",
+                color: "#fff",
+              },
+              duration: 1200,
+            }}
+            containerStyle={{ position: "relative" }}
+          />
         </div>
       </div>
       <div className="wishlist-title flex items-center">

@@ -1,15 +1,13 @@
-import { Outlet } from "react-router-dom"
-import Navbar from "../components/Navbar"
-import { Toaster } from 'react-hot-toast'
+import { Outlet } from "react-router-dom";
+import Navbar from "../components/Navbar";
 
 const Layout = () => {
-    return (
-        <div className="App bg-orange-100 min-h-full">
-            <Navbar />
-            <Outlet />
-            <Toaster />
-        </div>
-    )
-}
+  return (
+    <div className="App bg-orange-100 min-h-full">
+      <Navbar />
+      <Outlet />
+    </div>
+  );
+};
 
-export default Layout
+export default Layout;
