@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 import supabase from "../../util/Supabase";
 
 const EditItemForm = ({ closeDrawer }: { closeDrawer: () => void }) => {
-  const { selectedItem, setSelectedItem, userToken, updateItem } = useWishList();
+  const { selectedItem, setSelectedItem, userToken, updateItem, notifySuccess, notifyError } = useWishList();
   const [itemImagePreview, setItemImagePreview] = useState("");
   const [newImageUrl, setNewImageUrl] = useState("");
   const [newImageFile, setNewImageFile] = useState<File>({} as File);
@@ -82,6 +82,14 @@ const EditItemForm = ({ closeDrawer }: { closeDrawer: () => void }) => {
     }));
   };
 
+  const addHttp = (productUrl: string | null | undefined) =>{
+    if(productUrl !== undefined && productUrl && !productUrl.startsWith('https://') && !productUrl.startsWith('http://')){
+      return 'https://' + productUrl;
+    }else{
+      return productUrl
+    }
+  }
+
   const uploadImage = async () => {
     if (newImageUrl) {
       const { data, error } = await supabase.storage
@@ -118,26 +126,28 @@ const EditItemForm = ({ closeDrawer }: { closeDrawer: () => void }) => {
         headers: { Authorization: `Bearer ${userToken.token}` },
         data: {
           itemName: selectedItem.itemName,
-          itemPicture: newImageUrl,
+          itemPicture: newImageUrl ? newImageUrl : selectedItem.itemPicture,
           category: selectedItem.category,
           color: selectedItem.color,
           brand: selectedItem.brand,
           price: selectedItem.price,
-          productUrl: selectedItem.productUrl,
+          productUrl: addHttp(selectedItem.productUrl),
           itemMessageContributor: selectedItem.itemMessageContributor,
         },
       })
         .then((response) => {
           res = response.data;
           uploadImage()
+          notifySuccess("Item successfully updated!")
         })
         .then(() => {
           setTimeout(() => updateItem(res), 50);
         });
     } catch (err) {
       console.log(err);
+      notifyError()
     }
-    closeDrawer();
+    closeDrawer && closeDrawer();
   };
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {

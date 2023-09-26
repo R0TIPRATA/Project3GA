@@ -10,6 +10,7 @@ import SuccessPaymentPage from "./pages/SuccessPaymentPage"
 import DonationPage from "./pages/DonationPage"
 import MessagesPage from "./pages/MessagesPage"
 import ActivityPage from "./pages/ActivityPage"
+import { Toaster } from 'react-hot-toast'
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="/:user/:itemId/donate" element={<DonationPage />} /> 
         <Route path="/:user/:itemId/success" element={<SuccessPaymentPage />} />
       </Routes>
+      <Toaster />
     </WishlistProvider>
     </>
   );

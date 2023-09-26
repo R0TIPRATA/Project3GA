@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 import supabase from "../../util/Supabase";
 
 const AddItemForm = () => {
-  const { wishlist, addItem, userToken } = useWishList();
+  const { wishlist, addItem, userToken, notifySuccess, notifyError } = useWishList();
   const [imageFile, setImageFile] = useState<File | null>(null);
   const formRef = useRef({} as HTMLFormElement);
 
@@ -84,6 +84,14 @@ const AddItemForm = () => {
     },
   ];
 
+  const addHttp = (productUrl: string | null | undefined) =>{
+    if(productUrl !== undefined && productUrl && !productUrl.startsWith('https://') && !productUrl.startsWith('http://')){
+      return 'https://' + productUrl;
+    }else{
+      return productUrl
+    }
+  }
+
   const handleInput = (
     event:
       | React.ChangeEvent<HTMLInputElement>
@@ -115,7 +123,7 @@ const AddItemForm = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log("item sent => ", JSON.stringify(item, null, 2));
+    //console.log("item sent => ", JSON.stringify(item, null, 2));
     let res: Item;
     try {
       axios({
@@ -129,7 +137,7 @@ const AddItemForm = () => {
           color: item.color,
           brand: item.brand,
           price: item.price,
-          productUrl: item.productUrl,
+          productUrl: addHttp(item.productUrl),
           itemMessageContributor: item.itemMessageContributor,
         },
       })
@@ -142,13 +150,16 @@ const AddItemForm = () => {
           setTimeout(()=>addItem(res),500)
           formRef.current.reset();
           setImageFile(null);
+          notifySuccess("Item successfully added!")
         });
     } catch (err) {
       console.log(err);
+      notifyError()
     }
   };
 
   return (
+    <>
     <form
       className=" bg-slate-50 p-8 rounded-3xl"
       ref={formRef}
@@ -199,6 +210,7 @@ const AddItemForm = () => {
         </div>
       </div>
     </form>
+    </>
   );
 };
 
