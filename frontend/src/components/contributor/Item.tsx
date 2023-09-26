@@ -3,6 +3,7 @@ import { Item as ItemType } from "../../types";
 import { useWishList } from "../context/WishlistContext";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import successImg from "../../assets/success.png";
 
 const Item = (item: ItemType) => {
   const params = useParams();
@@ -55,8 +56,7 @@ const Item = (item: ItemType) => {
     ) {
       setHideButtonGift(true);
       setHideButtonMoney(true);
-    }
-    else {
+    } else {
       setHideButtonGift(amount > 0);
       setHideButtonMoney(amount === item.price);
     }
@@ -65,6 +65,7 @@ const Item = (item: ItemType) => {
 
   return (
     <div className="card-body text-left bg-base-100 shadow-sm rounded-3xl border border-slate-500">
+      {/* {hideButtonMoney && ()} */}
       <div className="card-top flex gap-4 justify-between">
         <div className="item-img flex items-start w-1/4">
           <figure>
@@ -82,7 +83,12 @@ const Item = (item: ItemType) => {
                 <div className="badge capitalize badge-ghost">
                   {item.category}
                 </div>
-                <h2 className="card-title">{item.itemName}</h2>
+                <h2 className="card-title">
+                  {item.itemName}
+                  {hideButtonMoney && (
+                    <img src={successImg} className="w-6"></img>
+                  )}
+                </h2>
                 <p>{item.brand}</p>
                 <p>Color: {item.color}</p>
                 {item.productUrl && (
