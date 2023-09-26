@@ -9,10 +9,11 @@ import { useLocation } from "react-router-dom";
 import { Contribution } from "../types";
 
 const RecentActivity = () => {
-  const { wishlists } = useWishList();
+  const { wishlist, wishlists } = useWishList();
   const pathName = useLocation().pathname;
   const NUM_DISPLAY = 5; //min number of activities to display
   const [minNum, setMinNum] = useState(NUM_DISPLAY);
+  const [isLoading, setIsLoading] = useState(false);
   const [contribution, setContribution] = useState<Contribution[]>([
     {
       id: "",
@@ -187,27 +188,44 @@ const RecentActivity = () => {
     );
   };
 
+  const filterContributions = (allContributions: Contribution[]) => {
+    const filteredContributions = allContributions.filter(contribution => wishlist.wishlistItems.some(item => item.id === contribution.wishlistItemId))
+    return filteredContributions;
+  }
+
   useEffect(() => {
     if (wishlists.length > 0) {
       axios
         .get(`http://localhost:15432/contributions/getcontribution`)
         .then((response) => {
           // console.log(response.data);
-          setContribution(response.data);
+          const data = filterContributions(response.data);
+          console.log("filtered Contributions", data);
+          setContribution(data);
         })
         .catch((error) => {
           console.error("Error fetching wish lists:", error);
         });
     }
-  }, [wishlists]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [wishlist, wishlists]);
+
+  useEffect(() => {
+    setIsLoading(false);
+    const timer = setTimeout(() => {
+      setIsLoading(true);
+    }, 300);
+    return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[])
 
   return (
     <div>
       <div className="flex flex-col gap-4">
         {pathName!=="/activity" && <h3>Recent Activity</h3>}
-        {wishlists && wishlists.length > 0 ? (
+        {wishlists.length > 0 && contribution.length > 0 ? (
           <div>
-            {displayActivities()}
+            {isLoading && displayActivities()}
             <div className="button-wrapper">
               {contribution.length > NUM_DISPLAY && minNum === NUM_DISPLAY && (
                 <button
