@@ -15,7 +15,7 @@ const AddContributionForm = ({
 }: {
 	clientSecretSettings: ClientSecret;
 }) => {
-	const { selectedItem} = useWishList();
+	const { selectedItem, notifyError } = useWishList();
 	const stripe = useStripe();
 	const elements = useElements();
 	const [amount, setAmount] = useState<number>(50);
@@ -129,8 +129,11 @@ const AddContributionForm = ({
 			navigate(`/${user}/${itemId}/success`);
 		} else { 
 			console.log("Payment Failed");
+			notifyError();
 			navigate(`/${user}/${itemId}`);
-			window.location.reload();
+			setTimeout(() => {
+				window.location.reload();
+			}, 1500)
 		}
 	}
 
