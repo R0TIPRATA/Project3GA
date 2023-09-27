@@ -3,9 +3,11 @@ import { Item as ItemType } from "../types";
 import { useWishList } from "./context/WishlistContext";
 import DeleteItemModal from "./form/DeleteItemModal";
 import { useEffect, useState } from "react";
+import successImg from "/Users/nadiahismail/Desktop/Project3GA/frontend/src/assets/success.png";
 
 const Item = (item: ItemType) => {
-  const { setSelectedItem, setEditFormType, wishlistCampaignIsOver } = useWishList();
+  const { setSelectedItem, setEditFormType, wishlistCampaignIsOver } =
+    useWishList();
   const [amount, setAmount] = useState(0);
 
   const [open, setOpen] = useState(false);
@@ -35,6 +37,7 @@ const Item = (item: ItemType) => {
   };
 
   const hideButtons = amount > 0;
+  const completeItem = amount === item.price;
 
   const handleClick = () => {
     setSelectedItem(item);
@@ -65,7 +68,10 @@ const Item = (item: ItemType) => {
                 <div className="badge capitalize badge-ghost">
                   {item.category}
                 </div>
-                <h2 className="card-title">{item.itemName}</h2>
+                <h2 className="card-title">
+                  {item.itemName}{" "}
+                  {completeItem && <img src={successImg} className="w-6"></img>}
+                </h2>
                 <p>{item.brand}</p>
                 <p>Color: {item.color}</p>
                 {item.productUrl && (
@@ -109,29 +115,29 @@ const Item = (item: ItemType) => {
       </div>
       {!hideButtons && (
         <div>
-        {!wishlistCampaignIsOver &&
-        <>
-          <div className="divider divider-vertical p-0"></div>
-          <div className="card-actions justify-end">
-            <label
-              htmlFor="edit-drawer"
-              className="btn btn-primary drawer-button"
-              onClick={handleClick}
-            >
-              Edit item
-            </label>
+          {!wishlistCampaignIsOver && (
+            <>
+              <div className="divider divider-vertical p-0"></div>
+              <div className="card-actions justify-end">
+                <label
+                  htmlFor="edit-drawer"
+                  className="btn btn-primary drawer-button"
+                  onClick={handleClick}
+                >
+                  Edit item
+                </label>
 
-            <label
-              htmlFor="delete-item-modal"
-              onClick={handleToggle}
-              className="btn btn-primary"
-            >
-              Delete item
-            </label>
-            <DeleteItemModal handleToggle={handleToggle} open={open} />
-          </div>
-        </>  
-        }
+                <label
+                  htmlFor="delete-item-modal"
+                  onClick={handleToggle}
+                  className="btn btn-primary"
+                >
+                  Delete item
+                </label>
+                <DeleteItemModal handleToggle={handleToggle} open={open} />
+              </div>
+            </>
+          )}
         </div>
       )}
     </div>
