@@ -8,20 +8,21 @@ import {
 import { TextInput, LongTextInput, AmountInput } from "./FormComponents";
 import { ClientSecret, ContributorInput } from "../../types";
 import { useWishList } from "../context/WishlistContext";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const AddContributionForm = ({
 	clientSecretSettings,
 }: {
 	clientSecretSettings: ClientSecret;
 }) => {
-	const { selectedItem} = useWishList();
+	const { selectedItem, notifyError } = useWishList();
 	const stripe = useStripe();
 	const elements = useElements();
 	const [amount, setAmount] = useState<number>(50);
 	const [errorMessage, setErrorMessage] = useState<string | undefined>("");
 	const params = useParams()
 	const {user,itemId} = params
+	const navigate = useNavigate();
 
 	const fieldItems = [
 		{ type: "text-input", label: "Contributor Name", name: "name", required: true },
@@ -109,18 +110,30 @@ const AddContributionForm = ({
 
 	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
-		postContributionDetails()
+		
 		if (!stripe || !elements) return;
 		// Return to return_url after payment is made
-		const { error } = await stripe.confirmPayment({
+		const { error, paymentIntent } = await stripe.confirmPayment({
 			elements,
 			confirmParams: {
-				return_url: `http://localhost:5173/${user}/${itemId}/success`,
+				return_url: `http://localhost:5173/close`,
 			},
+			redirect: "if_required",
 		});
 
-		if(error){
+		if (error) {
 			setErrorMessage(error.message);
+		} else if (paymentIntent && paymentIntent.status === "succeeded") { 
+			console.log("Payment Success");
+			postContributionDetails();
+			navigate(`/${user}/${itemId}/success`);
+		} else { 
+			console.log("Payment Failed");
+			notifyError();
+			navigate(`/${user}/${itemId}`);
+			setTimeout(() => {
+				window.location.reload();
+			}, 1500)
 		}
 	}
 

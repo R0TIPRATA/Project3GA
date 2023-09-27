@@ -6,7 +6,6 @@ module.exports = {
 	createStripePayment,
 	getPublishableKey,
 	updateStripePayment,
-	confirmStripePayment,
 	addContribution,
 	getContribution,
 };
@@ -21,7 +20,7 @@ async function createStripePayment(req, res) {
 			// automatic_payment_methods: {
 			// 	enabled: true,
 			// },
-			payment_method_types: ["paynow", "grabpay"],
+			payment_method_types: ["paynow"],
 		});
 		return res.json({
 			client_secret: paymentIntent.client_secret,
@@ -41,12 +40,6 @@ async function updateStripePayment(req, res) {
 			amount: amount * 100,
 		});
 	}
-}
-
-async function confirmStripePayment(req, res) {
-	const { payment_id } = req.body;
-	const paymentIntent = await stripe.paymentIntents.confirm(payment_id);
-	return res.json(paymentIntent);
 }
 
 async function addContribution(req, res) {
