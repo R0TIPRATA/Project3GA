@@ -86,7 +86,7 @@ const Home = () => {
         })
         .catch((error) => {
           console.error("Error fetching wish lists:", error);
-          setUserToken({username: null, loggedInStatus: false});
+          setUserToken({username: undefined, loggedInStatus: false});
           navigate("/login");
         });
     }
