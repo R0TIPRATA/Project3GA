@@ -23,7 +23,7 @@ const Item = (item: ItemType) => {
 
   const getAccumulatedAmount = async () => {
       axios
-        .get(`http://localhost:15432/items/sum/${item.id}`)
+        .get(`${import.meta.env.VITE_APP_API_URL}/items/sum/${item.id}`)
         .then((response) => {
           setAmount(response.data.accumulatedAmount);
         })

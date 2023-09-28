@@ -38,7 +38,7 @@ const AddWishlistForm = ({closeDrawer}: AddWishlistFormProps) => {
     try { 
       axios({
         method: "POST",
-        url: `http://localhost:15432/lists`,
+        url: `${import.meta.env.VITE_APP_API_URL}/lists`,
         headers: { Authorization: `Bearer ${userToken.token}` },
         data: {
           listTitle: wishlistDetails.listTitle,

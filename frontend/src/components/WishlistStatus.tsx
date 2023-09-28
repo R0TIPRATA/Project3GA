@@ -29,7 +29,7 @@ const WishlistStatus = () => {
   const getAccumulatedAmount = async () => {
     try {
       axios
-        .get(`http://localhost:15432/items/sumAll`)
+        .get(`${import.meta.env.VITE_APP_API_URL}/items/sumAll`)
         .then((response) => {
           setAmount(response.data);
         })

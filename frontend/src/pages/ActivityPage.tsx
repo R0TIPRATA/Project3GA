@@ -13,7 +13,7 @@ const ActivityPage = () => {
   useEffect(() => {
     if (userToken.username) {
       axios
-        .get(`http://localhost:15432/lists/user/${userToken.username}`)
+        .get(`${import.meta.env.VITE_APP_API_URL}/lists/user/${userToken.username}`)
         .then((response) => {
           setWishlists(response.data);
         })
@@ -27,7 +27,7 @@ const ActivityPage = () => {
   useEffect(() => {
     if (wishlists && wishlists.length > 0) {
       axios
-        .get(`http://localhost:15432/lists/${wishlists[0].uuid}`, {
+        .get(`${import.meta.env.VITE_APP_API_URL}/lists/${wishlists[0].uuid}`, {
           headers: { Authorization: `Bearer ${userToken.token}` },
         })
         .then((response) => {

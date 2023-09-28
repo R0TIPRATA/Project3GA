@@ -100,7 +100,7 @@ const EditWishlistForm = ({ closeDrawer }: { closeDrawer: () => void }) => {
     try {
       axios({
         method: "PUT",
-        url: `http://localhost:15432/lists/${wishlist.uuid}`,
+        url: `${import.meta.env.VITE_APP_API_URL}/lists/${wishlist.uuid}`,
         headers: { Authorization: `Bearer ${userToken.token}` },
         data: {
           listTitle: selectedWishlist.listTitle,

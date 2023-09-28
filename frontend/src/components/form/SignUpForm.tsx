@@ -33,7 +33,7 @@ const AddSignUpForm = () => {
     try{
       axios({
         method: "POST",
-        url: "http://localhost:15432/users/signup",
+        url: `${import.meta.env.VITE_APP_API_URL}/users/signup`,
         data: {
           username: user.username,
           password: user.password,

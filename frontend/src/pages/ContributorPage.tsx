@@ -31,7 +31,7 @@ const ContributorPage = () => {
 
   const checkUserExists = () => {
     axios
-    .get(`http://localhost:15432/users/${user}`)
+    .get(`${import.meta.env.VITE_APP_API_URL}/users/${user}`)
     .then((response) => {
       console.log("checking if user exists")
       if(!response.data) navigate("/err")
@@ -45,7 +45,7 @@ const ContributorPage = () => {
   useEffect(() => {
     checkUserExists()
     axios
-      .get(`http://localhost:15432/lists/user/${user}`)
+      .get(`${import.meta.env.VITE_APP_API_URL}/lists/user/${user}`)
       .then((response) => {
         setWishlists(response.data);
       })
@@ -54,12 +54,12 @@ const ContributorPage = () => {
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  
+
   useEffect(() => {
     //get wishlist items from first wishlist
     if (wishlists && wishlists.length > 0) {
       axios
-        .get(`http://localhost:15432/lists/user/${user}/${wishlists[0].uuid}`)
+        .get(`${import.meta.env.VITE_APP_API_URL}/lists/user/${user}/${wishlists[0].uuid}`)
         .then((response) => {
           setWishlist(response.data);
           checkDaysLeft(response.data.campaignDate);
