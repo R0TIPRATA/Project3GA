@@ -1,4 +1,3 @@
-import Navbar from "../components/Navbar";
 import AddSignUpForm from "../components/form/SignUpForm";
 
 const SignUp = () => {
