@@ -18,7 +18,7 @@ const DonationPage = () => {
   //get item by item UUID
   useEffect(() => {
     axios
-      .get(`http://localhost:15432/items/${itemId}`)
+      .get(`${import.meta.env.VITE_APP_API_URL}/items/${itemId}`)
       .then((response) => {
         setSelectedItem(response.data);
         response.data && itemId !== response.data.uuid && navigate("/err");
@@ -31,7 +31,7 @@ const DonationPage = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:15432/items/${itemId}`)
+      .get(`${import.meta.env.VITE_APP_API_URL}/items/${itemId}`)
       .then((response) => {
         setSelectedItem(response.data);
         response.data && itemId !== response.data.uuid && navigate("/err");
@@ -43,7 +43,7 @@ const DonationPage = () => {
 
   const getAccumulatedAmount = async () => {
     axios
-      .get(`http://localhost:15432/items/sum/${selectedItem.id}`)
+      .get(`${import.meta.env.VITE_APP_API_URL}/items/sum/${selectedItem.id}`)
       .then((response) => {
         console.log("total contributions", response.data.accumulatedAmount);
         setTotalContributions(response.data.accumulatedAmount);

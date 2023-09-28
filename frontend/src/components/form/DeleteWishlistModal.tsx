@@ -15,7 +15,7 @@ const DeleteWishlistModal = ({ handleToggle, open }: DeleteModalProps) => {
     try {
       axios({
         method: "DELETE",
-        url: `http://localhost:15432/lists/${wishlist.uuid}`,
+        url: `${import.meta.env.VITE_APP_API_URL}/lists/${wishlist.uuid}`,
         withCredentials: true,
       }).then((response) => {
         console.log(response.data);

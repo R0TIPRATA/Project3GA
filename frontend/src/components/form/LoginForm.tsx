@@ -35,7 +35,7 @@ const AddLoginForm = () => {
     try{
       axios({
         method: "POST",
-        url: "http://localhost:15432/users/login",
+        url: `${import.meta.env.VITE_APP_API_URL}/users/login`,
         data: {
           username: user.username,
           password: user.password,

@@ -6,7 +6,7 @@ import AddContributionForm from "./ContributionForm";
 import { ClientSecret } from "../../types";
 
 const initStripe = async () => {
-	const res = await axios.get("http://localhost:15432/contributions");
+	const res = await axios.get(`${import.meta.env.VITE_APP_API_URL}/contributions`	);
 	const publishableKey = await res.data;
 	return loadStripe(publishableKey);
 };
@@ -27,7 +27,7 @@ const AddContributorForm = () => {
 			try {
 				axios({
 					method: "POST",
-					url: "http://localhost:15432/contributions/createstripepayment",
+					url: `${import.meta.env.VITE_APP_API_URL}/contributions/createstripepayment`,
 					data: {
 						amount: 50,
 					},

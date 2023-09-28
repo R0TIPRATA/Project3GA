@@ -128,7 +128,7 @@ const AddItemForm = () => {
     try {
       axios({
         method: "POST",
-        url: `http://localhost:15432/items/${wishlist.uuid}`,
+        url: `${import.meta.env.VITE_APP_API_URL}/items/${wishlist.uuid}`,
         withCredentials: true,
         data: {
           itemName: item.itemName,

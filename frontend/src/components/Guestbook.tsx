@@ -117,7 +117,7 @@ const Guestbook = () => {
   useEffect(() => {
     if (wishlist.uuid) {
       axios
-        .get(`http://localhost:15432/messages/${wishlist.uuid}`)
+        .get(`${import.meta.env.VITE_APP_API_URL}/messages/${wishlist.uuid}`)
         .then((response) => {
           const data = filterEmptyMessages(response.data)
           setMessages(data);

@@ -22,7 +22,7 @@ const DeleteItemModal = ({ handleToggle, open }: DeleteModalProps) => {
     try {
       await axios({
         method: "DELETE",
-        url: `http://localhost:15432/items/${selectedItem.uuid}`,
+        url: `${import.meta.env.VITE_APP_API_URL}/items/${selectedItem.uuid}`,
         withCredentials: true,
       }).then(() => { //response
         //console.log(response.data);

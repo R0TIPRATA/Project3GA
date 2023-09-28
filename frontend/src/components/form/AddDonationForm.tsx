@@ -43,7 +43,7 @@ const AddDonationForm = ({price}:{price:number}) => {
     try {
       axios({
         method: "POST",
-        url: `http://localhost:15432/contributions/addcontribution/${selectedItem.uuid}`,
+        url: `${import.meta.env.VITE_APP_API_URL}/contributions/addcontribution/${selectedItem.uuid}`,
         data: {
           name: contributor.name,
           email: contributor.email,

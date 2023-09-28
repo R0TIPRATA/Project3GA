@@ -196,7 +196,7 @@ const RecentActivity = () => {
   useEffect(() => {
     if (wishlists.length > 0) {
       axios
-        .get(`http://localhost:15432/contributions/getcontribution`)
+        .get(`${import.meta.env.VITE_APP_API_URL}/contributions/getcontribution`)
         .then((response) => {
           // console.log(response.data);
           const data = filterContributions(response.data);

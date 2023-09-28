@@ -23,7 +23,7 @@ const Item = (item: ItemType) => {
 
   const getAccumulatedAmount = async () => {
       axios
-        .get(`http://localhost:15432/items/sum/${item.id}`)
+        .get(`${import.meta.env.VITE_APP_API_URL}/items/sum/${item.id}`)
         .then((response) => {
           setAmount(response.data.accumulatedAmount);
         })
@@ -117,7 +117,7 @@ const Item = (item: ItemType) => {
               <div className="card-actions justify-end">
                 <label
                   htmlFor="edit-drawer"
-                  className="btn btn-primary drawer-button"
+                  className="btn btn-secondary drawer-button"
                   onClick={handleClick}
                 >
                   Edit item
@@ -126,7 +126,7 @@ const Item = (item: ItemType) => {
                 <label
                   htmlFor="delete-item-modal"
                   onClick={handleToggle}
-                  className="btn btn-primary"
+                  className="btn btn-secondary"
                 >
                   Delete item
                 </label>

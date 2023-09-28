@@ -18,7 +18,7 @@ const PaymentPage = () => {
 
   const getAccumulatedAmount = async () => {
       axios
-        .get(`http://localhost:15432/items/sum/${selectedItem.id}`)
+        .get(`${import.meta.env.VITE_APP_API_URL}/items/sum/${selectedItem.id}`)
         .then((response) => {
           console.log("total contributions",response.data.accumulatedAmount);
           setTotalContributions(response.data.accumulatedAmount);
@@ -31,7 +31,7 @@ const PaymentPage = () => {
   //get item by item UUID
   useEffect(() => {
     axios
-      .get(`http://localhost:15432/items/${itemId}`)
+      .get(`${import.meta.env.VITE_APP_API_URL}/items/${itemId}`)
       .then((response) => {
         //if itemID exists, setSelected item, otherwise navigate to error page
         !response.data ? navigate("/err") : setSelectedItem(response.data);
