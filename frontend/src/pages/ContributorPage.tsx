@@ -34,7 +34,7 @@ const ContributorPage = () => {
     .get(`http://localhost:15432/users/${user}`)
     .then((response) => {
       console.log("checking if user exists")
-      if(!response.data) navigate("/*")
+      if(!response.data) navigate("/err")
     })
     .catch((error) => {
       console.error("Error fetching wish lists:",error);
@@ -63,7 +63,7 @@ const ContributorPage = () => {
         .then((response) => {
           setWishlist(response.data);
           checkDaysLeft(response.data.campaignDate);
-          //console.log(JSON.stringify(response.data,null,2))
+          console.log("loading wishlist => ", JSON.stringify(response.data,null,2))
         })
         .catch((error) => {
           console.error("Error fetching wish list:", error);

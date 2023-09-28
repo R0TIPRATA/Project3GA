@@ -1,6 +1,3 @@
-//THINGS TO DO:
-//CHECK IF PAYMENT HAS BEEN MADE, IF PAYMENT HAS BEEN MADE SHOW A 'YOU SHOULD NOT BE HERE' MSG
-
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
