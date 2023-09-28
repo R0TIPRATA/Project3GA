@@ -14,7 +14,7 @@ const WishListDetails = () => {
   };
 
   const copyLink = () => {
-    const listLink = `http://localhost:5173/${user}`;
+    const listLink = `${import.meta.env.VITE_APP_API_URL}/${user}`;
     navigator.clipboard.writeText(listLink);
     console.log(listLink);
     console.log("copied");
