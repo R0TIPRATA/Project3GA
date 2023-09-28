@@ -57,7 +57,6 @@ const Item = (item: ItemType) => {
     ) {
       setHideButtonGift(true);
       setHideButtonMoney(true);
-      setBackgroundColor(false);
     } else {
       setHideButtonGift(amount > 0);
       setHideButtonMoney(amount === item.price);
@@ -73,7 +72,7 @@ const Item = (item: ItemType) => {
   }, [amount]);
 
   return (
-    <div className={`card-body text-left bg-base-100 shadow-sm rounded-3xl border border-slate-500 ${(hideButtonMoney && backgroundColor) && "bg-green-50"}`}>
+    <div className={`card-body text-left bg-base-100 shadow-sm rounded-3xl border border-slate-500 ${(showComplete) && "bg-green-50"}`}>
       {/* {hideButtonMoney && ()} */}
       <div className="card-top flex gap-4 justify-between">
         <div className="item-img flex items-start w-1/4">
