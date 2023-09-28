@@ -11,7 +11,7 @@ const Navbar = () => {
     try {
       axios({
         method: "GET",
-        url: "http://localhost:15432/users/logout",
+        url: `${import.meta.env.VITE_APP_API_URL}/users/logout`,
         withCredentials: true
       }).then((response) => {
         notifySuccess(response.data.message);
