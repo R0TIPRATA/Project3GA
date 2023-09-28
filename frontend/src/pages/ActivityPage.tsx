@@ -32,7 +32,6 @@ const ActivityPage = () => {
         })
         .then((response) => {
           setWishlist(response.data);
-          // console.log(JSON.stringify(response.data, null, 2));
         })
         .catch((error) => {
           console.error("Error fetching wish lists:", error);

@@ -15,7 +15,7 @@ const DonationPage = () => {
   const { selectedItem, setSelectedItem } = useWishList();
 
   const goBack = () => {
-    navigate(`/${user}`);
+    navigate(`/wishlist/${user}`);
   };
   //get item by item UUID
   useEffect(() => {
@@ -23,12 +23,13 @@ const DonationPage = () => {
       .get(`http://localhost:15432/items/${itemId}`)
       .then((response) => {
         setSelectedItem(response.data);
-        console.log(JSON.stringify(response.data, null, 2));
+        response.data && itemId !== response.data.uuid && navigate("/err")
+        //console.log(JSON.stringify(response.data, null, 2));
       })
       .catch((error) => {
         console.error("Error fetching wish lists:", error);
       });
-  }, [itemId, setSelectedItem]);
+  }, [itemId, setSelectedItem, navigate]);
 
   return (
     <div className="bg-orange-100 p-20 pb-20 min-h-full flex flex-col gap-8">

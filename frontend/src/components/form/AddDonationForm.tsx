@@ -62,7 +62,7 @@ const AddDonationForm = ({price}:{price:number}) => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     await postContributionDetails();
-    navigate(`/${user}/${itemId}/success`);
+    navigate(`wishlist/${user}/${itemId}/success`);
 	
   };
 

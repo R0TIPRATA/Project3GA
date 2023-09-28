@@ -34,9 +34,9 @@ const Item = (item: ItemType) => {
   const handleClick = (type: string) => {
     setSelectedItem(item);
     if (type === "donate") {
-      navigate(`/${user}/${item.uuid}/donate`);
+      navigate(`/wishlist/${user}/${item.uuid}/donate`);
     } else if (type == "payment") {
-      navigate(`/${user}/${item.uuid}`);
+      navigate(`/wishlist/${user}/${item.uuid}`);
     }
   };
 
