@@ -12,7 +12,7 @@ const usersRouter = require("./routes/UsersRouter");
 
 const app = express();
 app.use(cors({
-  origin: ['http://localhost:5173', 'https://project3-ga-nm1m.vercel.app', /\.onrender\.com$/], 
+  origin: ['http://localhost:5173', /\.vercel\.app$/, /\.onrender\.com$/], 
   credentials: true
 }));
 app.use(cookieParser());
