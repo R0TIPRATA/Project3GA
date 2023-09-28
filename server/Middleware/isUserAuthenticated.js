@@ -4,7 +4,8 @@ require("dotenv").config();
 const secretKey = process.env.JWT_SECRET_KEY;
 
 function isUserAuthenticated(req, res, next) {
-  const token = req.header("Authorization") && req.header("Authorization").split(" ")[1];
+  // const token = req.header("Authorization") && req.header("Authorization").split(" ")[1];
+  const token = req.cookies.access_token;
   console.log(token);
 
   if (!token) {
@@ -13,6 +14,7 @@ function isUserAuthenticated(req, res, next) {
 
   jwt.verify(token, secretKey, (err, decoded) => {
     if (err) {
+      res.clearCookie("access_token").clearCookie("username");
       return res.status(401).json({ message: "Unauthorized: Invalid token!" });
     }
 

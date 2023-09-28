@@ -42,6 +42,7 @@ const Item = (item: ItemType) => {
 
   const [hideButtonGift, setHideButtonGift] = useState(false);
   const [hideButtonMoney, setHideButtonMoney] = useState(false);
+  const [backgroundColor, setBackgroundColor] = useState(true);
 
   useEffect(() => {
     getAccumulatedAmount();
@@ -56,6 +57,7 @@ const Item = (item: ItemType) => {
     ) {
       setHideButtonGift(true);
       setHideButtonMoney(true);
+      setBackgroundColor(false);
     } else {
       setHideButtonGift(amount > 0);
       setHideButtonMoney(amount === item.price);
@@ -64,7 +66,7 @@ const Item = (item: ItemType) => {
   }, [amount, item]);
 
   return (
-    <div className="card-body text-left bg-base-100 shadow-sm rounded-3xl border border-slate-500">
+    <div className={`card-body text-left bg-base-100 shadow-sm rounded-3xl border border-slate-500 ${(hideButtonMoney && backgroundColor) && "bg-green-50"}`}>
       {/* {hideButtonMoney && ()} */}
       <div className="card-top flex gap-4 justify-between">
         <div className="item-img flex items-start w-1/4">
@@ -85,7 +87,7 @@ const Item = (item: ItemType) => {
                 </div>
                 <h2 className="card-title">
                   {item.itemName}
-                  {hideButtonMoney && (
+                  {(hideButtonMoney && backgroundColor) && (
                     <img src={successImg} className="w-6"></img>
                   )}
                 </h2>

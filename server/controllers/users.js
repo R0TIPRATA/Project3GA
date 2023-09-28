@@ -5,6 +5,8 @@ module.exports = {
   signup,
   login,
   getUser,
+  logout,
+  loggedIn,
 };
 
 async function signup(req, res) {
@@ -34,15 +36,28 @@ async function login(req, res) {
     }
     const token = createSecretToken(user.uuid);
 
-    return res.json({
-      message: "User logged in successfully!",
+    return res.cookie('access_token', token).cookie('username', username).json({
+      // message: "User logged in successfully!",
       success: true,
-      token,
-      username,
     });
   } catch (err) {
     console.log(err);
   }
+}
+
+async function loggedIn(req, res) {
+  const username = req.cookies.username;
+  const loggedInStatus = req.cookies.username ? true : false;
+  return res.json({
+    username,
+    loggedInStatus,
+    message: loggedInStatus ? "Logged in successfully!" : null,
+  });
+}
+
+async function logout(req, res) {
+  res.clearCookie("access_token").clearCookie("username");
+  return res.json({ message: "User logged out successfully!" });
 }
 
 async function getUser(req, res) {

@@ -39,7 +39,7 @@ const AddWishlistForm = ({closeDrawer}: AddWishlistFormProps) => {
       axios({
         method: "POST",
         url: `http://localhost:15432/lists`,
-        headers: { Authorization: `Bearer ${userToken.token}` },
+        withCredentials: true,
         data: {
           listTitle: wishlistDetails.listTitle,
           listMessage: wishlistDetails.listMessage,

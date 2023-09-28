@@ -119,7 +119,7 @@ const RecentActivity = () => {
   };
 
   const showMore = () => {
-    setMinNum(contribution.length);
+    setMinNum(contribution.length * 2);
   };
 
   const showLess = () => {

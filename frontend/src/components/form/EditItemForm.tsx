@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 import supabase from "../../util/Supabase";
 
 const EditItemForm = ({ closeDrawer }: { closeDrawer: () => void }) => {
-  const { selectedItem, setSelectedItem, userToken, updateItem, notifySuccess, notifyError } = useWishList();
+  const { selectedItem, setSelectedItem, updateItem, notifySuccess, notifyError } = useWishList();
   const [itemImagePreview, setItemImagePreview] = useState("");
   const [newImageUrl, setNewImageUrl] = useState("");
   const [newImageFile, setNewImageFile] = useState<File>({} as File);
@@ -123,7 +123,7 @@ const EditItemForm = ({ closeDrawer }: { closeDrawer: () => void }) => {
       axios({
         method: "PUT",
         url: `http://localhost:15432/items/${selectedItem.uuid}`,
-        headers: { Authorization: `Bearer ${userToken.token}` },
+        withCredentials: true,
         data: {
           itemName: selectedItem.itemName,
           itemPicture: newImageUrl ? newImageUrl : selectedItem.itemPicture,

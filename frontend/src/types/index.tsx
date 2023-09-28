@@ -105,7 +105,7 @@ export type User = {
 
 export type Token = {
   username: string | null;
-  token: string | null;
+  loggedInStatus: boolean;
 };
 
 export type WishlistDetails = {

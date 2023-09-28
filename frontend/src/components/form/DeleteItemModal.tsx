@@ -4,7 +4,7 @@ import { useWishList } from "../context/WishlistContext";
 import supabase from "../../util/Supabase";
 
 const DeleteItemModal = ({ handleToggle, open }: DeleteModalProps) => {
-  const { userToken, selectedItem, deleteItem, notifySuccess, notifyError } =
+  const { selectedItem, deleteItem, notifySuccess, notifyError } =
     useWishList();
 
   const deleteImage = async () => {
@@ -23,7 +23,7 @@ const DeleteItemModal = ({ handleToggle, open }: DeleteModalProps) => {
       await axios({
         method: "DELETE",
         url: `http://localhost:15432/items/${selectedItem.uuid}`,
-        headers: { Authorization: `Bearer ${userToken.token}` },
+        withCredentials: true,
       }).then(() => { //response
         //console.log(response.data);
         deleteItem(selectedItem.uuid);
