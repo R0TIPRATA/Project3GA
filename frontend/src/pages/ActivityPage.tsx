@@ -28,14 +28,14 @@ const ActivityPage = () => {
     if (wishlists && wishlists.length > 0) {
       axios
         .get(`${import.meta.env.VITE_APP_API_URL}/lists/${wishlists[0].uuid}`, {
-          headers: { Authorization: `Bearer ${userToken.token}` },
+          withCredentials: true, 
+
         })
         .then((response) => {
           setWishlist(response.data);
         })
         .catch((error) => {
           console.error("Error fetching wish lists:", error);
-          localStorage.clear();
           navigate("/login");
         });
     }

@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 const { sequelize } = require("./models");
 
 const listsRouter = require("./routes/ListsRouter");
@@ -10,7 +11,11 @@ const contributionRouter = require("./routes/ContributionRouter");
 const usersRouter = require("./routes/UsersRouter");
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173', 
+  credentials: true
+}));
+app.use(cookieParser());
 app.use(express.json());
 
 app.use("/lists", listsRouter);

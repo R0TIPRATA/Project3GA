@@ -9,7 +9,6 @@ const EditWishlistForm = ({ closeDrawer }: { closeDrawer: () => void }) => {
   const { 
     wishlist, 
     setWishlist, 
-    userToken, 
     notifySuccess, 
     notifyError 
   } = useWishList();
@@ -101,7 +100,7 @@ const EditWishlistForm = ({ closeDrawer }: { closeDrawer: () => void }) => {
       axios({
         method: "PUT",
         url: `${import.meta.env.VITE_APP_API_URL}/lists/${wishlist.uuid}`,
-        headers: { Authorization: `Bearer ${userToken.token}` },
+        withCredentials: true,
         data: {
           listTitle: selectedWishlist.listTitle,
           listMessage: selectedWishlist.listMessage,

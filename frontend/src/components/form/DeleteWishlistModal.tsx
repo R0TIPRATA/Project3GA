@@ -4,7 +4,6 @@ import { useWishList } from "../context/WishlistContext";
 
 const DeleteWishlistModal = ({ handleToggle, open }: DeleteModalProps) => {
   const {
-    userToken,
     wishlist,
     setWishlist,
     deleteWishlist,
@@ -17,7 +16,7 @@ const DeleteWishlistModal = ({ handleToggle, open }: DeleteModalProps) => {
       axios({
         method: "DELETE",
         url: `${import.meta.env.VITE_APP_API_URL}/lists/${wishlist.uuid}`,
-        headers: { Authorization: `Bearer ${userToken.token}` },
+        withCredentials: true,
       }).then((response) => {
         console.log(response.data);
         deleteWishlist(wishlist.uuid);

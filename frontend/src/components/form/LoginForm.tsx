@@ -3,10 +3,10 @@ import { UsernameInput, PasswordInput } from "./FormComponents";
 import { User } from "../../types";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { useWishList } from "../context/WishlistContext";
+// import { useWishList } from "../context/WishlistContext";
 
 const AddLoginForm = () => {
-  const {setUserToken} = useWishList();
+  // const { notifySuccess } = useWishList();
   const [user, setUser] = useState<User>({
     username: "",
     password: "",
@@ -39,18 +39,18 @@ const AddLoginForm = () => {
         data: {
           username: user.username,
           password: user.password,
-        }
+        },
+        withCredentials: true,
       }).then((response) => {
-        // console.log(response.data);3
-        if(response.data.message) {
-          setMessage(response.data.message);
-          localStorage.setItem("token", response.data.token);
-          localStorage.setItem("username", response.data.username);
-          setUserToken({username: response.data.username, token: response.data.token});
+        // console.log(response.data);
+        if(response.data.success) {
+          // setUserToken({username: response.data.cookies.username, token: response.data.cookies.token});
           setTimeout(() => {
             navigate("/")
-          }, 800);
-        } 
+          }, 500);
+        } else {
+          setMessage(response.data.message)
+        }
       })
 
     } catch (err) {
@@ -87,8 +87,7 @@ const AddLoginForm = () => {
           }
         })}
         {message && 
-          (message === "User logged in successfully!" ? <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative text-center mt-3">{message}</div> :
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative text-center mt-3">{message}</div>)}
+          <div className="bg-red-100 text-red-700 py-3 w-full text-center mt-3 mx-auto">{message}</div>}
         <button type="submit" className="btn btn-primary mr-0 ml-auto mt-4 block">Login</button>
       </form>
   </div>

@@ -1,23 +1,38 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useWishList } from "./context/WishlistContext";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import axios from "axios";
 
 const Navbar = () => {
-  const { userToken } = useWishList();
+  const { userToken, setUserToken, notifySuccess } = useWishList();
   const navigate = useNavigate();
-  const [isLoginUser, setIsLoginUser] = useState(false)
 
   const logoutHandler = () => {
-    localStorage.clear();
-    navigate("/login");
-    window.location.reload();
+    try {
+      axios({
+        method: "GET",
+        url: "http://localhost:15432/users/logout",
+        withCredentials: true
+      }).then((response) => {
+        notifySuccess(response.data.message);
+        setUserToken({
+          username: null,
+          loggedInStatus: false
+        })
+        setTimeout(() => {
+          navigate("/login");
+        }, 1000);
+      })
+    } catch (error) {
+      console.log(error);
+    }
+    
   };
 
   useEffect(()=>{
     console.log("user token" + JSON.stringify(userToken))
-    userToken ? setIsLoginUser(true):setIsLoginUser(false)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[isLoginUser])
+  },[userToken])
 
   return (
     <div className="navbar bg-forest text-white">
@@ -35,17 +50,17 @@ const Navbar = () => {
               </a>
             </li>
           )}
-          {userToken.token && (
+          {userToken.loggedInStatus && (
             <li>
               <Link className="text-white" to="/">Wishlist</Link>
             </li>
           )}
-          {userToken.token && (
+          {userToken.loggedInStatus && (
             <li>
               <Link className="text-white" to="/activity">Recent Activity</Link>
             </li>
           )}
-          {userToken.token && (
+          {userToken.loggedInStatus && (
             <li>
               <a className="text-white" onClick={logoutHandler}>
                 Logout

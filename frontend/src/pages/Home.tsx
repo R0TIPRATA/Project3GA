@@ -14,6 +14,8 @@ const Home = () => {
     setWishlist,
     setWishlistCampaignIsOver,
     userToken,
+    setUserToken,
+    notifySuccess
   } = useWishList();
   const navigate = useNavigate();
 
@@ -33,18 +35,41 @@ const Home = () => {
   };
 
   useEffect(() => {
+    axios({
+      method: "GET",
+      url: "http://localhost:15432/users/loggedIn",
+      withCredentials: true,
+    })
+    .then((response) => {
+      console.log("logged in", response);
+      if (response.data.loggedInStatus) {
+        // So when clicking the wishlist button, it doesn't prompt.
+        // Only when refresh the page then will prompt. 
+        if (!userToken.username) {
+          notifySuccess(response.data.message);
+        }
+        setUserToken({username: response.data.username, loggedInStatus: response.data.loggedInStatus})
+      } else {
+        navigate("/login");
+      }
+    }).catch((error) => {
+      console.log(error);
+    })
+  },[])
+
+  useEffect(() => {
     // Fetch wishlist when the component mounts
-    if (userToken.username) {
+    if (userToken.username && userToken.loggedInStatus) {
       axios
         .get(`${import.meta.env.VITE_APP_API_URL}/lists/user/${userToken.username}`)
         .then((response) => {
-          //console.log(response.data)
+          console.log(response.data)
           setWishlists(response.data);
         })
         .catch((error) => {
           console.error("Error fetching wish lists:", error);
         });
-    }
+    } 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userToken]);
 
@@ -52,9 +77,8 @@ const Home = () => {
     //store individual wishlist from wishlists
     if (wishlists && wishlists.length > 0 && wishlists[0].uuid) {
       axios
-        .get(`${import.meta.env.VITE_APP_API_URL}2/lists/${wishlists[0].uuid}`, {
-          headers: { Authorization: `Bearer ${userToken.token}` },
-        })
+        .get(`${import.meta.env.VITE_APP_API_URL}/lists/${wishlists[0].uuid}`,
+        { withCredentials: true, })
         .then((response) => {
           setWishlist(response.data);
           console.log(JSON.stringify(response.data, null, 2));
@@ -62,7 +86,7 @@ const Home = () => {
         })
         .catch((error) => {
           console.error("Error fetching wish lists:", error);
-          localStorage.clear();
+          setUserToken({username: null, loggedInStatus: false});
           navigate("/login");
         });
     }

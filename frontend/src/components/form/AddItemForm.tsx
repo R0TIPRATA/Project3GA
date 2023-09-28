@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 import supabase from "../../util/Supabase";
 
 const AddItemForm = () => {
-  const { wishlist, addItem, userToken, notifySuccess, notifyError } = useWishList();
+  const { wishlist, addItem, notifySuccess, notifyError } = useWishList();
   const [imageFile, setImageFile] = useState<File | null>(null);
   const formRef = useRef({} as HTMLFormElement);
 
@@ -128,8 +128,8 @@ const AddItemForm = () => {
     try {
       axios({
         method: "POST",
-        url: `${import.meta.env.VITE_APP_API_URL}/${wishlist.uuid}`,
-        headers: { Authorization: `Bearer ${userToken.token}` },
+        url: `${import.meta.env.VITE_APP_API_URL}/items/${wishlist.uuid}`,
+        withCredentials: true,
         data: {
           itemName: item.itemName,
           itemPicture: item.itemPicture,
