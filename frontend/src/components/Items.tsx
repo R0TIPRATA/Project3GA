@@ -16,6 +16,9 @@ const Items = () => {
           return <Item key={item.uuid} {...item}/>
         })
       }
+      {wishlist.wishlistItems && wishlist.wishlistItems.length === 0 && 
+        <p className="p-2">No wishlist items available. Please add an item using the form.</p>
+      }
     </div>
   );
 };

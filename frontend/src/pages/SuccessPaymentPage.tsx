@@ -7,7 +7,7 @@ const SuccessPaymentPage = () => {
     const user = params.user
 
     const goBack = () => {
-        navigate(`/${user}`)
+        navigate(`/wishlist/${user}`)
     }
 
   return (

@@ -1,17 +1,17 @@
 import { useEffect } from "react";
 import { useWishList } from "../components/context/WishlistContext";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Items from "../components/contributor/Items";
 import WishListDetails from "../components/contributor/WishlistDetails";
 import Guestbook from "../components/Guestbook";
 import LoggedInNotif from "../components/contributor/LoggedInNotif";
-import NotFoundPage from "./NotFoundPage";
 import { DateTime, Interval } from "luxon";
 
 const ContributorPage = () => {
   const { wishlists, setWishlists, setWishlist, setWishlistCampaignIsOver, wishlistCampaignIsOver} = useWishList();
   const { user } = useParams();
+  const navigate = useNavigate()
 
 
   const checkDaysLeft = (date: string) => {
@@ -29,8 +29,21 @@ const ContributorPage = () => {
     }
   };
 
+  const checkUserExists = () => {
+    axios
+    .get(`http://localhost:15432/users/${user}`)
+    .then((response) => {
+      console.log("checking if user exists")
+      if(!response.data) navigate("/err")
+    })
+    .catch((error) => {
+      console.error("Error fetching wish lists:",error);
+    });
+  }
+
   //get wishlists tied to user
   useEffect(() => {
+    checkUserExists()
     axios
       .get(`http://localhost:15432/lists/user/${user}`)
       .then((response) => {
@@ -50,7 +63,7 @@ const ContributorPage = () => {
         .then((response) => {
           setWishlist(response.data);
           checkDaysLeft(response.data.campaignDate);
-          //console.log(JSON.stringify(response.data,null,2))
+          console.log("loading wishlist => ", JSON.stringify(response.data,null,2))
         })
         .catch((error) => {
           console.error("Error fetching wish list:", error);
@@ -68,8 +81,6 @@ const ContributorPage = () => {
       </div>
       }
       <div className="wishlistPage bg-orange-100 flex-col pb-20">
-        {wishlists.length > 0 ? (
-          <>
             <WishListDetails />
             <main className="parent flex my-10 mx-40 gap-8">
               <div className="col1 w-4/6">
@@ -79,7 +90,6 @@ const ContributorPage = () => {
                 <Guestbook />
               </div>
             </main>
-          </>) : <NotFoundPage />}
       </div>
     </>
   );

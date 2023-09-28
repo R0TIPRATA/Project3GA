@@ -126,11 +126,11 @@ const AddContributionForm = ({
 		} else if (paymentIntent && paymentIntent.status === "succeeded") { 
 			console.log("Payment Success");
 			postContributionDetails();
-			navigate(`/${user}/${itemId}/success`);
+			navigate(`/wishlist/${user}/${itemId}/success`);
 		} else { 
 			console.log("Payment Failed");
 			notifyError();
-			navigate(`/${user}/${itemId}`);
+			navigate(`/wishlist/${user}/${itemId}`);
 			setTimeout(() => {
 				window.location.reload();
 			}, 1500)

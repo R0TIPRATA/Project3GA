@@ -27,7 +27,7 @@ const WishlistPage = () => {
       />
       <div className="drawer-content">
         <div className="wishlistPage bg-orange-100 flex-col pb-20">
-            {wishlistCampaignIsOver && (
+          {wishlistCampaignIsOver && (
             <div className="p-8 bg-slate-100">
               Note: This campaign is over. You are not able to make any changes or contributions to the wishlist any longer.
             </div>

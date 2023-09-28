@@ -27,7 +27,7 @@ const WishListDetails = () => {
   };
 
   const copyLink = () => {
-    const listLink = `http://localhost:5173/${userToken.username}`;
+    const listLink = `http://localhost:5173/wishlist/${userToken.username}`;
     navigator.clipboard.writeText(listLink);
     console.log(listLink);
     console.log("copied");
@@ -68,7 +68,6 @@ const WishListDetails = () => {
       <div className="wishlist-title flex items-center">
         <h2>{wishlist.listTitle}</h2>
         {!wishlistCampaignIsOver && (
-          <>
             <label
               htmlFor="edit-drawer"
               onClick={handleEditClick}
@@ -76,6 +75,7 @@ const WishListDetails = () => {
             >
               <FontAwesomeIcon icon={faEdit} />
             </label>
+        )}
             <label
               htmlFor="delete-wishlist-modal"
               onClick={handleToggle}
@@ -83,8 +83,6 @@ const WishListDetails = () => {
             >
               <FontAwesomeIcon icon={faTrashCan} />
             </label>
-          </>
-        )}
       </div>
       <div className="details-container flex">
         {wishlist.campaignDate && ( //only display if campaign end date is avail

@@ -12,6 +12,7 @@ import MessagesPage from "./pages/MessagesPage"
 import ActivityPage from "./pages/ActivityPage"
 import Layout from "./pages/Layout"
 import ClosePage from "./pages/ClosePage"
+import NotFoundPage from "./pages/NotFoundPage"
 
 function App() {
   return (
@@ -24,11 +25,12 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/messages" element={<MessagesPage />} />
         <Route path="/activity" element={<ActivityPage />} />
-        <Route path="/:user" element={<ContributorPage />} />
-        <Route path="/:user/:itemId" element={<PaymentPage />} /> 
-        <Route path="/:user/:itemId/donate" element={<DonationPage />} /> 
-        <Route path="/:user/:itemId/success" element={<SuccessPaymentPage />} />
+        <Route path="/wishlist/:user" element={<ContributorPage />} />
+        <Route path="/wishlist/:user/:itemId" element={<PaymentPage />} /> 
+        <Route path="/wishlist/:user/:itemId/donate" element={<DonationPage />} /> 
+        <Route path="/wishlist/:user/:itemId/success" element={<SuccessPaymentPage />} />
         <Route path="/close" element={<ClosePage />} />
+        <Route path="/*" element={<NotFoundPage />} />
       </Route>
       </Routes>
     </WishlistProvider>

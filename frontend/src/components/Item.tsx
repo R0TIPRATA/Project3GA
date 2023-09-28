@@ -3,7 +3,7 @@ import { Item as ItemType } from "../types";
 import { useWishList } from "./context/WishlistContext";
 import DeleteItemModal from "./form/DeleteItemModal";
 import { useEffect, useState } from "react";
-import successImg from "/Users/nadiahismail/Desktop/Project3GA/frontend/src/assets/success.png";
+import successImg from "../assets/success.png";
 
 const Item = (item: ItemType) => {
   const { setSelectedItem, setEditFormType, wishlistCampaignIsOver } =
@@ -22,18 +22,14 @@ const Item = (item: ItemType) => {
   };
 
   const getAccumulatedAmount = async () => {
-    try {
       axios
         .get(`http://localhost:15432/items/sum/${item.id}`)
         .then((response) => {
-          setAmount(response.data["accumulatedAmount"]);
+          setAmount(response.data.accumulatedAmount);
         })
         .catch((error) => {
           console.error("Error fetching wish lists:", error);
         });
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   const hideButtons = amount > 0;

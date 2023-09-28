@@ -34,9 +34,9 @@ const Item = (item: ItemType) => {
   const handleClick = (type: string) => {
     setSelectedItem(item);
     if (type === "donate") {
-      navigate(`/${user}/${item.uuid}/donate`);
+      navigate(`/wishlist/${user}/${item.uuid}/donate`);
     } else if (type == "payment") {
-      navigate(`/${user}/${item.uuid}`);
+      navigate(`/wishlist/${user}/${item.uuid}`);
     }
   };
 
@@ -51,8 +51,8 @@ const Item = (item: ItemType) => {
   useEffect(() => {
     if (
       wishlistCampaignIsOver ||
-      location.pathname === `/${user}/${itemId}` ||
-      location.pathname === `/${user}/${itemId}/donate`
+      location.pathname === `/wishlist/${user}/${itemId}` ||
+      location.pathname === `/wishlist/${user}/${itemId}/donate`
     ) {
       setHideButtonGift(true);
       setHideButtonMoney(true);
