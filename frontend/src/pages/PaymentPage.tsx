@@ -28,28 +28,24 @@ const PaymentPage = () => {
         });
   };
 
-
   //get item by item UUID
   useEffect(() => {
     axios
       .get(`http://localhost:15432/items/${itemId}`)
       .then((response) => {
-        setSelectedItem(response.data);
-        response.data && itemId !== response.data.uuid && navigate("/err")
+        //if itemID exists, setSelected item, otherwise navigate to error page
+        !response.data ? navigate("/err") : setSelectedItem(response.data);
       })
       .catch((error) => {
+        console.log("test 2!")
         console.error("Error fetching wish lists:", error);
       });
   }, [itemId, setSelectedItem, navigate]);
 
-  //check if payment amount has been met
+  //check if payment amount has been met, if yes going to this page leads to an error
   useEffect(()=>{
-    //get total contributions
     getAccumulatedAmount()
     totalContributions > 0 && totalContributions === selectedItem.price && navigate("/err")
-    //compare with price
-    //if true
-    //show error
   }, [selectedItem, getAccumulatedAmount, navigate])
 
   return (
