@@ -36,7 +36,8 @@ async function login(req, res) {
     }
     const token = createSecretToken(user.uuid);
 
-    return res.cookie('access_token', token, { domain: 'wishlist-backend-l4t6.onrender.com', httpOnly:false, path: "/", secure: true, sameSite: 'none' }).cookie('username', username, { domain: 'wishlist-backend-l4t6.onrender.com', httpOnly:false, path: "/", secure: true, sameSite: 'none' }).json({
+    res.cookie('access_token', token, { httpOnly:false, path: "/", secure: true, sameSite: 'None' }).cookie('username', username, { httpOnly:false, path: "/", secure: true, sameSite: 'None' })
+    res.json({
       // message: "User logged in successfully!",
       success: true,
     });
@@ -56,7 +57,7 @@ async function loggedIn(req, res) {
 }
 
 async function logout(req, res) {
-  res.clearCookie("access_token", { domain: 'wishlist-backend-l4t6.onrender.com', httpOnly:false, path: "/", secure: true, sameSite: 'none' }).clearCookie("username", { domain: 'wishlist-backend-l4t6.onrender.com', httpOnly:false, path: "/", secure: true, sameSite: 'none' });
+  res.clearCookie("access_token", { httpOnly:false, path: "/", secure: true, sameSite: 'None' }).clearCookie("username", { httpOnly:false, path: "/", secure: true, sameSite: 'None' });
   return res.json({ message: "User logged out successfully!" });
 }
 
