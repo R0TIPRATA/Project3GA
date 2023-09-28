@@ -37,7 +37,7 @@ const Home = () => {
   useEffect(() => {
     axios({
       method: "GET",
-      url: "http://localhost:15432/users/loggedIn",
+      url: `${import.meta.env.VITE_APP_API_URL}/users/loggedIn`,
       withCredentials: true,
     })
     .then((response) => {
