@@ -178,7 +178,7 @@ const EditItemForm = ({ closeDrawer }: { closeDrawer: () => void }) => {
                 label={item.label}
                 name={item.name}
                 handleInput={handleInput}
-                value={item.value}
+                value={item.value!}
                 required={item.required}
               />
             );
@@ -189,7 +189,7 @@ const EditItemForm = ({ closeDrawer }: { closeDrawer: () => void }) => {
                 label={item.label}
                 name={item.name}
                 handleInput={handleInput}
-                value={item.value}
+                value={item.value!}
                 required={item.required}
               />
             );
