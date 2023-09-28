@@ -28,14 +28,13 @@ const ActivityPage = () => {
     if (wishlists && wishlists.length > 0) {
       axios
         .get(`http://localhost:15432/lists/${wishlists[0].uuid}`, {
-          headers: { Authorization: `Bearer ${userToken.token}` },
+          withCredentials: true, 
         })
         .then((response) => {
           setWishlist(response.data);
         })
         .catch((error) => {
           console.error("Error fetching wish lists:", error);
-          localStorage.clear();
           navigate("/login");
         });
     }

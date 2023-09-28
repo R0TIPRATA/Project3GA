@@ -9,7 +9,7 @@ const MessagesPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!userToken.token) navigate("/login");
+    if (!userToken.loggedInStatus) navigate("/login");
   }, [navigate, userToken]);
 
   //required if user accesses page thru typing url
@@ -31,7 +31,7 @@ const MessagesPage = () => {
     if (wishlists && wishlists.length > 0) {
       axios
         .get(`http://localhost:15432/lists/${wishlists[0].uuid}`, {
-          headers: { Authorization: `Bearer ${userToken.token}` },
+          withCredentials: true,
         })
         .then((response) => {
           setWishlist(response.data);
@@ -39,7 +39,6 @@ const MessagesPage = () => {
         })
         .catch((error) => {
           console.error("Error fetching wish lists:", error);
-          localStorage.clear();
           navigate("/login");
         });
     }
