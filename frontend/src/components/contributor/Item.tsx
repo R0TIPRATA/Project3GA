@@ -51,8 +51,8 @@ const Item = (item: ItemType) => {
   useEffect(() => {
     if (
       wishlistCampaignIsOver ||
-      location.pathname === `/${user}/${itemId}` ||
-      location.pathname === `/${user}/${itemId}/donate`
+      location.pathname === `/wishlist/${user}/${itemId}` ||
+      location.pathname === `/wishlist/${user}/${itemId}/donate`
     ) {
       setHideButtonGift(true);
       setHideButtonMoney(true);
