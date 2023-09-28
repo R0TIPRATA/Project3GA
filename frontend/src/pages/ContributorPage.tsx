@@ -54,7 +54,7 @@ const ContributorPage = () => {
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+  
   useEffect(() => {
     //get wishlist items from first wishlist
     if (wishlists && wishlists.length > 0) {

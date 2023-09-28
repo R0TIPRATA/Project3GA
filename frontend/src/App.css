@@ -21,13 +21,17 @@
   h3{
     @apply text-lg font-semibold;
   }
-
+  
 }
 
 
 @layer components {
   .btn-primary {
     @apply py-2 px-4 rounded-full capitalize font-semibold;
+  }
+
+  .btn-secondary {
+    @apply py-2 px-4 rounded-full bg-transparent border-2 border-primary capitalize font-semibold hover:bg-primary hover:border-white ;
   }
 
   .btn-link {

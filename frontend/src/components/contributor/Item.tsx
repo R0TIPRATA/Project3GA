@@ -40,8 +40,9 @@ const Item = (item: ItemType) => {
     }
   };
 
-  const [hideButtonGift, setHideButtonGift] = useState(false);
-  const [hideButtonMoney, setHideButtonMoney] = useState(false);
+  const [hideButtonGift, setHideButtonGift] = useState(false);//whether to hide/show btn
+  const [hideButtonMoney, setHideButtonMoney] = useState(false); //whether to hide/show btn
+  const [showComplete, setShowComplete] = useState(false); // whether items has achieved 100% goal
 
   useEffect(() => {
     getAccumulatedAmount();
@@ -62,6 +63,13 @@ const Item = (item: ItemType) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [amount, item]);
+
+  useEffect(() => {
+    if (amount > 0 && amount === item.price){
+      setShowComplete(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [amount]);
 
   return (
     <div className="card-body text-left bg-base-100 shadow-sm rounded-3xl border border-slate-500">
@@ -85,7 +93,7 @@ const Item = (item: ItemType) => {
                 </div>
                 <h2 className="card-title">
                   {item.itemName}
-                  {hideButtonMoney && (
+                  {showComplete && (
                     <img src={successImg} className="w-6"></img>
                   )}
                 </h2>
@@ -132,14 +140,14 @@ const Item = (item: ItemType) => {
       </div>
 
       <div>
-        {(!hideButtonMoney || !hideButtonGift) && (
+        {!showComplete && (
           <div className="divider divider-vertical p-0"></div>
         )}
         <div className="card-actions justify-end">
           {!hideButtonGift && (
             <label
               htmlFor="edit-drawer"
-              className="btn btn-primary drawer-button"
+              className="btn btn-secondary drawer-button"
               onClick={() => handleClick("donate")}
             >
               Gift item
@@ -149,7 +157,7 @@ const Item = (item: ItemType) => {
             <label
               htmlFor="delete-item-modal"
               onClick={() => handleClick("payment")}
-              className="btn btn-primary"
+              className="btn btn-secondary"
             >
               Contribute money
             </label>
