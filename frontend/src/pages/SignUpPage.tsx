@@ -4,7 +4,6 @@ import AddSignUpForm from "../components/form/SignUpForm";
 const SignUp = () => {
   return ( 
   <>
-    <Navbar />
     <div className="drawer drawer-end">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content ">
