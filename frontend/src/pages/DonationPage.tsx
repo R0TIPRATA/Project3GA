@@ -35,9 +35,10 @@ const DonationPage = () => {
       .then((response) => {
         setSelectedItem(response.data);
         response.data && itemId !== response.data.uuid && navigate("/err");
+        
       })
       .catch((error) => {
-        console.error("Error fetching wish lists:", error);
+        console.error("Error fetching wish lists:", error); 
       });
   }, [itemId, setSelectedItem, navigate]);
 
