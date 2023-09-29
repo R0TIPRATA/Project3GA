@@ -3,11 +3,11 @@ import { Link, useParams } from "react-router-dom";
 
 const LoggedInNotif = () => {
   const { userToken } = useWishList();
-  const {user} = useParams()
+  const { user } = useParams();
 
   return (
     <>
-      {userToken.username ===  user && (
+      {userToken.loggedInStatus && userToken.username === user && (
         <div className="h-12 bg-zinc-300 flex justify-center items-center">
           This is what your friends/family see when they want to contribute to
           your page. To edit your wishlist,
