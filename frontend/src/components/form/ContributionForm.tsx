@@ -101,7 +101,7 @@ const AddContributionForm = ({
 				},
 			}).then((response) => {
 				console.log(response.status);
-				// console.log(response.data);
+				console.log(response.data);
 			});
 		} catch (err) {
 			console.log(err);
@@ -116,7 +116,7 @@ const AddContributionForm = ({
 		const { error, paymentIntent } = await stripe.confirmPayment({
 			elements,
 			confirmParams: {
-				return_url: `http://localhost:5173/close`,
+				return_url: `${import.meta.env.VITE_APP_FRONTEND_URL}/close`,
 			},
 			redirect: "if_required",
 		});
