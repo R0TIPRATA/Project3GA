@@ -116,7 +116,7 @@ const AddContributionForm = ({
 		const { error, paymentIntent } = await stripe.confirmPayment({
 			elements,
 			confirmParams: {
-				return_url: `http://localhost:5173/close`,
+				return_url: `${import.meta.env.VITE_APP_FRONTEND_URL}/close`,
 			},
 			redirect: "if_required",
 		});
