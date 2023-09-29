@@ -28,7 +28,7 @@ export type Item = {
 export type InputField = {
   label: string
   name: string
-  value?: string | number | null
+  value?: string | number
   description?: string
   required: boolean
   min?: string
