@@ -113,10 +113,11 @@ const AddContributionForm = ({
 		
 		if (!stripe || !elements) return;
 		// Return to return_url after payment is made
+		console.log('return url: ', `${import.meta.env.VITE_APP_URL}/close`)
 		const { error, paymentIntent } = await stripe.confirmPayment({
 			elements,
 			confirmParams: {
-				return_url: `${import.meta.env.VITE_APP_FRONTEND_URL}/close`,
+				return_url: `${import.meta.env.VITE_APP_URL}/close`,
 			},
 			redirect: "if_required",
 		});
