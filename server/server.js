@@ -12,7 +12,7 @@ const usersRouter = require("./routes/UsersRouter");
 
 const app = express();
 app.use(cors({
-  origin: 'http://localhost:5173', 
+  origin: ['http://localhost:5173', /\.vercel\.app$/, /\.onrender\.com$/], 
   credentials: true
 }));
 app.use(cookieParser());

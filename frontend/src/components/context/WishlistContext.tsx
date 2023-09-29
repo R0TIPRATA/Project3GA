@@ -99,7 +99,7 @@ export function WishlistProvider({ children }: WishlistProviderProps) {
   };
 
   //login related
-  const [userToken, setUserToken] = useState<Token>({ username: null, loggedInStatus: false });
+  const [userToken, setUserToken] = useState<Token>({ username: undefined, loggedInStatus: false });
 
   //show toaster
   const notifySuccess = (message:string) => toast.success(message);

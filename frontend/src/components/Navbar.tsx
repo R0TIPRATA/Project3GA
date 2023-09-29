@@ -16,7 +16,7 @@ const Navbar = () => {
       }).then((response) => {
         notifySuccess(response.data.message);
         setUserToken({
-          username: null,
+          username: undefined,
           loggedInStatus: false
         })
         setTimeout(() => {

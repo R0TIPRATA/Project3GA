@@ -104,7 +104,7 @@ export type User = {
 };
 
 export type Token = {
-  username: string | null;
+  username: string | undefined;
   loggedInStatus: boolean;
 };
 
